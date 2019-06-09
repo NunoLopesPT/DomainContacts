@@ -1,0 +1,12 @@
+{
+    "name": "nuno/contacts-list-laravel",
+    "description": "PSR-4 Package for contacts management with Laravel/React",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nuno Lopes",
+            "email": "nunolopes96pt@gmail.com"
+        }
+    ],
+    "require": {}
+}
