@@ -1,10 +1,9 @@
 <?php
-
-namespace NunoLopes\ContactsListLaravel;
+namespace NunoLopes\LaravelContactsAPI;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
-use NunoLopes\ContactsListLaravel\Contracts\Database\ContactsRepository;
-use NunoLopes\ContactsListLaravel\Repositories\Database\Eloquent\EloquentContactsRepository;
+use NunoLopes\LaravelContactsAPI\Contracts\Database\ContactsRepository;
+use NunoLopes\LaravelContactsAPI\Repositories\Database\Eloquent\EloquentContactsRepository;
 
 class ServiceProvider extends BaseServiceProvider
 {
@@ -17,7 +16,6 @@ class ServiceProvider extends BaseServiceProvider
     {
         $this->handleRoutes();
         $this->handleViews();
-        $this->publishAssets();
     }
 
     /**
@@ -50,18 +48,6 @@ class ServiceProvider extends BaseServiceProvider
      */
     private function handleViews(): void
     {
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'contacts');
-    }
-
-    /**
-     * Publish Assets
-     *
-     * @return void
-     */
-    private function publishAssets(): void
-    {
-        $this->publishes([
-            __DIR__.'/../public/' => public_path(),
-        ], 'public');
+        $this->loadViewsFrom(__DIR__ . '/../views', 'contacts');
     }
 }
