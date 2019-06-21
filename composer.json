@@ -1,6 +1,6 @@
 {
-    "name": "nuno/contacts-list-laravel",
-    "description": "PSR-4 Package for contacts management with Laravel/React",
+    "name": "nuno/laravel-contacts-api",
+    "description": "PSR-4 Package for Contacts Management Backend with Laravel using API",
     "license": "MIT",
     "authors": [
         {
@@ -8,5 +8,16 @@
             "email": "nunolopes96pt@gmail.com"
         }
     ],
-    "require": {}
+    "autoload": {
+        "psr-4": {
+            "NunoLopes\\LaravelContactsAPI\\": "src/"
+        }
+    },
+    "require": {
+        "php": "~7.2",
+        "illuminate/database": "^5.8",
+        "illuminate/validation": "^5.8"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
