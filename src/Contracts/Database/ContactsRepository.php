@@ -1,6 +1,8 @@
 <?php
-
 namespace NunoLopes\LaravelContactsAPI\Contracts\Database;
+
+use Illuminate\Database\Eloquent\Collection;
+use NunoLopes\LaravelContactsAPI\Eloquent\Contact;
 
 /**
  * Contacts Repository Contract.
@@ -20,4 +22,29 @@ interface ContactsRepository
      * @return int
      */
     public function create(array $attributes): int;
+
+    /**
+     * Retrieve all contacts.
+     *
+     * @return Collection
+     */
+    public function all(): Collection;
+
+    /**
+     * Retrieves a single Contact by its ID.
+     *
+     * @param int $id - ID of the Contact.
+     *
+     * @return Contact
+     */
+    public function get(int $id): Contact;
+
+    /**
+     * Destroys a single Contact and returns its success.
+     *
+     * @param int $id - ID of the Contact that will be deleted.
+     *
+     * @return bool
+     */
+    public function destroy(int $id): bool;
 }
