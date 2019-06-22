@@ -35,7 +35,7 @@ class ContactsServices
      */
     public function index()
     {
-        return ['contacts' => Contact::all()];
+        return $this->contactsRepository->all()->jsonSerialize();
     }
 
     /**
@@ -43,35 +43,23 @@ class ContactsServices
      *
      * @param  SaveContactRequest  $request - Request instance with the validated data.
      *
-     * @return array
+     * @return int
      */
     public function store(SaveContactRequest $request)
     {
-        // Creates the contact for the current user with the validated data.
-        $id = $this->contactsRepository->create($request->validated());
-
-        // Redirects to the edit view of the created contact
-        // with a success message.
-        return [
-            'redirect' => "/contacts/{$id}/edit",
-            'success'  => 'Contact was created with success.'
-        ];
+        return $this->contactsRepository->create($request->validated());
     }
 
     /**
      * Show the form for editing the specified Contact.
      *
-     * @param  Contact  $contact - Contact that is going to be edited.
+     * @param  int  $id - Contact that is going to be edited.
      *
      * @return array
      */
-    public function edit(Contact $contact)
+    public function edit(int $id): array
     {
-        // Check if the user can see/edit the contact.
-        //$this->authorize('save', $contact);
-
-        // Loads the edit view with the given contact.
-        return ['contact' => $contact];
+        return $this->contactsRepository->get($id)->jsonSerialize();
     }
 
     /**
@@ -84,9 +72,6 @@ class ContactsServices
      */
     public function update(SaveContactRequest $request, Contact $contact)
     {
-        // Check if the user can update the contact.
-        //$this->authorize('save', $contact);
-
         // Update the contact with the validated data,
         // and save it in the persistence layer.
         $contact->fill($request->validated())->save();
@@ -101,19 +86,12 @@ class ContactsServices
     /**
      * Remove the specified Contact from storage.
      *
-     * @param  Contact  $contact - Contact that is going to be destroyed.
+     * @param  int  $id - Id of the Contact that is going to be destroyed.
      *
-     * @return array
+     * @return bool
      */
-    public function destroy(Contact $contact)
+    public function destroy(int $id)
     {
-        // Check if the user can delete the contact.
-        //$this->authorize('save', $contact);
-
-        // Delete the contact.
-        $contact->delete();
-
-        // Redirects to the same view with a success message.
-        return ['success' => 'Contact was deleted with success.'];
+        return $this->contactsRepository->destroy($id);
     }
 }
