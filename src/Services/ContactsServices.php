@@ -88,10 +88,10 @@ class ContactsServices
      *
      * @param  int  $id - Id of the Contact that is going to be destroyed.
      *
-     * @return bool
+     * @return string
      */
-    public function destroy(int $id)
+    public function destroy(int $id): string
     {
-        return $this->contactsRepository->destroy($id);
+        return ($this->contactsRepository->destroy($id) ? '1' : '0');
     }
 }
