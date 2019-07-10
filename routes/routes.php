@@ -5,9 +5,6 @@
  */
 
 use Illuminate\Support\Facades\Route;
-use NunoLopes\LaravelContactsAPI\Services\ContactsServices;
 
-Route::resource('api/contacts', ContactsServices::class);
-
-Route::view('/{any}', 'contacts::app')
+Route::view('/{any}', 'laravel-contacts-api::app')
      ->where('any', '.*');
