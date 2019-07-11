@@ -14,6 +14,13 @@ use NunoLopes\LaravelContactsAPI\Entities\User;
 interface Authentication
 {
     /**
+     * Returns the authenticated User ID.
+     *
+     * @return int
+     */
+    public function id(): int;
+
+    /**
      * Returns the authenticated User.
      *
      * @return User
