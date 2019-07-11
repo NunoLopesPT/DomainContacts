@@ -1,9 +1,9 @@
 <?php
 namespace NunoLopes\LaravelContactsAPI\Repositories\Database\Eloquent;
 
-use Illuminate\Database\Eloquent\Collection;
 use NunoLopes\LaravelContactsAPI\Contracts\Database\ContactsRepository;
-use NunoLopes\LaravelContactsAPI\Eloquent\Contact;
+use NunoLopes\LaravelContactsAPI\Eloquent\Contact as Model;
+use NunoLopes\LaravelContactsAPI\Entities\Contact;
 
 /**
  * Contact's Repository.
@@ -11,28 +11,34 @@ use NunoLopes\LaravelContactsAPI\Eloquent\Contact;
 class EloquentContactsRepository implements ContactsRepository
 {
     /**
-     * @var Contact $contact - Contact's Eloquent model instance.
+     * @var Model $contact - Contact's Eloquent model instance.
      */
     protected $contacts = null;
 
     /**
      * Initializes the Contact's Repository instance.
      *
-     * @param Contact $contact - Contact's Eloquent Model instance.
+     * @param Model $contact - Contact's Eloquent Model instance.
      */
-    public function __construct(Contact $contact) {
+    public function __construct(Model $contact) {
         $this->contacts = $contact;
     }
 
     /**
      * @inheritdoc
      */
-    public function get(int $id): Contact
+    public function get(int $id): ?Contact
     {
-        return $this->contacts
-                    ->newQuery()
-                    ->whereKey($id)
-                    ->first();
+        if ($id < 0) {
+            // @todo Exception
+        }
+
+        $contact = $this->contacts
+                        ->newQuery()
+                        ->whereKey($id)
+                        ->first();
+
+        return new Contact($contact->getAttributes());
     }
 
     /**
@@ -50,11 +56,13 @@ class EloquentContactsRepository implements ContactsRepository
     /**
      * @inheritdoc
      */
-    public function all(): Collection
+    public function findByUserId(int $id): array
     {
         return $this->contacts
                     ->newQuery()
-                    ->get();
+                    ->where('user_id', $id)
+                    ->get()
+                    ->toArray();
     }
 
     /**
@@ -66,5 +74,18 @@ class EloquentContactsRepository implements ContactsRepository
                     ->newQuery()
                     ->whereKey($id)
                     ->delete();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function update(int $id, array $attributes): bool
+    {
+        return \boolval(
+            $this->contacts
+                 ->newQuery()
+                 ->whereKey($id)
+                 ->update($attributes)
+        );
     }
 }
