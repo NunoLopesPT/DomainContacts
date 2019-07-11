@@ -3,7 +3,9 @@ namespace NunoLopes\LaravelContactsAPI;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use NunoLopes\LaravelContactsAPI\Contracts\Database\ContactsRepository;
+use NunoLopes\LaravelContactsAPI\Contracts\Utilities\Authentication;
 use NunoLopes\LaravelContactsAPI\Repositories\Database\Eloquent\EloquentContactsRepository;
+use NunoLopes\LaravelContactsAPI\Utilities\LaravelAuthentication;
 
 class ServiceProvider extends BaseServiceProvider
 {
@@ -28,6 +30,10 @@ class ServiceProvider extends BaseServiceProvider
         $this->app->bind(
             ContactsRepository::class,
             EloquentContactsRepository::class
+        );
+        $this->app->bind(
+            Authentication::class,
+            LaravelAuthentication::class
         );
     }
 
