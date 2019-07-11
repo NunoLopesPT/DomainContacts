@@ -1,7 +1,6 @@
 <?php
 namespace NunoLopes\LaravelContactsAPI\Contracts\Database;
 
-use Illuminate\Database\Eloquent\Collection;
 use NunoLopes\LaravelContactsAPI\Entities\Contact;
 
 /**
@@ -28,9 +27,9 @@ interface ContactsRepository
      *
      * @param  int $id - ID of the user to retrieve contacts.
      *
-     * @return Collection
+     * @return array
      */
-    public function findByUserId(int $id): Collection;
+    public function findByUserId(int $id): array;
 
     /**
      * Retrieves a single Contact by its ID.
