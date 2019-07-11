@@ -1,7 +1,9 @@
 <?php
 namespace NunoLopes\LaravelContactsAPI;
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Laravel\Passport\Passport;
 use NunoLopes\LaravelContactsAPI\Contracts\Database\ContactsRepository;
 use NunoLopes\LaravelContactsAPI\Contracts\Utilities\Authentication;
 use NunoLopes\LaravelContactsAPI\Repositories\Database\Eloquent\EloquentContactsRepository;
@@ -44,6 +46,13 @@ class ServiceProvider extends BaseServiceProvider
      */
     private function handleRoutes(): void
     {
+        Route::prefix('api')
+            ->group(
+                __DIR__ . '/../routes/api.php'
+            );
+
+        Passport::routes();
+
         $this->loadRoutesFrom(__DIR__ . '/../routes/routes.php');
     }
 
