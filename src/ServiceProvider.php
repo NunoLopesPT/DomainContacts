@@ -54,6 +54,6 @@ class ServiceProvider extends BaseServiceProvider
      */
     private function handleViews(): void
     {
-        $this->loadViewsFrom(__DIR__ . '/../views', 'contacts');
+        $this->loadViewsFrom(__DIR__ . '/../views', 'laravel-contacts-api');
     }
 }
