@@ -2,7 +2,7 @@
 namespace NunoLopes\LaravelContactsAPI\Contracts\Database;
 
 use Illuminate\Database\Eloquent\Collection;
-use NunoLopes\LaravelContactsAPI\Eloquent\Contact;
+use NunoLopes\LaravelContactsAPI\Entities\Contact;
 
 /**
  * Contacts Repository Contract.
@@ -26,9 +26,11 @@ interface ContactsRepository
     /**
      * Retrieve all contacts.
      *
+     * @param  int $id - ID of the user to retrieve contacts.
+     *
      * @return Collection
      */
-    public function all(): Collection;
+    public function findByUserId(int $id): Collection;
 
     /**
      * Retrieves a single Contact by its ID.
@@ -37,7 +39,7 @@ interface ContactsRepository
      *
      * @return Contact
      */
-    public function get(int $id): Contact;
+    public function get(int $id): ?Contact;
 
     /**
      * Destroys a single Contact and returns its success.
@@ -47,4 +49,16 @@ interface ContactsRepository
      * @return bool
      */
     public function destroy(int $id): bool;
+
+    /**
+     * Updates a record with following id.
+     *
+     * @todo Currently this $attributes also have the not dirty attributes
+     *
+     * @param int   $id         - ID of the Contact that is going to be updated.
+     * @param array $attributes - New attributes of the Contact.
+     *
+     * @return bool
+     */
+    public function update(int $id, array $attributes): bool;
 }
