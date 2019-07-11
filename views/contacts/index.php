@@ -1,4 +1,4 @@
 <?=
-/** @var \Illuminate\Database\Eloquent\Collection $contacts */
+/** @var array $contacts */
 
-$contacts->toJson();
+\json_encode($contacts);
