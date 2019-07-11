@@ -21,6 +21,14 @@ class LaravelAuthentication implements Authentication
     /**
      * @inheritdoc
      */
+    public function id(): int
+    {
+        return Auth::id();
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function user(): User
     {
         return new User(Auth::user()->getAttributes());
