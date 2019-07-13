@@ -2,10 +2,10 @@
 
 namespace NunoLopes\LaravelContactsAPI\Services;
 
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Collection;
 use NunoLopes\LaravelContactsAPI\Contracts\Database\ContactsRepository;
-use NunoLopes\LaravelContactsAPI\Eloquent\Contact;
-use NunoLopes\LaravelContactsAPI\Exceptions\Contacts\ContactNotDeleted;
+use NunoLopes\LaravelContactsAPI\Contracts\Utilities\Authentication;
+use NunoLopes\LaravelContactsAPI\Entities\Contact;
 use NunoLopes\LaravelContactsAPI\Exceptions\Contacts\ContactNotFound;
 use NunoLopes\LaravelContactsAPI\Exceptions\Contacts\ContactNotUpdated;
 use NunoLopes\LaravelContactsAPI\Exceptions\ForbiddenException;
@@ -14,8 +14,6 @@ use NunoLopes\LaravelContactsAPI\Requests\SaveContactRequest;
 
 /**
  * This Domain Service will be responsible for all Business Logic related with Contacts.
- *
- * @todo Add Middleware to check if the user is logged in.
  *
  * @package NunoLopes\LaravelContactsAPI\Services
  */
@@ -27,51 +25,46 @@ class ContactsService
     private $contactsRepository = null;
 
     /**
+     * @var Authentication $auth - Authentication Manager instance.
+     */
+    private $auth = null;
+
+    /**
      * ContactsServices constructor.
      *
      * @param ContactsRepository $contactsRepository - ContactsRepository Instance.
+     * @param Authentication     $auth               - Authentication Instance.
      */
-    public function __construct(ContactsRepository $contactsRepository)
+    public function __construct(ContactsRepository $contactsRepository, Authentication $auth)
     {
         $this->contactsRepository = $contactsRepository;
+        $this->auth               = $auth;
     }
 
     /**
      * Display the current user's contacts.
      *
-     * @throws UnauthorizedException - If the user is a guest.
-     *
      * @return array
      */
-    public function index(): array
+    public function listAllContactsFromUser(): array
     {
-        // Check if the user is logged in.
-        if (Auth::guest()) {
-            throw new UnauthorizedException();
-        }
+        // Retrieve the logged user.
+        $user = $this->auth->user();
 
-        return $this->contactsRepository->findByUserId(Auth::id())->jsonSerialize();
+        return $this->contactsRepository->findByUserId($user->id());
     }
 
     /**
      * Store a newly created Contact in storage.
      *
-     * @param  SaveContactRequest  $request - Request instance with the validated data.
-     *
-     * @throws UnauthorizedException - If the user is a guest.
+     * @param  array  $attributes - Request instance with the validated data.
      *
      * @return int
      */
-    public function store(SaveContactRequest $request)
+    public function create(array $attributes)
     {
-        // Check if the user is logged in.
-        if (Auth::guest()) {
-            throw new UnauthorizedException();
-        }
-
         // Insert the current logged in user id to the saving contact.
-        $attributes = $request->validated();
-        $attributes['user_id'] = Auth::id();
+        $attributes['user_id'] = $this->auth->user()->id();
 
         // Returns the created contact ID so it can be redirected
         // to the edit view.
@@ -83,19 +76,13 @@ class ContactsService
      *
      * @param  int  $id - Contact that is going to be edited.
      *
-     * @throws UnauthorizedException - If the user is a guest.
      * @throws ContactNotFound       - If the contact doesn't exist.
      * @throws ForbiddenException    - If the user doesn't own the contact.
      *
      * @return array
      */
-    public function edit(int $id): array
+    public function edit(int $id): Contact
     {
-        // Check if the user is logged in.
-        if (Auth::guest()) {
-            throw new UnauthorizedException();
-        }
-
         // Retrieve the contact from the database to check
         // if its owner matches the logged in user.
         $contact = $this->contactsRepository->get($id);
@@ -105,53 +92,57 @@ class ContactsService
             throw new ContactNotFound();
         }
 
+        // Retrieve the logged user.
+        $user = $this->auth->user();
+
         // Check if the user owns the contact.
-        if ($contact->user_id !== Auth::id()) {
+        if ($contact->userId() !== $user->id()) {
             throw new ForbiddenException();
         }
 
-        return $contact->jsonSerialize();
+        return $contact;
     }
 
     /**
      * Update the specified Contact in storage.
      *
-     * @param  SaveContactRequest  $request - Request instance with the validated data.
-     * @param  Contact             $contact - Contact that is going to be updated.
+     * @param  int  $id - ID of the Contact that is going to be updated.
+     * @param  array $attributes - Attributes that are going to update.
      *
-     * @throws UnauthorizedException - If the user is a guest.
-     * @throws ContactNotUpdated     - If the contact was not updated.
-     * @throws ForbiddenException    - If the user doesn't own the contact.
      *
-     * @return array
+     * @throws ContactNotUpdated  - If the contact was not updated.
+     * @throws ForbiddenException - If the user doesn't own the contact.
+     *
+     * @return Contact
      */
-    public function update(SaveContactRequest $request, int $id): array
+    public function update(int $id, array $attributes): Contact
     {
-        // Check if the user is logged in.
-        if (Auth::guest()) {
-            throw new UnauthorizedException();
-        }
-
         // Retrieve the contact from the database to check
         // if its owner matches the logged in user.
         $contact = $this->contactsRepository->get($id);
 
+        // Retrieve the logged user.
+        $user = $this->auth->user();
+
         // Check if the user owns the contact.
-        if ($contact->user_id !== Auth::id()) {
+        if ($contact->userId() !== $user->id()) {
             throw new ForbiddenException();
         }
 
+        // Validate the returned attributes.
+        $contact->setAttributes($attributes);
+
         // Update the contact with the validated data,
         // and save it in the persistence layer.
-        if ($contact->fill($request->validated())->save()) {
+        if (!$this->contactsRepository->update($id, $contact->getAttributes())) {
 
-            // Returns the updated contact.
-            return $contact->jsonSerialize();
+            // If we reach the end of this function, the contact was not
+            // updated so we throw an exception.
+            throw new ContactNotUpdated();
         }
 
-        // If we reach the end of this function, the contact was not
-        // updated so we throw an exception.
-        throw new ContactNotUpdated();
+        // Returns the updated contact.
+        return $contact;
     }
 
     /**
@@ -159,35 +150,22 @@ class ContactsService
      *
      * @param  int  $id - Id of the Contact that is going to be destroyed.
      *
-     * @throws UnauthorizedException - If the user is a guest.
-     * @throws ForbiddenException    - If the user doesn't own the contact that wants to delete.
-     * @throws ContactNotDeleted     - If the contact couldn't be deleted.
+     * @throws ForbiddenException - If the user doesn't own the contact that wants to delete.
      *
-     * @return string
+     * @return bool
      */
-    public function destroy(int $id): string
+    public function destroy(int $id): bool
     {
-        // Check if the user is logged in.
-        if (Auth::guest()) {
-            throw new UnauthorizedException();
-        }
-
         // Retrieve the contact from the database to check
         // if its owner matches the logged in user.
         $contact = $this->contactsRepository->get($id);
 
         // Check if the user owns the contact.
-        if ($contact->user_id !== Auth::id()) {
+        if ($contact->userId() !== $this->auth->user()->id()) {
             throw new ForbiddenException();
         }
 
         // Returns success message if the contact was deleted.
-        if ($this->contactsRepository->destroy($id)) {
-            return "Contact Deleted.";
-        }
-
-        // If we reach the end of this function, the contact was not
-        // deleted so we throw an exception.
-        throw new ContactNotDeleted();
+        return $this->contactsRepository->destroy($id);
     }
 }
