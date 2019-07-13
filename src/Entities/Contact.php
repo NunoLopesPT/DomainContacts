@@ -6,51 +6,39 @@ namespace NunoLopes\LaravelContactsAPI\Entities;
  *
  * @package NunoLopes\LaravelContactsAPI\Entities
  */
-class Contact
+class Contact extends AbstractEntity implements \JsonSerializable
 {
     /**
      * @var string $first_name - First name of the Contact.
      */
-    private $first_name = null;
+    protected $first_name = null;
 
     /**
      * @var string|null $last_name - Last name of the Contact.
      */
-    private $last_name = null;
+    protected $last_name = null;
 
     /**
      * @var string|null $email - Email of the Contact.
      */
-    private $email = null;
+    protected $email = null;
 
     /**
      * @var string|null $phone_number - Phone Number of the Contact.
      */
-    private $phone_number = null;
+    protected $phone_number = null;
 
     /**
-     * Contact constructor.
-     *
-     * @param $attributes
+     * @var int $user_id - Contact owner's ID.
      */
-    public function __construct($attributes)
-    {
-        foreach ($attributes as $key => $value) {
-
-            $setter = 'set' . str_replace('_', '', \ucwords($key, '_'));
-
-            if (\method_exists($this, $setter)) {
-                $this->{$setter}($value);
-            }
-        }
-    }
+    protected $user_id = null;
 
     /**
      * Get the first name of the Contact.
      *
      * @return string
      */
-    public function getFirstName(): string
+    public function firstName(): string
     {
         return $this->first_name;
     }
@@ -74,7 +62,7 @@ class Contact
      *
      * @return string|null
      */
-    public function getLastName(): ?string
+    public function lastName(): ?string
     {
         return $this->last_name;
     }
@@ -98,7 +86,7 @@ class Contact
      *
      * @return string|null
      */
-    public function getEmail(): ?string
+    public function email(): ?string
     {
         return $this->email;
     }
@@ -122,7 +110,7 @@ class Contact
      *
      * @return string|null
      */
-    public function getPhoneNumber()
+    public function phoneNumber()
     {
         return $this->phone_number;
     }
@@ -132,11 +120,48 @@ class Contact
      *
      * @param string|null $phone_number - Sets the phone number of the Contact.
      */
-    public function setPhoneNumber(string $phone_number): void
+    public function setPhoneNumber(string $phone_number = null): void
     {
-        if (\strlen(\trim($phone_number)) === 0) {
+        if ($phone_number !== null && \strlen(\trim($phone_number)) === 0) {
             $phone_number = null;
         }
+
         $this->phone_number = $phone_number;
+    }
+
+    /**
+     * Returns the Contact's User.
+     *
+     * @return User
+     */
+    public function user(): User
+    {
+        // @todo Create singleton factories
+    }
+
+    /**
+     * Returns the Contact's User ID.
+     *
+     * @return int
+     */
+    public function userId()
+    {
+        return $this->user_id;
+    }
+
+    /**
+     * Sets the Contact User ID.
+     *
+     * @param int $id - User's ID of the contact.
+     *
+     * @throws \InvalidArgumentException - If the id is not a positive integer.
+     */
+    protected function setUserId(int $id): void
+    {
+        if ($id < 0) {
+            throw new \InvalidArgumentException('User ID Should be a positive integer.');
+        }
+
+        $this->user_id = $id;
     }
 }
