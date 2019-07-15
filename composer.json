@@ -16,8 +16,17 @@
     "require": {
         "php": "~7.2",
         "illuminate/database": "^5.8",
-        "illuminate/validation": "^5.8"
+        "illuminate/validation": "^5.8",
+        "laravel/passport": "^7.3"
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "extra": {
+        "laravel": {
+            "providers": [
+                "NunoLopes\\LaravelContactsAPI\\ServiceProvider",
+                "Laravel\\Passport\\PassportServiceProvider"
+            ]
+        }
+    }
 }
