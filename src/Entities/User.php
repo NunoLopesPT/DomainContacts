@@ -19,6 +19,11 @@ class User extends AbstractEntity
     private $email = null;
 
     /**
+     * @var string $password - Password of the User.
+     */
+    private $password = null;
+
+    /**
      * Returns the name of the User.
      *
      * @return string
@@ -72,5 +77,33 @@ class User extends AbstractEntity
         }
 
         $this->email = $email;
+    }
+
+    /**
+     * Returns the password hash of the user.
+     *
+     * @return string
+     */
+    public function password(): string
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set the password of the User.
+     *
+     * @param string $password - Sets the password of the User.
+     *
+     * @throws \InvalidArgumentException - If the password is empty.
+     *
+     * @return void
+     */
+    protected function setPassword(string $password): void
+    {
+        if (\strlen(\trim($password)) === 0) {
+            throw new \InvalidArgumentException('The password for the user is empty.');
+        }
+
+        $this->password = $password;
     }
 }
