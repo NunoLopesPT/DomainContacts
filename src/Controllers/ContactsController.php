@@ -1,5 +1,4 @@
 <?php
-
 namespace NunoLopes\LaravelContactsAPI\Controllers;
 
 use Illuminate\Http\Request;
