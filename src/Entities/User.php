@@ -11,17 +11,17 @@ class User extends AbstractEntity
     /**
      * @var string $name - Name of the User.
      */
-    private $name = null;
+    protected $name = null;
 
     /**
      * @var string $email - Email of the User.
      */
-    private $email = null;
+    protected $email = null;
 
     /**
      * @var string $password - Password of the User.
      */
-    private $password = null;
+    protected $password = null;
 
     /**
      * Returns the name of the User.
