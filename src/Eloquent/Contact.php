@@ -34,7 +34,7 @@ class Contact extends Model
     /**
      * Will return the User of the Contact.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function user(): BelongsTo
     {
