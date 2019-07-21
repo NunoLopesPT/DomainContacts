@@ -42,7 +42,7 @@ abstract class AbstractValidationRequest {
         // Returns initialized instance.
         $this->validator = new Validator(
             $translator,
-            \json_decode($this->request->getContent(), true),
+            \json_decode($this->request->getContent(), true) ?? [],
             $this->rules(),
             []
         );
@@ -51,7 +51,7 @@ abstract class AbstractValidationRequest {
     /**
      * Returns all validated fields.
      *
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws \Illuminate\Validation\ValidationException - If there are invalid fields.
      *
      * @return array
      */
@@ -61,9 +61,32 @@ abstract class AbstractValidationRequest {
     }
 
     /**
+     * Returns if the validation has failed.
+     *
+     * @return bool
+     */
+    public function fails(): bool
+    {
+        return $this->validator->fails();
+    }
+
+    /**
+     * Returns the list of errors
+     *
+     * @return array
+     */
+    public function errors(): array
+    {
+        return $this->validator->errors()->all();
+    }
+
+    /**
      * All extending classes should have rules.
      *
      * @return array
      */
-    public abstract function rules(): array;
+    public function rules(): array
+    {
+        return [];
+    }
 }
