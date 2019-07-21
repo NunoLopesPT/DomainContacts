@@ -33,6 +33,13 @@ class AccessToken extends Model
     ];
 
     /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+
+    /**
      * Will return the User of the AccessToken.
      *
      * @return BelongsTo
