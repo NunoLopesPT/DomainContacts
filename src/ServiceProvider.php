@@ -4,9 +4,11 @@ namespace NunoLopes\LaravelContactsAPI;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Laravel\Passport\Passport;
+use NunoLopes\LaravelContactsAPI\Contracts\Database\AccessTokenRepository;
 use NunoLopes\LaravelContactsAPI\Contracts\Database\ContactsRepository;
 use NunoLopes\LaravelContactsAPI\Contracts\Database\UsersRepository;
 use NunoLopes\LaravelContactsAPI\Contracts\Utilities\Authentication;
+use NunoLopes\LaravelContactsAPI\Repositories\Database\Eloquent\EloquentAccessTokenRepository;
 use NunoLopes\LaravelContactsAPI\Repositories\Database\Eloquent\EloquentContactsRepository;
 use NunoLopes\LaravelContactsAPI\Repositories\Database\Eloquent\EloquentUsersRepository;
 use NunoLopes\LaravelContactsAPI\Utilities\LaravelAuthentication;
@@ -42,6 +44,10 @@ class ServiceProvider extends BaseServiceProvider
         $this->app->bind(
             Authentication::class,
             LaravelAuthentication::class
+        );
+        $this->app->bind(
+            AccessTokenRepository::class,
+            EloquentAccessTokenRepository::class
         );
     }
 
