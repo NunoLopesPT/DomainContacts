@@ -16,11 +16,11 @@ interface UsersRepository
     /**
      * Will create a new User in the persistence layer, returning its ID.
      *
-     * @param array $attributes - Attributes of the User that will be created.
+     * @param User $user - User entity that will be created.
      *
      * @return int
      */
-    public function create(array $attributes): int;
+    public function create(User $user): int;
 
     /**
      * Retrieves a single User by its ID.
