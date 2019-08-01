@@ -32,7 +32,7 @@ abstract class AbstractEntity
      *
      * @return void
      */
-    public function setAttributes($attributes): void
+    public function setAttributes(array $attributes): void
     {
         foreach ($attributes as $key => $value) {
 
