@@ -75,11 +75,9 @@ class ContactsController
      */
     public function edit(int $id): Response
     {
-        $user = new User(Auth::user()->getAttributes());
-
         // Retrieve the contact from the database to check
         // if its owner matches the logged in user.
-        $contact = $this->contactsService->edit($id, $user);
+        $contact = $this->contactsService->edit($id);
 
         return response()
             ->view('laravel-contacts-api::contacts.edit', [ 'contact' => $contact ], 200);
