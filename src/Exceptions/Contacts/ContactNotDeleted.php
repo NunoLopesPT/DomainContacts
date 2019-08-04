@@ -10,5 +10,8 @@ use NunoLopes\LaravelContactsAPI\Exceptions\BaseException;
  */
 class ContactNotDeleted extends BaseException
 {
+    /**
+     * @var string $message - Exception message.
+     */
     protected $message = "Contact could not be deleted.";
 }

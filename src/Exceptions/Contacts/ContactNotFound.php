@@ -10,5 +10,8 @@ use NunoLopes\LaravelContactsAPI\Exceptions\NotFoundException;
  */
 class ContactNotFound extends NotFoundException
 {
+    /**
+     * @var string $message - Exception message.
+     */
     protected $message = "Contact could not be found.";
 }
