@@ -22,22 +22,13 @@ class AccessToken extends Model
      * @var array
      */
     protected $fillable = [
-        'id',
+        'token_id',
         'user_id',
-        'client_id',
-        'name',
         'revoked',
         'created_at',
         'updated_at',
         'expires_at',
     ];
-
-    /**
-     * Indicates if the IDs are auto-incrementing.
-     *
-     * @var bool
-     */
-    public $incrementing = false;
 
     /**
      * Will return the User of the AccessToken.
