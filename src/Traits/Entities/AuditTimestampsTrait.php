@@ -16,7 +16,7 @@ trait AuditTimestampsTrait
     protected $created_at = null;
 
     /**
-     * @var string $updated_at - When the record was updated.
+     * @var string|null $updated_at - When the record was updated.
      */
     protected $updated_at = null;
 
@@ -53,9 +53,9 @@ trait AuditTimestampsTrait
     /**
      * Sets when the record was updated.
      *
-     * @param string $updatedAt - Date timestamp.
+     * @param string|null $updatedAt - Date timestamp.
      */
-    protected function setUpdatedAt(string $updatedAt)
+    protected function setUpdatedAt(string $updatedAt = null)
     {
         $this->updated_at = $updatedAt;
     }
