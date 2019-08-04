@@ -96,9 +96,9 @@ class Contact extends AbstractEntity implements \JsonSerializable
      *
      * @param string|null $email - Sets the email of the Contact.
      */
-    public function setEmail(string $email): void
+    public function setEmail(string $email = null): void
     {
-        if (\strlen(\trim($email)) === 0) {
+        if ($email !== null && \strlen(\trim($email)) === 0) {
             $email = null;
         }
 
