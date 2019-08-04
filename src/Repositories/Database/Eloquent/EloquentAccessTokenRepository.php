@@ -27,16 +27,13 @@ class EloquentAccessTokenRepository implements AccessTokenRepository
 
     /**
      * @inheritdoc
-     * @see AccessTokenRepository::findByUser
+     * @see AccessTokenRepository::findByToken
      */
-    public function findByUser(User $user): ?AccessToken
+    public function findByToken(string $tokenId): ?AccessToken
     {
         $accessToken = $this->accessTokens
                             ->newQuery()
-                            ->where([
-                                'user_id' => $user->id(),
-                                'revoked' => false,
-                            ])
+                            ->where('token_id', $tokenId)
                             ->first();
 
         return new AccessToken($accessToken->getAttributes());
