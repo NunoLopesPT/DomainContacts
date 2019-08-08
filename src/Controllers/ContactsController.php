@@ -1,10 +1,7 @@
 <?php
 namespace NunoLopes\LaravelContactsAPI\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
-use NunoLopes\LaravelContactsAPI\Entities\User;
 use NunoLopes\LaravelContactsAPI\Exceptions\Contacts\ContactNotDeleted;
 use NunoLopes\LaravelContactsAPI\Exceptions\Contacts\ContactNotFound;
 use NunoLopes\LaravelContactsAPI\Exceptions\Contacts\ContactNotUpdated;
@@ -15,8 +12,6 @@ use NunoLopes\LaravelContactsAPI\Services\ContactsService;
 
 /**
  * This Controller is part of the Application Layer.
- *
- * @todo Add Middleware to check if the user is logged in.
  */
 class ContactsController
 {
@@ -40,13 +35,17 @@ class ContactsController
      *
      * @return Response
      */
-    public function index(Request $request): Response
+    public function index(): Response
     {
         // Get all contacts.
-        $contacts = $this->contactsService->listAllContactsFromUser();
+        $contacts = $this->contactsService->listAllContactsOfAuthenticatedUser();
 
         return response()
-            ->view('laravel-contacts-api::contacts.index', [ 'contacts' => $contacts ], 200);
+            ->view(
+                'laravel-contacts-api::contacts.index',
+                [ 'contacts' => $contacts ],
+                200
+            );
     }
 
     /**
@@ -80,14 +79,17 @@ class ContactsController
         $contact = $this->contactsService->edit($id);
 
         return response()
-            ->view('laravel-contacts-api::contacts.edit', [ 'contact' => $contact ], 200);
+            ->view(
+                'laravel-contacts-api::contacts.edit',
+                [ 'contact' => $contact ],
+                200
+            );
     }
 
     /**
      * Update the specified Contact in storage.
      *
      * @param  SaveContactRequest  $request - Request instance with the validated data.
-     * @param  int                 $int     - ID of the contact that is going to be updated.
      *
      * @throws UnauthorizedException - If the user is a guest.
      * @throws ContactNotUpdated     - If the contact was not updated.
@@ -102,13 +104,19 @@ class ContactsController
         $contact = $this->contactsService->update($id, $request->validated());
 
         return response()
-            ->view('laravel-contacts-api::contacts.edit', [ 'contact' => $contact ], 200);
+            ->view(
+                'laravel-contacts-api::contacts.edit',
+                [ 'contact' => $contact ],
+                200
+            );
     }
 
     /**
      * Remove the specified Contact from storage.
      *
      * @param  int  $id - Id of the Contact that is going to be destroyed.
+     *
+     * @todo Change parameter to a Request.
      *
      * @throws ForbiddenException    - If the user doesn't own the contact that wants to delete.
      * @throws ContactNotDeleted     - If the contact couldn't be deleted.
