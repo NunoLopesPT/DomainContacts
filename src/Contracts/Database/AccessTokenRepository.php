@@ -2,7 +2,6 @@
 namespace NunoLopes\LaravelContactsAPI\Contracts\Database;
 
 use NunoLopes\LaravelContactsAPI\Entities\AccessToken;
-use NunoLopes\LaravelContactsAPI\Entities\User;
 
 /**
  * AccessToken Repository Contract.
@@ -17,11 +16,11 @@ interface AccessTokenRepository
     /**
      * Retrieves a single AccessToken by its User.
      *
-     * @param User $user - User's Entity.
+     * @param string $token - AccessToken ID.
      *
      * @return AccessToken
      */
-    public function findByUser(User $user): ?AccessToken;
+    public function findByToken(string $token): ?AccessToken;
 
     /**
      * Creates an AccessToken.
