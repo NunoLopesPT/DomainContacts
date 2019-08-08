@@ -3,14 +3,17 @@ namespace NunoLopes\LaravelContactsAPI;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
-use Laravel\Passport\Passport;
 use NunoLopes\LaravelContactsAPI\Contracts\Database\AccessTokenRepository;
 use NunoLopes\LaravelContactsAPI\Contracts\Database\ContactsRepository;
 use NunoLopes\LaravelContactsAPI\Contracts\Database\UsersRepository;
+use NunoLopes\LaravelContactsAPI\Contracts\Services\AuthenticationTokenService;
+use NunoLopes\LaravelContactsAPI\Contracts\Utilities\AsymmetricCryptography;
 use NunoLopes\LaravelContactsAPI\Contracts\Utilities\Authentication;
 use NunoLopes\LaravelContactsAPI\Repositories\Database\Eloquent\EloquentAccessTokenRepository;
 use NunoLopes\LaravelContactsAPI\Repositories\Database\Eloquent\EloquentContactsRepository;
 use NunoLopes\LaravelContactsAPI\Repositories\Database\Eloquent\EloquentUsersRepository;
+use NunoLopes\LaravelContactsAPI\Services\AuthenticationToken\JwtAuthenticationTokenService;
+use NunoLopes\LaravelContactsAPI\Utilities\LaravelAsymmetricCryptography;
 use NunoLopes\LaravelContactsAPI\Utilities\LaravelAuthentication;
 
 class ServiceProvider extends BaseServiceProvider
@@ -49,6 +52,14 @@ class ServiceProvider extends BaseServiceProvider
             AccessTokenRepository::class,
             EloquentAccessTokenRepository::class
         );
+        $this->app->bind(
+            AuthenticationTokenService::class,
+            JwtAuthenticationTokenService::class
+        );
+        $this->app->bind(
+            AsymmetricCryptography::class,
+            LaravelAsymmetricCryptography::class
+        );
     }
 
     /**
@@ -62,8 +73,6 @@ class ServiceProvider extends BaseServiceProvider
             ->group(
                 __DIR__ . '/../routes/api.php'
             );
-
-        Passport::routes();
 
         $this->loadRoutesFrom(__DIR__ . '/../routes/routes.php');
     }
