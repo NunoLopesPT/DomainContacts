@@ -1,5 +1,5 @@
 <?php
-namespace NunoLopes\LaravelContactsAPI\Eloquent;
+namespace NunoLopes\DomainContacts\Eloquent;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;

@@ -1,5 +1,5 @@
 {
-    "name": "nuno/laravel-contacts-api",
+    "name": "nuno/domain-contacts",
     "description": "PSR-4 Package for Contacts Management Backend with Laravel using API",
     "license": "MIT",
     "authors": [
@@ -10,7 +10,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "NunoLopes\\LaravelContactsAPI\\": "src/"
+            "NunoLopes\\DomainContacts\\": "src/"
         }
     },
     "require": {

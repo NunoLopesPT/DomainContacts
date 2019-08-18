@@ -1,7 +1,7 @@
 <?php
-namespace NunoLopes\LaravelContactsAPI\Entities;
+namespace NunoLopes\DomainContacts\Entities;
 
-use NunoLopes\LaravelContactsAPI\Traits\Entities\AuditTimestampsTrait;
+use NunoLopes\DomainContacts\Traits\Entities\AuditTimestampsTrait;
 
 /**
  * AccessTokens Entity.

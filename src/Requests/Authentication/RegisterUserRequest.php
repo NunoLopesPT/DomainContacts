@@ -1,7 +1,7 @@
 <?php
-namespace NunoLopes\LaravelContactsAPI\Requests\Authentication;
+namespace NunoLopes\DomainContacts\Requests\Authentication;
 
-use NunoLopes\LaravelContactsAPI\Requests\AbstractValidationRequest;
+use NunoLopes\DomainContacts\Requests\AbstractValidationRequest;
 
 /**
  * This class will define the rules for a Registration Request.

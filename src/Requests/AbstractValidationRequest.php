@@ -1,5 +1,5 @@
 <?php
-namespace NunoLopes\LaravelContactsAPI\Requests;
+namespace NunoLopes\DomainContacts\Requests;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Translation\FileLoader;

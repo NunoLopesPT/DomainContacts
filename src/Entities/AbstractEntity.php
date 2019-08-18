@@ -1,10 +1,10 @@
 <?php
-namespace NunoLopes\LaravelContactsAPI\Entities;
+namespace NunoLopes\DomainContacts\Entities;
 
 /**
  * Abstract class AbstractEntity..
  *
- * @package NunoLopes\LaravelContactsAPI\Entities
+ * @package NunoLopes\DomainContacts\Entities
  */
 abstract class AbstractEntity
 {

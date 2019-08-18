@@ -1,7 +1,7 @@
 <?php
-namespace NunoLopes\LaravelContactsAPI\Contracts\Database;
+namespace NunoLopes\DomainContacts\Contracts\Database;
 
-use NunoLopes\LaravelContactsAPI\Entities\AccessToken;
+use NunoLopes\DomainContacts\Entities\AccessToken;
 
 /**
  * AccessToken Repository Contract.

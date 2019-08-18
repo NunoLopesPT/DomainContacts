@@ -1,21 +1,21 @@
 <?php
 
-namespace NunoLopes\LaravelContactsAPI\Services;
+namespace NunoLopes\DomainContacts\Services;
 
 use Illuminate\Database\Eloquent\Collection;
-use NunoLopes\LaravelContactsAPI\Contracts\Database\ContactsRepository;
-use NunoLopes\LaravelContactsAPI\Contracts\Utilities\Authentication;
-use NunoLopes\LaravelContactsAPI\Entities\Contact;
-use NunoLopes\LaravelContactsAPI\Exceptions\Contacts\ContactNotFound;
-use NunoLopes\LaravelContactsAPI\Exceptions\Contacts\ContactNotUpdated;
-use NunoLopes\LaravelContactsAPI\Exceptions\ForbiddenException;
-use NunoLopes\LaravelContactsAPI\Exceptions\UnauthorizedException;
-use NunoLopes\LaravelContactsAPI\Requests\SaveContactRequest;
+use NunoLopes\DomainContacts\Contracts\Database\ContactsRepository;
+use NunoLopes\DomainContacts\Contracts\Utilities\Authentication;
+use NunoLopes\DomainContacts\Entities\Contact;
+use NunoLopes\DomainContacts\Exceptions\Contacts\ContactNotFound;
+use NunoLopes\DomainContacts\Exceptions\Contacts\ContactNotUpdated;
+use NunoLopes\DomainContacts\Exceptions\ForbiddenException;
+use NunoLopes\DomainContacts\Exceptions\UnauthorizedException;
+use NunoLopes\DomainContacts\Requests\SaveContactRequest;
 
 /**
  * This Domain Service will be responsible for all Business Logic related with Contacts.
  *
- * @package NunoLopes\LaravelContactsAPI\Services
+ * @package NunoLopes\DomainContacts\Services
  */
 class ContactsService
 {

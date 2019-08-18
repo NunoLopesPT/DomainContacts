@@ -1,9 +1,9 @@
 <?php
-namespace NunoLopes\LaravelContactsAPI\Repositories\Database\Eloquent;
+namespace NunoLopes\DomainContacts\Repositories\Database\Eloquent;
 
-use NunoLopes\LaravelContactsAPI\Contracts\Database\ContactsRepository;
-use NunoLopes\LaravelContactsAPI\Eloquent\Contact as Model;
-use NunoLopes\LaravelContactsAPI\Entities\Contact;
+use NunoLopes\DomainContacts\Contracts\Database\ContactsRepository;
+use NunoLopes\DomainContacts\Eloquent\Contact as Model;
+use NunoLopes\DomainContacts\Entities\Contact;
 
 /**
  * Contact's Repository.

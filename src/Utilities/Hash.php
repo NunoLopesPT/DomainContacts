@@ -1,5 +1,5 @@
 <?php
-namespace NunoLopes\LaravelContactsAPI\Utilities;
+namespace NunoLopes\DomainContacts\Utilities;
 
 /**
  * Class Hash.

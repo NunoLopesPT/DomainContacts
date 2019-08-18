@@ -1,9 +1,9 @@
 <?php
-namespace NunoLopes\LaravelContactsAPI\Utilities;
+namespace NunoLopes\DomainContacts\Utilities;
 
 use Illuminate\Support\Facades\Auth;
-use NunoLopes\LaravelContactsAPI\Contracts\Utilities\Authentication;
-use NunoLopes\LaravelContactsAPI\Entities\User;
+use NunoLopes\DomainContacts\Contracts\Utilities\Authentication;
+use NunoLopes\DomainContacts\Entities\User;
 
 /**
  * Created by PhpStorm.

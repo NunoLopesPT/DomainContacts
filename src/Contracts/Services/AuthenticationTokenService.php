@@ -1,8 +1,8 @@
 <?php
 
-namespace NunoLopes\LaravelContactsAPI\Contracts\Services;
+namespace NunoLopes\DomainContacts\Contracts\Services;
 
-use NunoLopes\LaravelContactsAPI\Entities\AccessToken;
+use NunoLopes\DomainContacts\Entities\AccessToken;
 
 /**
  * Interface AuthenticationTokenService.
@@ -10,7 +10,7 @@ use NunoLopes\LaravelContactsAPI\Entities\AccessToken;
  * This contract will allow other AuthenticationTokens to be used with a Strategy Pattern, and
  * making the code more SOLID (Dependency inversion principle).
  *
- * @package NunoLopes\LaravelContactsAPI\Contracts\Services
+ * @package NunoLopes\DomainContacts\Contracts\Services
  */
 interface AuthenticationTokenService
 {

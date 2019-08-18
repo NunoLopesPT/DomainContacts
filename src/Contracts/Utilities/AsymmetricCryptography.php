@@ -1,5 +1,5 @@
 <?php
-namespace NunoLopes\LaravelContactsAPI\Contracts\Utilities;
+namespace NunoLopes\DomainContacts\Contracts\Utilities;
 
 interface AsymmetricCryptography
 {

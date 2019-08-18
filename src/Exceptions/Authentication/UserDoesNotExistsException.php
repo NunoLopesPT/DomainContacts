@@ -1,7 +1,7 @@
 <?php
-namespace NunoLopes\LaravelContactsAPI\Exceptions\Authentication;
+namespace NunoLopes\DomainContacts\Exceptions\Authentication;
 
-use NunoLopes\LaravelContactsAPI\Exceptions\NotFoundException;
+use NunoLopes\DomainContacts\Exceptions\NotFoundException;
 
 /**
  * Class UserDoesNotExistsException.

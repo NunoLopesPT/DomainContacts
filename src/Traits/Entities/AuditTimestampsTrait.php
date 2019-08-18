@@ -1,5 +1,5 @@
 <?php
-namespace NunoLopes\LaravelContactsAPI\Traits\Entities;
+namespace NunoLopes\DomainContacts\Traits\Entities;
 
 /**
  * Trait AuditTimestampsTrait

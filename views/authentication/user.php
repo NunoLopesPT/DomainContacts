@@ -1,5 +1,5 @@
 <?php
-/** @var \NunoLopes\LaravelContactsAPI\Entities\User $user */
+/** @var \NunoLopes\DomainContacts\Entities\User $user */
 
 \json_encode([
     'name' => $user->name()

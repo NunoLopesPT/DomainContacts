@@ -1,10 +1,10 @@
 <?php
-namespace NunoLopes\LaravelContactsAPI\Entities;
+namespace NunoLopes\DomainContacts\Entities;
 
 /**
  * Class Contact.
  *
- * @package NunoLopes\LaravelContactsAPI\Entities
+ * @package NunoLopes\DomainContacts\Entities
  */
 class Contact extends AbstractEntity implements \JsonSerializable
 {

@@ -1,8 +1,8 @@
 <?php
-namespace NunoLopes\LaravelContactsAPI\Datatypes\AuthenticationToken\JsonWebToken;
+namespace NunoLopes\DomainContacts\Datatypes\AuthenticationToken\JsonWebToken;
 
-use NunoLopes\LaravelContactsAPI\Contracts\Utilities\AsymmetricCryptography;
-use NunoLopes\LaravelContactsAPI\Utilities\Base64;
+use NunoLopes\DomainContacts\Contracts\Utilities\AsymmetricCryptography;
+use NunoLopes\DomainContacts\Utilities\Base64;
 
 /**
  * Class JsonWebToken.

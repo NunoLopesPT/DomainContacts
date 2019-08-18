@@ -1,5 +1,5 @@
 <?php
-namespace NunoLopes\LaravelContactsAPI\Datatypes\AuthenticationToken\JsonWebToken;
+namespace NunoLopes\DomainContacts\Datatypes\AuthenticationToken\JsonWebToken;
 
 /**
  * Class JwtHeader.

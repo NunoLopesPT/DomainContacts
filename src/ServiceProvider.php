@@ -3,18 +3,18 @@ namespace NunoLopes\LaravelContactsAPI;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
-use NunoLopes\LaravelContactsAPI\Contracts\Database\AccessTokenRepository;
-use NunoLopes\LaravelContactsAPI\Contracts\Database\ContactsRepository;
-use NunoLopes\LaravelContactsAPI\Contracts\Database\UsersRepository;
-use NunoLopes\LaravelContactsAPI\Contracts\Services\AuthenticationTokenService;
-use NunoLopes\LaravelContactsAPI\Contracts\Utilities\AsymmetricCryptography;
-use NunoLopes\LaravelContactsAPI\Contracts\Utilities\Authentication;
-use NunoLopes\LaravelContactsAPI\Repositories\Database\Eloquent\EloquentAccessTokenRepository;
-use NunoLopes\LaravelContactsAPI\Repositories\Database\Eloquent\EloquentContactsRepository;
-use NunoLopes\LaravelContactsAPI\Repositories\Database\Eloquent\EloquentUsersRepository;
-use NunoLopes\LaravelContactsAPI\Services\AuthenticationToken\JwtAuthenticationTokenService;
-use NunoLopes\LaravelContactsAPI\Utilities\LaravelAsymmetricCryptography;
-use NunoLopes\LaravelContactsAPI\Utilities\LaravelAuthentication;
+use NunoLopes\DomainContacts\Contracts\Database\AccessTokenRepository;
+use NunoLopes\DomainContacts\Contracts\Database\ContactsRepository;
+use NunoLopes\DomainContacts\Contracts\Database\UsersRepository;
+use NunoLopes\DomainContacts\Contracts\Services\AuthenticationTokenService;
+use NunoLopes\DomainContacts\Contracts\Utilities\AsymmetricCryptography;
+use NunoLopes\DomainContacts\Contracts\Utilities\Authentication;
+use NunoLopes\DomainContacts\Repositories\Database\Eloquent\EloquentAccessTokenRepository;
+use NunoLopes\DomainContacts\Repositories\Database\Eloquent\EloquentContactsRepository;
+use NunoLopes\DomainContacts\Repositories\Database\Eloquent\EloquentUsersRepository;
+use NunoLopes\DomainContacts\Services\AuthenticationToken\JwtAuthenticationTokenService;
+use NunoLopes\DomainContacts\Utilities\LaravelAsymmetricCryptography;
+use NunoLopes\DomainContacts\Utilities\LaravelAuthentication;
 
 class ServiceProvider extends BaseServiceProvider
 {

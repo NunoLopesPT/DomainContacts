@@ -1,7 +1,7 @@
 <?php
-namespace NunoLopes\LaravelContactsAPI\Contracts\Database;
+namespace NunoLopes\DomainContacts\Contracts\Database;
 
-use NunoLopes\LaravelContactsAPI\Entities\Contact;
+use NunoLopes\DomainContacts\Entities\Contact;
 
 /**
  * Contacts Repository Contract.

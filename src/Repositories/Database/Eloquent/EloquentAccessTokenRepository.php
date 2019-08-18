@@ -1,10 +1,10 @@
 <?php
-namespace NunoLopes\LaravelContactsAPI\Repositories\Database\Eloquent;
+namespace NunoLopes\DomainContacts\Repositories\Database\Eloquent;
 
-use NunoLopes\LaravelContactsAPI\Contracts\Database\AccessTokenRepository;
-use NunoLopes\LaravelContactsAPI\Eloquent\AccessToken as Model;
-use NunoLopes\LaravelContactsAPI\Entities\AccessToken;
-use NunoLopes\LaravelContactsAPI\Entities\User;
+use NunoLopes\DomainContacts\Contracts\Database\AccessTokenRepository;
+use NunoLopes\DomainContacts\Eloquent\AccessToken as Model;
+use NunoLopes\DomainContacts\Entities\AccessToken;
+use NunoLopes\DomainContacts\Entities\User;
 
 /**
  * Class EloquentAccessTokenRepository.

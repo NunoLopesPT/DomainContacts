@@ -1,14 +1,14 @@
 <?php
-namespace NunoLopes\LaravelContactsAPI\Controllers;
+namespace NunoLopes\DomainContacts\Controllers;
 
 use Illuminate\Http\Response;
-use NunoLopes\LaravelContactsAPI\Exceptions\Contacts\ContactNotDeleted;
-use NunoLopes\LaravelContactsAPI\Exceptions\Contacts\ContactNotFound;
-use NunoLopes\LaravelContactsAPI\Exceptions\Contacts\ContactNotUpdated;
-use NunoLopes\LaravelContactsAPI\Exceptions\ForbiddenException;
-use NunoLopes\LaravelContactsAPI\Exceptions\UnauthorizedException;
-use NunoLopes\LaravelContactsAPI\Requests\SaveContactRequest;
-use NunoLopes\LaravelContactsAPI\Services\ContactsService;
+use NunoLopes\DomainContacts\Exceptions\Contacts\ContactNotDeleted;
+use NunoLopes\DomainContacts\Exceptions\Contacts\ContactNotFound;
+use NunoLopes\DomainContacts\Exceptions\Contacts\ContactNotUpdated;
+use NunoLopes\DomainContacts\Exceptions\ForbiddenException;
+use NunoLopes\DomainContacts\Exceptions\UnauthorizedException;
+use NunoLopes\DomainContacts\Requests\SaveContactRequest;
+use NunoLopes\DomainContacts\Services\ContactsService;
 
 /**
  * This Controller is part of the Application Layer.

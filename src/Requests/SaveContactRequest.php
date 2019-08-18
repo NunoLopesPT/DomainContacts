@@ -1,5 +1,5 @@
 <?php
-namespace NunoLopes\LaravelContactsAPI\Requests;
+namespace NunoLopes\DomainContacts\Requests;
 
 /**
  * This class will define the rules for all SaveContactRequests.

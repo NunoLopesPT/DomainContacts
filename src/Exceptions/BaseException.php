@@ -1,5 +1,5 @@
 <?php
-namespace NunoLopes\LaravelContactsAPI\Exceptions;
+namespace NunoLopes\DomainContacts\Exceptions;
 
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 

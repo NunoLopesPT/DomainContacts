@@ -1,9 +1,9 @@
 <?php
-namespace NunoLopes\LaravelContactsAPI\Repositories\Database\Eloquent;
+namespace NunoLopes\DomainContacts\Repositories\Database\Eloquent;
 
-use NunoLopes\LaravelContactsAPI\Contracts\Database\UsersRepository;
-use NunoLopes\LaravelContactsAPI\Eloquent\User as Model;
-use NunoLopes\LaravelContactsAPI\Entities\User;
+use NunoLopes\DomainContacts\Contracts\Database\UsersRepository;
+use NunoLopes\DomainContacts\Eloquent\User as Model;
+use NunoLopes\DomainContacts\Entities\User;
 
 /**
  * Class EloquentUsersRepository.

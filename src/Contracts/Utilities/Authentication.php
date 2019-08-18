@@ -1,7 +1,7 @@
 <?php
-namespace NunoLopes\LaravelContactsAPI\Contracts\Utilities;
+namespace NunoLopes\DomainContacts\Contracts\Utilities;
 
-use NunoLopes\LaravelContactsAPI\Entities\User;
+use NunoLopes\DomainContacts\Entities\User;
 
 /**
  * Authentication Contract.

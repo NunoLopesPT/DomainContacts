@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use NunoLopes\LaravelContactsAPI\Controllers\AuthenticationController;
-use NunoLopes\LaravelContactsAPI\Controllers\ContactsController;
+use NunoLopes\DomainContacts\Controllers\AuthenticationController;
+use NunoLopes\DomainContacts\Controllers\ContactsController;
 
 Route::resource('contacts', ContactsController::class);
 

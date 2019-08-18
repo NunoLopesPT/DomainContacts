@@ -1,20 +1,20 @@
 <?php
 
-namespace NunoLopes\LaravelContactsAPI\Controllers;
+namespace NunoLopes\DomainContacts\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use NunoLopes\LaravelContactsAPI\Exceptions\Authentication\PasswordMismatchException;
-use NunoLopes\LaravelContactsAPI\Exceptions\Authentication\UserDoesNotExistsException;
-use NunoLopes\LaravelContactsAPI\Requests\Authentication\LoginUserRequest;
-use NunoLopes\LaravelContactsAPI\Requests\Authentication\RegisterUserRequest;
-use NunoLopes\LaravelContactsAPI\Services\AccessTokenService;
-use NunoLopes\LaravelContactsAPI\Services\AuthenticationService;
+use NunoLopes\DomainContacts\Exceptions\Authentication\PasswordMismatchException;
+use NunoLopes\DomainContacts\Exceptions\Authentication\UserDoesNotExistsException;
+use NunoLopes\DomainContacts\Requests\Authentication\LoginUserRequest;
+use NunoLopes\DomainContacts\Requests\Authentication\RegisterUserRequest;
+use NunoLopes\DomainContacts\Services\AccessTokenService;
+use NunoLopes\DomainContacts\Services\AuthenticationService;
 
 /**
  * Class AuthenticationController.
  *
- * @package NunoLopes\LaravelContactsAPI\Controllers
+ * @package NunoLopes\DomainContacts\Controllers
  */
 class AuthenticationController
 {

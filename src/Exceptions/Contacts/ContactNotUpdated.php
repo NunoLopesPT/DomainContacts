@@ -1,7 +1,7 @@
 <?php
-namespace NunoLopes\LaravelContactsAPI\Exceptions\Contacts;
+namespace NunoLopes\DomainContacts\Exceptions\Contacts;
 
-use NunoLopes\LaravelContactsAPI\Exceptions\BaseException;
+use NunoLopes\DomainContacts\Exceptions\BaseException;
 
 /**
  * Class ContactNotUpdated.

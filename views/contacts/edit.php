@@ -1,5 +1,5 @@
 <?=
-/** @var \NunoLopes\LaravelContactsAPI\Entities\Contact $contact */
+/** @var \NunoLopes\DomainContacts\Entities\Contact $contact */
 
 \json_encode([
     'id'           => $contact->id(),
