@@ -8,7 +8,7 @@ namespace NunoLopes\LaravelContactsAPI\Datatypes\AuthenticationToken\JsonWebToke
  *
  * @package NunoLopes\LaravelContactsAPI
  */
-class JwtPayload extends JwtAbstractData
+class JwtPayload extends JwtData
 {
     /**
      * @var string $iss - Issuer Claim.

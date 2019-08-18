@@ -8,7 +8,7 @@ namespace NunoLopes\LaravelContactsAPI\Datatypes\AuthenticationToken\JsonWebToke
  *
  * @package NunoLopes\LaravelContactsAPI
  */
-class JwtHeader extends JwtAbstractData
+class JwtHeader extends JwtData
 {
     /**
      * @var string $alg - Algorithm used in the JWT Token.
