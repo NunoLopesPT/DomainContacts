@@ -46,7 +46,7 @@ class ContactsService
      *
      * @return array
      */
-    public function listAllContactsFromUser(): array
+    public function listAllContactsOfAuthenticatedUser(): array
     {
         // Retrieve the logged user.
         $user = $this->auth->user();
@@ -76,8 +76,8 @@ class ContactsService
      *
      * @param  int  $id - Contact that is going to be edited.
      *
-     * @throws ContactNotFound       - If the contact doesn't exist.
-     * @throws ForbiddenException    - If the user doesn't own the contact.
+     * @throws ContactNotFound    - If the contact doesn't exist.
+     * @throws ForbiddenException - If the user doesn't own the contact.
      *
      * @return array
      */
