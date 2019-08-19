@@ -29,16 +29,6 @@ class AccessToken extends AbstractEntity
     protected $revoked = null;
 
     /**
-     * @var string $created_at - When the token was created.
-     */
-    protected $created_at = null;
-
-    /**
-     * @var string $updated_at - When the token was updated.
-     */
-    protected $updated_at = null;
-
-    /**
      * @var string $expires_at - When the token will expire.
      */
     protected $expires_at = null;
