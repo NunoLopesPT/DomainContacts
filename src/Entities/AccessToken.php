@@ -1,6 +1,7 @@
 <?php
 namespace NunoLopes\DomainContacts\Entities;
 
+use NunoLopes\DomainContacts\Factories\Repositories\Database\UsersRepositoryFactory;
 use NunoLopes\DomainContacts\Traits\Entities\AuditTimestampsTrait;
 
 /**
@@ -96,6 +97,16 @@ class AccessToken extends AbstractEntity
     public function userId(): ?string
     {
         return $this->user_id;
+    }
+
+    /**
+     * Returns the ID of the AccessToken User.
+     *
+     * @return User
+     */
+    public function user(): ?User
+    {
+        return UsersRepositoryFactory::get()->get($this->user_id);
     }
 
     /**
