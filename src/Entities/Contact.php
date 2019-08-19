@@ -95,6 +95,8 @@ class Contact extends AbstractEntity implements \JsonSerializable
      * Set the email of the Contact.
      *
      * @param string|null $email - Sets the email of the Contact.
+     *
+     * @todo Improve email validation.
      */
     public function setEmail(string $email = null): void
     {
@@ -119,6 +121,8 @@ class Contact extends AbstractEntity implements \JsonSerializable
      * Set the phone number of the Contact.
      *
      * @param string|null $phone_number - Sets the phone number of the Contact.
+     *
+     * @todo Improve phone number validation.
      */
     public function setPhoneNumber(string $phone_number = null): void
     {
@@ -127,16 +131,6 @@ class Contact extends AbstractEntity implements \JsonSerializable
         }
 
         $this->phone_number = $phone_number;
-    }
-
-    /**
-     * Returns the Contact's User.
-     *
-     * @return User
-     */
-    public function user(): User
-    {
-        // @todo Create singleton factories
     }
 
     /**
