@@ -10,5 +10,8 @@ use NunoLopes\DomainContacts\Exceptions\BaseException;
  */
 class PasswordMismatchException extends BaseException
 {
+    /**
+     * @inheritdoc
+     */
     protected $message = "Password does not match with this user.";
 }

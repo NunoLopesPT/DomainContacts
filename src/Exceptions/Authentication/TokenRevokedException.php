@@ -11,5 +11,8 @@ use NunoLopes\DomainContacts\Exceptions\BaseException;
  */
 class TokenRevokedException extends BaseException
 {
+    /**
+     * @inheritdoc
+     */
     protected $message = "This token is revoked.";
 }

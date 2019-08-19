@@ -10,5 +10,8 @@ use NunoLopes\DomainContacts\Exceptions\NotFoundException;
  */
 class UserDoesNotExistsException extends NotFoundException
 {
+    /**
+     * @inheritdoc
+     */
     protected $message = "This user was not found.";
 }
