@@ -34,6 +34,8 @@ class JsonWebToken
     /**
      * JsonWebToken constructor.
      *
+     * @todo Set this constructor without arguments.
+     *
      * @param JwtHeader              $header                 - JWT Header instance.
      * @param JwtPayload             $payload                - JWT Payload instance.
      * @param AsymmetricCryptography $asymmetricCryptography - Asymmetric Cryptography instance.
