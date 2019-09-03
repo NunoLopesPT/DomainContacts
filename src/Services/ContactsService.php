@@ -2,15 +2,13 @@
 
 namespace NunoLopes\DomainContacts\Services;
 
-use Illuminate\Database\Eloquent\Collection;
 use NunoLopes\DomainContacts\Contracts\Database\ContactsRepository;
 use NunoLopes\DomainContacts\Contracts\Utilities\Authentication;
 use NunoLopes\DomainContacts\Entities\Contact;
+use NunoLopes\DomainContacts\Exceptions\Contacts\ContactNotDeleted;
 use NunoLopes\DomainContacts\Exceptions\Contacts\ContactNotFound;
 use NunoLopes\DomainContacts\Exceptions\Contacts\ContactNotUpdated;
 use NunoLopes\DomainContacts\Exceptions\ForbiddenException;
-use NunoLopes\DomainContacts\Exceptions\UnauthorizedException;
-use NunoLopes\DomainContacts\Requests\SaveContactRequest;
 
 /**
  * This Domain Service will be responsible for all Business Logic related with Contacts.
@@ -151,10 +149,11 @@ class ContactsService
      * @param  int  $id - Id of the Contact that is going to be destroyed.
      *
      * @throws ForbiddenException - If the user doesn't own the contact that wants to delete.
+     * @throws ContactNotDeleted  - If the contact was not deleted.
      *
      * @return bool
      */
-    public function destroy(int $id): bool
+    public function destroy(int $id): void
     {
         // Retrieve the contact from the database to check
         // if its owner matches the logged in user.
@@ -166,6 +165,8 @@ class ContactsService
         }
 
         // Returns success message if the contact was deleted.
-        return $this->contactsRepository->destroy($id);
+        if ($this->contactsRepository->destroy($id)) {
+            throw new ContactNotDeleted();
+        };
     }
 }
