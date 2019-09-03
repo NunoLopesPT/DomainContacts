@@ -1,6 +1,7 @@
 <?php
 namespace NunoLopes\DomainContacts\Utilities\Database\Migrations;
 
+use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Builder;
 use NunoLopes\DomainContacts\Factories\Database\Eloquent\CapsuleFactory;
 
@@ -12,7 +13,7 @@ use NunoLopes\DomainContacts\Factories\Database\Eloquent\CapsuleFactory;
  *
  * @package NunoLopes\DomainContacts
  */
-abstract class AbstractMigration
+abstract class AbstractMigration extends Migration
 {
     /**
      * @var Builder $schema - Database schema instance.
