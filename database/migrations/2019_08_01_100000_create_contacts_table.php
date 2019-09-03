@@ -50,6 +50,8 @@ class CreateContactsTable extends AbstractMigration
                       ->onUpdate('cascade');
             });
         }
+
+        echo "Contacts table created with success\n";
     }
 
     /**
@@ -59,6 +61,10 @@ class CreateContactsTable extends AbstractMigration
      */
     public function down()
     {
-        $this->schema->dropIfExists(self::TABLE_NAME);
+        if ($this->schema->hasTable(self::TABLE_NAME)) {
+            $this->schema->drop(self::TABLE_NAME);
+
+            echo "Contacts table dropped with success\n";
+        }
     }
 }

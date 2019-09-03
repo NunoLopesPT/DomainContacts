@@ -39,6 +39,8 @@ class CreateUsersTable extends AbstractMigration
                 $table->timestamps();
             });
         }
+
+        echo "Users table created with success\n";
     }
 
     /**
@@ -48,6 +50,10 @@ class CreateUsersTable extends AbstractMigration
      */
     public function down()
     {
-        $this->schema->dropIfExists(self::TABLE_NAME);
+        if ($this->schema->hasTable(self::TABLE_NAME)) {
+            $this->schema->drop(self::TABLE_NAME);
+
+            echo "Users table dropped with success\n";
+        }
     }
 }

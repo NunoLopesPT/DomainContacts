@@ -49,6 +49,8 @@ class CreateAccessTokensTable extends AbstractMigration
                 $table->unique('token_id', self::TABLE_NAME . '_token_id_unique');
             });
         }
+
+        echo "Access Tokens table created with success\n";
     }
 
     /**
@@ -58,6 +60,10 @@ class CreateAccessTokensTable extends AbstractMigration
      */
     public function down()
     {
-        $this->schema->dropIfExists(self::TABLE_NAME);
+        if ($this->schema->hasTable(self::TABLE_NAME)) {
+            $this->schema->drop(self::TABLE_NAME);
+
+            echo "Access Tokens table dropped with success\n";
+        }
     }
 }
