@@ -24,17 +24,21 @@ class CreateUsersTable extends AbstractMigration
      */
     public function up()
     {
-        // Create table.
-        $this->schema->create(self::TABLE_NAME, function (Blueprint $table) {
+        // Only create table if it doesn't exist.
+        if (!$this->schema->hasTable(self::TABLE_NAME)) {
 
-            // Add table columns.
-            $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('email')
-                  ->unique();
-            $table->string('password');
-            $table->timestamps();
-        });
+            // Create table.
+            $this->schema->create(self::TABLE_NAME, function (Blueprint $table) {
+
+                // Add table columns.
+                $table->bigIncrements('id');
+                $table->string('name');
+                $table->string('email')
+                    ->unique();
+                $table->string('password');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

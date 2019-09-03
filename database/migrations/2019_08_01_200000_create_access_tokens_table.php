@@ -24,23 +24,31 @@ class CreateAccessTokensTable extends AbstractMigration
      */
     public function up()
     {
-        // Create table.
-        $this->schema->create(self::TABLE_NAME, function (Blueprint $table) {
+        // Only create table if it doesn't exist.
+        if (!$this->schema->hasTable(self::TABLE_NAME)) {
 
-            // Add table columns.
-            $table->bigIncrements('id');
-            $table->string('token_id', 100);
-            $table->unsignedBigInteger('user_id');
-            $table->boolean('revoked');
-            $table->date('expires_at');
-            $table->timestamps();
+            // Create table.
+            $this->schema->create(self::TABLE_NAME, function (Blueprint $table) {
 
-            // Add table foreign keys.
-            $table->foreign('user_id', self::TABLE_NAME . '_user_foreign');
+                // Add table columns.
+                $table->bigIncrements('id');
+                $table->string('token_id', 100);
+                $table->unsignedBigInteger('user_id');
+                $table->boolean('revoked');
+                $table->date('expires_at');
+                $table->timestamps();
 
-            // Add table unique keys.
-            $table->unique('token_id', self::TABLE_NAME . '_token_id_unique');
-         });
+                // Add table foreign keys.
+                $table->foreign('user_id', self::TABLE_NAME . '_user_foreign')
+                      ->references('id')
+                      ->on('users')
+                      ->onDelete('cascade')
+                      ->onUpdate('cascade');
+
+                // Add table unique keys.
+                $table->unique('token_id', self::TABLE_NAME . '_token_id_unique');
+            });
+        }
     }
 
     /**
