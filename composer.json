@@ -18,6 +18,13 @@
         "illuminate/database": "^5.8",
         "illuminate/validation": "^5.8"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^8.3"
+    },
+    "scripts": {
+        "migrations": "NunoLopes\\DomainContacts\\Utilities\\Composer\\Migrations::run",
+        "migrations-rollback": "NunoLopes\\DomainContacts\\Utilities\\Composer\\Migrations::rollback"
+    },
     "minimum-stability": "dev",
     "prefer-stable": true
 }
