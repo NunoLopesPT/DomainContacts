@@ -32,6 +32,9 @@ class Migrations
      */
     public static function rollback(): void
     {
+        // Fix this helper is not autoloaded.
+        require_once (__DIR__ . '/../../../vendor/illuminate/support/helpers.php');
+
         MigrationsServiceFactory::get()->rollbackMigrations();
     }
 }
