@@ -29,7 +29,8 @@ class EloquentUsersRepository implements UsersRepository
      */
     public function get(int $id): ?User
     {
-        if ($id < 0) {
+        // Throw exception if the id is invalid.
+        if ($id <= 0) {
             throw new \InvalidArgumentException('User\'s id should be a positive number');
         }
 
@@ -58,6 +59,7 @@ class EloquentUsersRepository implements UsersRepository
      */
     public function findByEmail(string $email): ?User
     {
+        // Throw exception if the email is empty.
         if (\strlen(\trim($email)) === 0) {
             throw new \InvalidArgumentException('User\'s email is empty.');
         }
