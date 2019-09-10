@@ -2,6 +2,7 @@
 namespace NunoLopes\DomainContacts\Contracts\Database;
 
 use NunoLopes\DomainContacts\Entities\Contact;
+use NunoLopes\DomainContacts\Exceptions\Contacts\ContactNotFound;
 
 /**
  * Contacts Repository Contract.
@@ -16,11 +17,11 @@ interface ContactsRepository
     /**
      * Will create a new Contact in the persistence layer, returning its ID.
      *
-     * @param array $attributes - Attributes of the Contact that will be created.
+     * @param Contact $contact - Contact Entity that is going to be created.
      *
      * @return int
      */
-    public function create(array $attributes): int;
+    public function create(Contact $contact): int;
 
     /**
      * Retrieve all contacts.
@@ -36,6 +37,8 @@ interface ContactsRepository
      *
      * @param int $id - ID of the Contact.
      *
+     * @throws ContactNotFound - If the contact was not found.
+     *
      * @return Contact
      */
     public function get(int $id): ?Contact;
@@ -50,14 +53,13 @@ interface ContactsRepository
     public function destroy(int $id): bool;
 
     /**
-     * Updates a record with following id.
+     * Updates a Contact with its attributes.
      *
-     * @todo Currently this $attributes also have the not dirty attributes
+     * @param Contact $contact - Contact that is going to be updated.
      *
-     * @param int   $id         - ID of the Contact that is going to be updated.
-     * @param array $attributes - New attributes of the Contact.
+     * @throws \UnexpectedValueException - If the Contact has no ID.
      *
      * @return bool
      */
-    public function update(int $id, array $attributes): bool;
+    public function update(Contact $contact): bool;
 }
