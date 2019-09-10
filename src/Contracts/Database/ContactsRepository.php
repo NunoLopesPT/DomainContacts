@@ -41,7 +41,7 @@ interface ContactsRepository
      *
      * @return Contact
      */
-    public function get(int $id): ?Contact;
+    public function get(int $id): Contact;
 
     /**
      * Destroys a single Contact and returns its success.
