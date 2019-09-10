@@ -1,6 +1,7 @@
 <?php
 namespace NunoLopes\DomainContacts\Services;
 
+use DatabaseSeeder;
 use Illuminate\Database\Migrations\Migrator;
 
 /**
@@ -47,6 +48,20 @@ class MigrationsService
         echo "Migrations created with success\n";
 
         return $result;
+    }
+
+    /**
+     * Populate the database with random records.
+     *
+     * @return array
+     */
+    public function seedDatabase(): void
+    {
+        echo "Running seeds";
+
+        require_once __DIR__ . '/../../database/seeds/DatabaseSeeder.php';
+        $seeder = new DatabaseSeeder();
+        $seeder->run();
     }
 
     /**
