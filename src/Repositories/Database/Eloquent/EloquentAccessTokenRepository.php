@@ -4,7 +4,6 @@ namespace NunoLopes\DomainContacts\Repositories\Database\Eloquent;
 use NunoLopes\DomainContacts\Contracts\Database\AccessTokenRepository;
 use NunoLopes\DomainContacts\Eloquent\AccessToken as Model;
 use NunoLopes\DomainContacts\Entities\AccessToken;
-use NunoLopes\DomainContacts\Entities\User;
 
 /**
  * Class EloquentAccessTokenRepository.
@@ -49,7 +48,6 @@ class EloquentAccessTokenRepository implements AccessTokenRepository
                     ->newQuery()
                     ->create($accessToken->getAttributes());
 
-        // ID é sempre 0.
         return $accessToken->id;
     }
 
@@ -61,9 +59,9 @@ class EloquentAccessTokenRepository implements AccessTokenRepository
     {
         return \boolval(
             $this->accessTokens
-                    ->newQuery()
-                    ->whereKey($id)
-                    ->update(['revoked' => true])
+                 ->newQuery()
+                 ->whereKey($id)
+                 ->update(['revoked' => true])
         );
     }
 }
