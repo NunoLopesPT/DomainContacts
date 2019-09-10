@@ -4,6 +4,7 @@ namespace NunoLopes\DomainContacts\Repositories\Database\Eloquent;
 use NunoLopes\DomainContacts\Contracts\Database\ContactsRepository;
 use NunoLopes\DomainContacts\Eloquent\Contact as Model;
 use NunoLopes\DomainContacts\Entities\Contact;
+use NunoLopes\DomainContacts\Exceptions\Contacts\ContactNotFound;
 
 /**
  * Contact's Repository.
@@ -27,10 +28,10 @@ class EloquentContactsRepository implements ContactsRepository
     /**
      * @inheritdoc
      */
-    public function get(int $id): ?Contact
+    public function get(int $id): Contact
     {
-        if ($id < 0) {
-            // @todo Exception
+        if ($id <= 0) {
+            throw new \InvalidArgumentException('Contact\'s ID should be a positive number');
         }
 
         $contact = $this->contacts
@@ -38,17 +39,21 @@ class EloquentContactsRepository implements ContactsRepository
                         ->whereKey($id)
                         ->first();
 
+        if ($contact === null) {
+            throw new ContactNotFound();
+        }
+
         return new Contact($contact->getAttributes());
     }
 
     /**
      * @inheritdoc
      */
-    public function create(array $attributes): int
+    public function create(Contact $contact): int
     {
         $contact = $this->contacts
                         ->newQuery()
-                        ->create($attributes);
+                        ->create($contact->getAttributes());
 
         return $contact->id;
     }
@@ -58,11 +63,19 @@ class EloquentContactsRepository implements ContactsRepository
      */
     public function findByUserId(int $id): array
     {
-        return $this->contacts
-                    ->newQuery()
-                    ->where('user_id', $id)
-                    ->get()
-                    ->toArray();
+        // Find all contacts that belong to the User ID.
+        $contacts = $this->contacts
+                         ->newQuery()
+                         ->where('user_id', $id)
+                         ->get();
+
+        // Convert each Contact Model to Contact Entity and add to an array to return.
+        $result = [];
+        foreach ($contacts as $contact) {
+            $result[] = new Contact($contact->getAttributes());
+        }
+
+        return $result;
     }
 
     /**
@@ -79,13 +92,20 @@ class EloquentContactsRepository implements ContactsRepository
     /**
      * @inheritdoc
      */
-    public function update(int $id, array $attributes): bool
+    public function update(Contact $contact): bool
     {
+        // Throws Exception if the contact has ID.
+        if (!$contact->hasId()) {
+            throw new \UnexpectedValueException('Contact has no ID.');
+        }
+
+        // The update returns the number of affected rows, because in this case
+        // the maximum amount of contacts we can update is one, we set the int to boolean.
         return \boolval(
             $this->contacts
                  ->newQuery()
-                 ->whereKey($id)
-                 ->update($attributes)
+                 ->whereKey($contact->id())
+                 ->update($contact->getAttributes())
         );
     }
 }
