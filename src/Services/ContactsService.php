@@ -85,11 +85,6 @@ class ContactsService
         // if its owner matches the logged in user.
         $contact = $this->contactsRepository->get($id);
 
-        // Check if the contact is not null.
-        if ($contact === null) {
-            throw new ContactNotFound();
-        }
-
         // Retrieve the logged user.
         $user = $this->auth->user();
 
@@ -132,7 +127,7 @@ class ContactsService
 
         // Update the contact with the validated data,
         // and save it in the persistence layer.
-        if (!$this->contactsRepository->update($id, $contact->getAttributes())) {
+        if (!$this->contactsRepository->update($contact)) {
 
             // If we reach the end of this function, the contact was not
             // updated so we throw an exception.
