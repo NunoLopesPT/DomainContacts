@@ -34,7 +34,7 @@ class CreateAccessTokensTable extends AbstractMigration
                 $table->bigIncrements('id');
                 $table->string('token_id', 100);
                 $table->unsignedBigInteger('user_id');
-                $table->boolean('revoked');
+                $table->boolean('revoked')->default(false);
                 $table->date('expires_at');
                 $table->timestamps();
 
