@@ -31,7 +31,7 @@ class EloquentUsersRepository implements UsersRepository
     {
         // Throw exception if the id is invalid.
         if ($id <= 0) {
-            throw new \InvalidArgumentException('User\'s id should be a positive number');
+            throw new \InvalidArgumentException('User\'s ID should be a positive number');
         }
 
         $user = $this->users
