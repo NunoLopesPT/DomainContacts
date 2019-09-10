@@ -26,6 +26,17 @@ class Migrations
     }
 
     /**
+     * Seed the database.
+     */
+    public static function seed(): void
+    {
+        // Fix this helper is not autoloaded.
+        require_once (__DIR__ . '/../../../vendor/illuminate/support/helpers.php');
+
+        MigrationsServiceFactory::get()->seedDatabase();
+    }
+
+    /**
      * Rollback migrations.
      *
      * @return void
