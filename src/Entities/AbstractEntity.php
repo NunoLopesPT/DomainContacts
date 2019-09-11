@@ -65,6 +65,16 @@ abstract class AbstractEntity
     }
 
     /**
+     * Check if there is an ID in the entity.
+     *
+     * @return bool
+     */
+    public function hasId(): bool
+    {
+        return $this->id !== null;
+    }
+
+    /**
      * Set the id of the Entity.
      *
      * @param int $id - Sets the id of the Entity.
