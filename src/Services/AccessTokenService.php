@@ -84,7 +84,7 @@ class AccessTokenService
         $id = $this->authTokenService->accessTokenId($authToken);
 
         // Find the token in the database.
-        $accessToken = $this->accessTokenRepository->findByToken($id);
+        $accessToken = $this->accessTokenRepository->getByToken($id);
 
         // Check if the token is revoked.
         if ($accessToken->revoked()) {
