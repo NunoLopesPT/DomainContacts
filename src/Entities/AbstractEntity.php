@@ -1,6 +1,8 @@
 <?php
 namespace NunoLopes\DomainContacts\Entities;
 
+use NunoLopes\DomainContacts\Exceptions\Contacts\RequiredAttributeMissing;
+
 /**
  * Abstract class AbstractEntity..
  *
@@ -8,6 +10,11 @@ namespace NunoLopes\DomainContacts\Entities;
  */
 abstract class AbstractEntity
 {
+    /**
+     * @var array $required - Array of required attribute names where the value can't be null.
+     */
+    protected static $required = [];
+
     /**
      * Id of the entity.
      *
@@ -40,6 +47,13 @@ abstract class AbstractEntity
 
             if (\method_exists($this, $setter)) {
                 $this->{$setter}($value);
+            }
+        }
+
+        // Check if all required attributes are not null.
+        foreach (self::$required as $attribute) {
+            if ($this->$attribute === null) {
+                throw new RequiredAttributeMissing($attribute);
             }
         }
     }
