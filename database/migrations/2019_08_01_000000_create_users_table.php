@@ -32,10 +32,13 @@ class CreateUsersTable extends AbstractMigration
 
                 // Add table columns.
                 $table->bigIncrements('id');
-                $table->string('name');
+                $table->string('name')
+                      ->comment('Name of the User.');
                 $table->string('email')
-                    ->unique();
-                $table->string('password');
+                      ->unique()
+                      ->comment('Email of the User.');
+                $table->string('password')
+                      ->comment('Password of the User.');
                 $table->timestamps();
             });
         }

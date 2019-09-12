@@ -32,10 +32,15 @@ class CreateAccessTokensTable extends AbstractMigration
 
                 // Add table columns.
                 $table->bigIncrements('id');
-                $table->string('token_id', 100);
-                $table->unsignedBigInteger('user_id');
-                $table->boolean('revoked')->default(false);
-                $table->date('expires_at');
+                $table->string('token_id', 100)
+                      ->comment('Access Token Unique ID');
+                $table->unsignedBigInteger('user_id')
+                      ->comment('Owner of the Access Token.');
+                $table->boolean('revoked')
+                      ->default(false)
+                ->comment('If the Access Token is still valid');
+                $table->date('expires_at')
+                      ->comment('When the Access Token will expire');
                 $table->timestamps();
 
                 // Add table foreign keys.

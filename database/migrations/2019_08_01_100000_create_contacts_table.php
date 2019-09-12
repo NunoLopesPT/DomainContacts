@@ -33,13 +33,17 @@ class CreateContactsTable extends AbstractMigration
                 // Add table columns.
                 $table->bigIncrements('id');
                 $table->unsignedBigInteger('user_id');
-                $table->string('first_name');
+                $table->string('first_name')
+                      ->comment('First name of the contact.');
                 $table->string('last_name')
-                    ->nullable();
+                      ->nullable()
+                      ->comment('Last name of the contact.');;
                 $table->string('phone_number')
-                    ->nullable();
+                      ->nullable()
+                      ->comment('Phone Number of the contact.');;
                 $table->string('email')
-                    ->nullable();
+                      ->nullable()
+                      ->comment('Email of the contact.');;
                 $table->timestamps();
 
                 // Add table foreign keys.
