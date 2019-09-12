@@ -39,7 +39,7 @@ class ContactsSeeder extends Seeder
         // Make sure that there are Users seeded.
         $this->call(UsersSeeder::class);
 
-        // Call dependencies.
+        // Initiate dependencies.
         $this->model = new Contact();
         $this->users = new User();
         $this->faker = Factory::create();
