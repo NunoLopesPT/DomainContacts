@@ -1,7 +1,7 @@
 <?php
 namespace NunoLopes\DomainContacts\Entities;
 
-use NunoLopes\DomainContacts\Exceptions\Contacts\RequiredAttributeMissing;
+use NunoLopes\DomainContacts\Exceptions\Contacts\RequiredAttributeMissingException;
 
 /**
  * Abstract class AbstractEntity..
@@ -53,7 +53,7 @@ abstract class AbstractEntity
         // Check if all required attributes are not null.
         foreach (self::$required as $attribute) {
             if ($this->$attribute === null) {
-                throw new RequiredAttributeMissing($attribute);
+                throw new RequiredAttributeMissingException($attribute);
             }
         }
     }
