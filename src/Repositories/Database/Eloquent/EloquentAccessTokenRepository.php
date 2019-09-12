@@ -4,7 +4,7 @@ namespace NunoLopes\DomainContacts\Repositories\Database\Eloquent;
 use NunoLopes\DomainContacts\Contracts\Database\AccessTokenRepository;
 use NunoLopes\DomainContacts\Eloquent\AccessToken as Model;
 use NunoLopes\DomainContacts\Entities\AccessToken;
-use NunoLopes\DomainContacts\Exceptions\AccessTokens\AccessTokenNotFound;
+use NunoLopes\DomainContacts\Exceptions\Repositories\AccessTokens\AccessTokenNotFoundException;
 
 /**
  * Class EloquentAccessTokenRepository.
@@ -41,7 +41,7 @@ class EloquentAccessTokenRepository implements AccessTokenRepository
                             ->first();
 
         if ($accessToken === null) {
-            throw new AccessTokenNotFound();
+            throw new AccessTokenNotFoundException();
         }
 
         return new AccessToken($accessToken->getAttributes());
