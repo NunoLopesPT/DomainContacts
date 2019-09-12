@@ -49,7 +49,10 @@ class User extends AbstractEntityState
      */
     protected function setName(string $name): void
     {
-        if (\strlen(\trim($name)) === 0) {
+        // Remove any white character from the beginning and end of the string.
+        $name = \trim($name);
+
+        if (\strlen($name) === 0) {
             throw new \InvalidArgumentException('The name for the user is empty.');
         }
 
@@ -77,7 +80,10 @@ class User extends AbstractEntityState
      */
     protected function setEmail(string $email): void
     {
-        if (\strlen(\trim($email)) === 0) {
+        // Remove any white character from the beginning and end of the string.
+        $email = \trim($email);
+
+        if (\strlen($email) === 0) {
             throw new \InvalidArgumentException('The email for the user is empty.');
         }
 
