@@ -20,7 +20,7 @@ interface AccessTokenRepository
      *
      * @return AccessToken
      */
-    public function findByToken(string $token): ?AccessToken;
+    public function getByToken(string $token): AccessToken;
 
     /**
      * Creates an AccessToken.
