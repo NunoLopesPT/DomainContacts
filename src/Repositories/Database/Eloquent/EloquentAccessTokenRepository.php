@@ -4,6 +4,7 @@ namespace NunoLopes\DomainContacts\Repositories\Database\Eloquent;
 use NunoLopes\DomainContacts\Contracts\Database\AccessTokenRepository;
 use NunoLopes\DomainContacts\Eloquent\AccessToken as Model;
 use NunoLopes\DomainContacts\Entities\AccessToken;
+use NunoLopes\DomainContacts\Exceptions\AccessTokens\AccessTokenNotFound;
 
 /**
  * Class EloquentAccessTokenRepository.
@@ -26,20 +27,29 @@ class EloquentAccessTokenRepository implements AccessTokenRepository
 
     /**
      * @inheritdoc
-     * @see AccessTokenRepository::findByToken
+     * @see AccessTokenRepository::getByToken
      */
-    public function findByToken(string $tokenId): ?AccessToken
+    public function getByToken(string $tokenId): AccessToken
     {
+        if (\strlen(\trim($tokenId)) === 0) {
+            throw new \InvalidArgumentException('The token ID is empty.');
+        }
+
         $accessToken = $this->accessTokens
                             ->newQuery()
                             ->where('token_id', $tokenId)
                             ->first();
+
+        if ($accessToken === null) {
+            throw new AccessTokenNotFound();
+        }
 
         return new AccessToken($accessToken->getAttributes());
     }
 
     /**
      * @inheritdoc
+     * @todo Handle ForeignKey and Unique token ID exception.
      * @see AccessTokenRepository::create
      */
     public function create(AccessToken $accessToken): int
@@ -61,6 +71,7 @@ class EloquentAccessTokenRepository implements AccessTokenRepository
             $this->accessTokens
                  ->newQuery()
                  ->whereKey($id)
+                 ->where('revoked', false)
                  ->update(['revoked' => true])
         );
     }
