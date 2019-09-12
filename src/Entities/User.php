@@ -4,10 +4,15 @@ namespace NunoLopes\DomainContacts\Entities;
 /**
  * Class User.
  *
- * @package NunoLopes\DomainContacts\Entities
+ * @package NunoLopes\DomainContacts
  */
-class User extends AbstractEntity
+class User extends AbstractEntityState
 {
+    /**
+     * @inheritdoc
+     */
+    protected static $required = ['name', 'email', 'password'];
+
     /**
      * @var string $name - Name of the User.
      */
