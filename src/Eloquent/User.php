@@ -1,12 +1,8 @@
 <?php
 namespace NunoLopes\DomainContacts\Eloquent;
 
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Auth\MustVerifyEmail;
-use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Laravel\Passport\HasApiTokens;
 
 /**
  * User Eloquent's Model class
@@ -19,8 +15,6 @@ use Laravel\Passport\HasApiTokens;
  */
 class User extends Model
 {
-    use HasApiTokens, Authenticatable, CanResetPassword, MustVerifyEmail;
-
     /**
      * The attributes that are mass assignable.
      *
