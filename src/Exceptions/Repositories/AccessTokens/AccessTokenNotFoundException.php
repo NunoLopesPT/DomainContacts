@@ -1,5 +1,5 @@
 <?php
-namespace NunoLopes\DomainContacts\Exceptions\AccessTokens;
+namespace NunoLopes\DomainContacts\Exceptions\Repositories\AccessTokens;
 
 use NunoLopes\DomainContacts\Exceptions\NotFoundException;
 
@@ -8,7 +8,7 @@ use NunoLopes\DomainContacts\Exceptions\NotFoundException;
  *
  * @package NunoLopes\LaravelContactsAPI
  */
-class AccessTokenNotFound extends NotFoundException
+class AccessTokenNotFoundException extends NotFoundException
 {
     /**
      * @var string $message - Exception message.
