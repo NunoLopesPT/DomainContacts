@@ -14,7 +14,7 @@ class AccessToken extends Model
     /**
      * @var string - AccessToken's Database Table.
      */
-    protected $table = 'oauth_access_tokens';
+    protected $table = 'access_tokens';
 
     /**
      * The attributes that are mass assignable.
