@@ -99,13 +99,21 @@ class EloquentContactsRepository implements ContactsRepository
             throw new \UnexpectedValueException('Contact has no ID.');
         }
 
+        // Get the changed attributes.
+        $dirtyAttributes = $contact->getDirtyAttributes();
+
+        // If there are no changed attributes, no need to make a query.
+        if (empty($dirtyAttributes)) {
+            return false;
+        }
+
         // The update returns the number of affected rows, because in this case
         // the maximum amount of contacts we can update is one, we set the int to boolean.
         return \boolval(
             $this->contacts
                  ->newQuery()
                  ->whereKey($contact->id())
-                 ->update($contact->getAttributes())
+                 ->update($dirtyAttributes)
         );
     }
 }
