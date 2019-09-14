@@ -55,8 +55,10 @@ class Contact extends AbstractEntityState
      */
     public function setFirstName(string $first_name): void
     {
+        // Remove white spaces from begin and end of the phone number.
         $first_name = \trim($first_name);
 
+        // Throw exception if the first name is empty.
         if (\strlen($first_name) === 0) {
             throw new \InvalidArgumentException('The first name of this contact is empty.');
         }
@@ -81,8 +83,10 @@ class Contact extends AbstractEntityState
      */
     public function setLastName($last_name): void
     {
+        // Remove white spaces from begin and end of the phone number.
         $last_name = \trim($last_name);
 
+        // Convert to null if the last name is empty.
         if (\strlen($last_name) === 0) {
             $last_name = null;
         }
@@ -109,8 +113,10 @@ class Contact extends AbstractEntityState
      */
     public function setEmail(string $email = null): void
     {
+        // Remove white spaces from begin and end of the phone number.
         $email = \trim($email);
 
+        // Convert to null if the email is empty.
         if (\strlen($email) === 0) {
             $email = null;
         }
@@ -137,8 +143,10 @@ class Contact extends AbstractEntityState
      */
     public function setPhoneNumber(string $phone_number = null): void
     {
+        // Remove white spaces from begin and end of the phone number.
         $phone_number = \trim($phone_number);
 
+        // Convert to null if the phone number is empty.
         if (\strlen($phone_number) === 0) {
             $phone_number = null;
         }
