@@ -6,8 +6,13 @@ namespace NunoLopes\DomainContacts\Entities;
  *
  * @package NunoLopes\DomainContacts\Entities
  */
-class Contact extends AbstractEntity implements \JsonSerializable
+class Contact extends AbstractEntityState
 {
+    /**
+     * @var array $required - Required fields of the entity..
+     */
+    protected static $required = ['first_name', 'user_id'];
+
     /**
      * @var string $first_name - First name of the Contact.
      */
@@ -50,8 +55,10 @@ class Contact extends AbstractEntity implements \JsonSerializable
      */
     public function setFirstName(string $first_name): void
     {
-        if (\strlen(\trim($first_name)) === 0) {
-            $first_name = null;
+        $first_name = \trim($first_name);
+
+        if (\strlen($first_name) === 0) {
+            throw new \InvalidArgumentException('The first name of this contact is empty.');
         }
 
         $this->first_name = $first_name;
@@ -74,7 +81,9 @@ class Contact extends AbstractEntity implements \JsonSerializable
      */
     public function setLastName($last_name): void
     {
-        if (\strlen(\trim($last_name)) === 0) {
+        $last_name = \trim($last_name);
+
+        if (\strlen($last_name) === 0) {
             $last_name = null;
         }
 
@@ -100,7 +109,9 @@ class Contact extends AbstractEntity implements \JsonSerializable
      */
     public function setEmail(string $email = null): void
     {
-        if ($email !== null && \strlen(\trim($email)) === 0) {
+        $email = \trim($email);
+
+        if (\strlen($email) === 0) {
             $email = null;
         }
 
@@ -126,7 +137,9 @@ class Contact extends AbstractEntity implements \JsonSerializable
      */
     public function setPhoneNumber(string $phone_number = null): void
     {
-        if ($phone_number !== null && \strlen(\trim($phone_number)) === 0) {
+        $phone_number = \trim($phone_number);
+
+        if (\strlen($phone_number) === 0) {
             $phone_number = null;
         }
 
