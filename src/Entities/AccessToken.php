@@ -26,7 +26,7 @@ class AccessToken extends AbstractEntity
     /**
      * @var bool $revoked - If the AccessToken is revoked.
      */
-    protected $revoked = null;
+    protected $revoked = false;
 
     /**
      * @var string $expires_at - When the token will expire.
