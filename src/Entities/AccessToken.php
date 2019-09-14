@@ -142,6 +142,8 @@ class AccessToken extends AbstractEntity
     /**
      * Returns expiration date in timestamp format.
      *
+     * @todo Handle this in Service.
+     *
      * @return int
      */
     public function expiresAt(): int
