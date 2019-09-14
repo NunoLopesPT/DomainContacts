@@ -23,6 +23,8 @@ trait AuditTimestampsTrait
     /**
      * Returns an Unix timestamp when the record was created.
      *
+     * @todo Return Datatype.
+     *
      * @return int
      */
     public function createdAt(): int
@@ -42,6 +44,8 @@ trait AuditTimestampsTrait
 
     /**
      * Returns an Unix timestamp when the record was updated.
+     *
+     * @todo Return Datatype.
      *
      * @return int
      */
