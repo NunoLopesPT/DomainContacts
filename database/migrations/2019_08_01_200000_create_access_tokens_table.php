@@ -38,7 +38,7 @@ class CreateAccessTokensTable extends AbstractMigration
                       ->comment('Owner of the Access Token.');
                 $table->boolean('revoked')
                       ->default(false)
-                ->comment('If the Access Token is still valid');
+                      ->comment('If the Access Token is still valid');
                 $table->date('expires_at')
                       ->comment('When the Access Token will expire');
                 $table->timestamps();
