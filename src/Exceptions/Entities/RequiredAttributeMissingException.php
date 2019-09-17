@@ -1,5 +1,5 @@
 <?php
-namespace NunoLopes\DomainContacts\Exceptions\Contacts;
+namespace NunoLopes\DomainContacts\Exceptions\Entities;
 
 use NunoLopes\DomainContacts\Exceptions\BaseException;
 
