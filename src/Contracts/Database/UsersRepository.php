@@ -2,6 +2,7 @@
 namespace NunoLopes\DomainContacts\Contracts\Database;
 
 use NunoLopes\DomainContacts\Entities\User;
+use NunoLopes\DomainContacts\Exceptions\Repositories\Users\UserNotFoundException;
 
 /**
  * Users Repository Contract.
@@ -27,9 +28,12 @@ interface UsersRepository
      *
      * @param int $id - ID of the User.
      *
+     * @throws \InvalidArgumentException - If the id is not positive.
+     * @throws UserNotFoundException     - If the user was not found.
+     *
      * @return User
      */
-    public function get(int $id): ?User;
+    public function get(int $id): User;
 
     /**
      * Finds User by its email.
