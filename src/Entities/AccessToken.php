@@ -34,6 +34,11 @@ class AccessToken extends AbstractEntity
     protected $expires_at = null;
 
     /**
+     * @inheritdoc
+     */
+    protected static $required = ['user_id', 'revoked', 'expires_at', 'token_id'];
+
+    /**
      * Returns the id of the Entity.
      *
      * @return string
