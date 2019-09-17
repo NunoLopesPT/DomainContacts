@@ -1,14 +1,14 @@
 <?php
-namespace NunoLopes\DomainContacts\Exceptions\Authentication;
+namespace NunoLopes\DomainContacts\Exceptions\Repositories\Users;
 
 use NunoLopes\DomainContacts\Exceptions\NotFoundException;
 
 /**
- * Class UserDoesNotExistsException.
+ * Class UserNotFoundException.
  *
  * @package NunoLopes\LaravelContactsAPI
  */
-class UserDoesNotExistsException extends NotFoundException
+class UserNotFoundException extends NotFoundException
 {
     /**
      * @inheritdoc
