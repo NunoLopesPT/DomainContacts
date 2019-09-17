@@ -62,24 +62,6 @@ class AccessToken extends AbstractEntity
     }
 
     /**
-     * Set the id of the Entity.
-     *
-     * @param string $id - Sets the id of the Entity.
-     *
-     * @throws \InvalidArgumentException - If the id is not a positive number.
-     *
-     * @return void
-     */
-    protected function setId($id): void
-    {
-        if (\strlen(\trim($id)) === 0) {
-            throw new \InvalidArgumentException('The id should be a positive number.');
-        }
-
-        $this->id = $id;
-    }
-
-    /**
      * Returns the ID of the AccessToken User.
      *
      * @return string
@@ -142,7 +124,7 @@ class AccessToken extends AbstractEntity
     /**
      * Returns expiration date in timestamp format.
      *
-     * @todo Handle this in Service.
+     * @todo Handle this in Service and return a Datatype.
      *
      * @return int
      */
