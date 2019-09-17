@@ -81,7 +81,7 @@ class AccessToken extends AbstractEntity
      *
      * @return User
      */
-    public function user(): ?User
+    public function user(): User
     {
         return UsersRepositoryFactory::get()->get($this->user_id);
     }
