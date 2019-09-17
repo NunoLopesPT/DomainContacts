@@ -29,6 +29,7 @@
     },
     "scripts": {
         "migrations": "NunoLopes\\DomainContacts\\Utilities\\Composer\\Migrations::run",
+        "seed"      : "NunoLopes\\DomainContacts\\Utilities\\Composer\\Migrations::seed",
         "migrations-rollback": "NunoLopes\\DomainContacts\\Utilities\\Composer\\Migrations::rollback"
     },
     "minimum-stability": "dev",
