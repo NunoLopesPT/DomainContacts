@@ -10,14 +10,14 @@ use NunoLopes\DomainContacts\Factories\Services\MigrationsServiceFactory;
  *
  * @package NunoLopes\DomainContacts
  */
-class Migrations
+class RunScripts
 {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public static function run(): void
+    public static function migrate(): void
     {
         // Fix this helper is not autoloaded.
         require_once (__DIR__ . '/../../../vendor/illuminate/support/helpers.php');

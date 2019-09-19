@@ -28,9 +28,9 @@
         "fzaninotto/faker": "^1.8"
     },
     "scripts": {
-        "migrations": "NunoLopes\\DomainContacts\\Utilities\\Composer\\Migrations::run",
-        "seed"      : "NunoLopes\\DomainContacts\\Utilities\\Composer\\Migrations::seed",
-        "migrations-rollback": "NunoLopes\\DomainContacts\\Utilities\\Composer\\Migrations::rollback"
+        "migrations": "NunoLopes\\DomainContacts\\Utilities\\Composer\\RunScripts::migrate",
+        "seed"      : "NunoLopes\\DomainContacts\\Utilities\\Composer\\RunScripts::seed",
+        "migrations-rollback": "NunoLopes\\DomainContacts\\Utilities\\Composer\\RunScripts::rollback"
     },
     "minimum-stability": "dev",
     "prefer-stable": true
