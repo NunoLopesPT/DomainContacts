@@ -1,9 +1,14 @@
 <?php
 namespace NunoLopes\DomainContacts\Exceptions;
 
-use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
-
-abstract class BaseException extends \RuntimeException implements HttpExceptionInterface
+/**
+ * Abstract class BaseException.
+ *
+ * All Exceptions should extend this class.
+ *
+ * @package NunoLopes\DomainContacts
+ */
+abstract class BaseException extends \RuntimeException
 {
     /**
      * @var string $message - Exception Message.
@@ -11,7 +16,7 @@ abstract class BaseException extends \RuntimeException implements HttpExceptionI
     protected $message = 'Unavailable exception message.';
 
     /**
-     * @var int $code - HTTP Responde code.
+     * @var int $code - HTTP Response code.
      */
     protected $code = 500;
 
@@ -24,18 +29,12 @@ abstract class BaseException extends \RuntimeException implements HttpExceptionI
     }
 
     /**
-     * @inheritdoc
+     * Returns the status code of the exception.
+     *
+     * @return int
      */
-    public function getStatusCode()
+    public function getStatusCode(): int
     {
         return $this->code;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getHeaders()
-    {
-        return [];
     }
 }
