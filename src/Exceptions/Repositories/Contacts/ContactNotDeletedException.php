@@ -4,11 +4,11 @@ namespace NunoLopes\DomainContacts\Exceptions\Repositories\Contacts;
 use NunoLopes\DomainContacts\Exceptions\BaseException;
 
 /**
- * Class ContactNotDeleted.
+ * Class ContactNotDeletedException.
  *
- * @package NunoLopes\LaravelContactsAPI
+ * @package NunoLopes\DomainContacts
  */
-class ContactNotDeleted extends BaseException
+class ContactNotDeletedException extends BaseException
 {
     /**
      * @var string $message - Exception message.

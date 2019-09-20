@@ -4,9 +4,9 @@ namespace NunoLopes\DomainContacts\Exceptions\Repositories\Contacts;
 use NunoLopes\DomainContacts\Exceptions\NotFoundException;
 
 /**
- * Class ContactNotFound.
+ * Class ContactNotFoundException.
  *
- * @package NunoLopes\LaravelContactsAPI
+ * @package NunoLopes\DomainContacts
  */
 class ContactNotFoundException extends NotFoundException
 {
