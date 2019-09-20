@@ -3,8 +3,8 @@ namespace NunoLopes\DomainContacts\Services;
 
 use NunoLopes\DomainContacts\Contracts\Database\UsersRepository;
 use NunoLopes\DomainContacts\Entities\User;
-use NunoLopes\DomainContacts\Exceptions\Authentication\PasswordMismatchException;
-use NunoLopes\DomainContacts\Exceptions\Authentication\UserDoesNotExistsException;
+use NunoLopes\DomainContacts\Exceptions\Repositories\Users\UserNotFoundException;
+use NunoLopes\DomainContacts\Exceptions\Services\Authentication\PasswordMismatchException;
 use NunoLopes\DomainContacts\Utilities\Hash;
 
 /**
@@ -64,28 +64,21 @@ class AuthenticationService
      * @param array $attributes - Related attributes with the login.
      *
      * @throws PasswordMismatchException  - If the password of the user doesn't match.
-     * @throws UserDoesNotExistsException - If the user doesn't exists.
+     * @throws UserNotFoundException      - If the user was not found.
      *
      * @return mixed
      */
     public function login (array $attributes) {
 
         // Finds User by its email.
-        $user = $this->usersRepository->findByEmail($attributes['email']);
+        $user = $this->usersRepository->getByEmail($attributes['email']);
 
-        // Checks if the user exists.
-        if ($user) {
-
-            // Checks if the passwords match the hash saved in the database.
-            if (Hash::verify($attributes['password'], $user->password())) {
-
-                // Creates a token so the user can access.
-                return $this->accessTokenService->createToken($user);
-            } else {
-                throw new PasswordMismatchException();
-            }
+        // Checks if the passwords match the hash saved in the database.
+        if (!Hash::verify($attributes['password'], $user->password())) {
+            throw new PasswordMismatchException();
         }
 
-        throw new UserDoesNotExistsException();
+        // Creates a token so the user can access.
+        return $this->accessTokenService->createToken($user);
     }
 }
