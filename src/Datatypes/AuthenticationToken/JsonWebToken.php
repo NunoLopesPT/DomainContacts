@@ -1,7 +1,9 @@
 <?php
-namespace NunoLopes\DomainContacts\Datatypes\AuthenticationToken\JsonWebToken;
+namespace NunoLopes\DomainContacts\Datatypes\AuthenticationToken;
 
 use NunoLopes\DomainContacts\Contracts\Utilities\AsymmetricCryptography;
+use NunoLopes\DomainContacts\Datatypes\AuthenticationToken\JsonWebToken\JwtHeader;
+use NunoLopes\DomainContacts\Datatypes\AuthenticationToken\JsonWebToken\JwtPayload;
 use NunoLopes\DomainContacts\Utilities\Base64;
 
 /**
