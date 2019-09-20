@@ -34,7 +34,7 @@ class Hash {
      *
      * @return string
      */
-    public static function create(string $string, int $algorithm = PASSWORD_BCRYPT, array $options = null): string
+    public static function create(string $string, int $algorithm = PASSWORD_BCRYPT, array $options = []): string
     {
         return \password_hash($string, $algorithm, $options);
     }
