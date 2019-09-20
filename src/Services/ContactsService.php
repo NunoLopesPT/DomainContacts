@@ -5,10 +5,10 @@ namespace NunoLopes\DomainContacts\Services;
 use NunoLopes\DomainContacts\Contracts\Database\ContactsRepository;
 use NunoLopes\DomainContacts\Contracts\Utilities\Authentication;
 use NunoLopes\DomainContacts\Entities\Contact;
-use NunoLopes\DomainContacts\Exceptions\Contacts\ContactNotDeleted;
-use NunoLopes\DomainContacts\Exceptions\Contacts\ContactNotFound;
-use NunoLopes\DomainContacts\Exceptions\Contacts\ContactNotUpdated;
 use NunoLopes\DomainContacts\Exceptions\ForbiddenException;
+use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactNotDeletedException;
+use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactNotFoundException;
+use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactNotUpdatedException;
 
 /**
  * This Domain Service will be responsible for all Business Logic related with Contacts.
@@ -66,7 +66,7 @@ class ContactsService
 
         // Returns the created contact ID so it can be redirected
         // to the edit view.
-        return $this->contactsRepository->create($attributes);
+        return $this->contactsRepository->create(new Contact($attributes));
     }
 
     /**
@@ -74,8 +74,8 @@ class ContactsService
      *
      * @param  int  $id - Contact that is going to be edited.
      *
-     * @throws ContactNotFound    - If the contact doesn't exist.
-     * @throws ForbiddenException - If the user doesn't own the contact.
+     * @throws ContactNotFoundException - If the contact doesn't exist.
+     * @throws ForbiddenException       - If the user doesn't own the contact.
      *
      * @return array
      */
@@ -103,8 +103,8 @@ class ContactsService
      * @param  array $attributes - Attributes that are going to update.
      *
      *
-     * @throws ContactNotUpdated  - If the contact was not updated.
-     * @throws ForbiddenException - If the user doesn't own the contact.
+     * @throws ContactNotUpdatedException - If the contact was not updated.
+     * @throws ForbiddenException         - If the user doesn't own the contact.
      *
      * @return Contact
      */
@@ -131,7 +131,7 @@ class ContactsService
 
             // If we reach the end of this function, the contact was not
             // updated so we throw an exception.
-            throw new ContactNotUpdated();
+            throw new ContactNotUpdatedException();
         }
 
         // Returns the updated contact.
@@ -143,8 +143,8 @@ class ContactsService
      *
      * @param  int  $id - Id of the Contact that is going to be destroyed.
      *
-     * @throws ForbiddenException - If the user doesn't own the contact that wants to delete.
-     * @throws ContactNotDeleted  - If the contact was not deleted.
+     * @throws ForbiddenException         - If the user doesn't own the contact that wants to delete.
+     * @throws ContactNotDeletedException - If the contact was not deleted.
      *
      * @return bool
      */
@@ -161,7 +161,7 @@ class ContactsService
 
         // Returns success message if the contact was deleted.
         if ($this->contactsRepository->destroy($id)) {
-            throw new ContactNotDeleted();
+            throw new ContactNotDeletedException();
         };
     }
 }
