@@ -8,7 +8,7 @@ use NunoLopes\DomainContacts\Exceptions\NotFoundException;
  *
  * @package NunoLopes\LaravelContactsAPI
  */
-class ContactNotFound extends NotFoundException
+class ContactNotFoundException extends NotFoundException
 {
     /**
      * @var string $message - Exception message.

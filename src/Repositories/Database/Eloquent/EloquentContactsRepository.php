@@ -4,7 +4,7 @@ namespace NunoLopes\DomainContacts\Repositories\Database\Eloquent;
 use NunoLopes\DomainContacts\Contracts\Database\ContactsRepository;
 use NunoLopes\DomainContacts\Eloquent\Contact as Model;
 use NunoLopes\DomainContacts\Entities\Contact;
-use NunoLopes\DomainContacts\Exceptions\Contacts\ContactNotFound;
+use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactNotFoundException;
 
 /**
  * Contact's Repository.
@@ -40,7 +40,7 @@ class EloquentContactsRepository implements ContactsRepository
                         ->first();
 
         if ($contact === null) {
-            throw new ContactNotFound();
+            throw new ContactNotFoundException();
         }
 
         return new Contact($contact->getAttributes());
