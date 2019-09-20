@@ -8,6 +8,8 @@ use NunoLopes\DomainContacts\Factories\Services\MigrationsServiceFactory;
  *
  * Utility class to help running migrations via composer script.
  *
+ * @todo run tests also by scripts.
+ *
  * @package NunoLopes\DomainContacts
  */
 class RunScripts
