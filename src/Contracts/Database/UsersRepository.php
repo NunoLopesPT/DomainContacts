@@ -36,11 +36,13 @@ interface UsersRepository
     public function get(int $id): User;
 
     /**
-     * Finds User by its email.
+     * Get User by its email.
      *
      * @param string $email - Email of the User.
      *
+     * @throws UserNotFoundException - If the user was not found.
+     *
      * @return User
      */
-    public function findByEmail(string $email): ?User;
+    public function getByEmail(string $email): ?User;
 }

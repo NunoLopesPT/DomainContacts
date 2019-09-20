@@ -64,7 +64,7 @@ class EloquentUsersRepository implements UsersRepository
     /**
      * @inheritdoc
      */
-    public function findByEmail(string $email): ?User
+    public function getByEmail(string $email): ?User
     {
         // Throw exception if the email is empty.
         if (\strlen(\trim($email)) === 0) {
@@ -75,6 +75,11 @@ class EloquentUsersRepository implements UsersRepository
             ->newQuery()
             ->where('email', $email)
             ->first();
+
+        // Throw exception if the user was not found.
+        if ($user === null) {
+            throw new UserNotFoundException();
+        }
 
         return new User($user->getAttributes());
     }
