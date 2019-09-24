@@ -9,6 +9,7 @@ use NunoLopes\DomainContacts\Exceptions\ForbiddenException;
 use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactNotDeletedException;
 use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactNotFoundException;
 use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactNotUpdatedException;
+use NunoLopes\DomainContacts\Exceptions\Services\Authentication\UserNotAuthenticatedException;
 
 /**
  * This Domain Service will be responsible for all Business Logic related with Contacts.
@@ -42,12 +43,19 @@ class ContactsService
     /**
      * Display the current user's contacts.
      *
+     * @throws UserNotAuthenticatedException - If the user is not authenticated.
+     *
      * @return array
      */
     public function listAllContactsOfAuthenticatedUser(): array
     {
         // Retrieve the logged user.
         $user = $this->auth->user();
+
+        // Only logged-in users can have contacts.
+        if ($user === null) {
+            throw new UserNotAuthenticatedException();
+        }
 
         return $this->contactsRepository->findByUserId($user->id());
     }
@@ -160,7 +168,7 @@ class ContactsService
         }
 
         // Returns success message if the contact was deleted.
-        if ($this->contactsRepository->destroy($id)) {
+        if (!$this->contactsRepository->destroy($id)) {
             throw new ContactNotDeletedException();
         };
     }
