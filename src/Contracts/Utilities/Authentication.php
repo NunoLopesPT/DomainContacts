@@ -23,9 +23,9 @@ interface Authentication
     /**
      * Returns the authenticated User.
      *
-     * @return User
+     * @return User|null
      */
-    public function user(): User;
+    public function user(): ?User;
 
     /**
      * Checks if the user is a guest.
