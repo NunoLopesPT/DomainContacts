@@ -39,7 +39,7 @@ class CreateAccessTokensTable extends AbstractMigration
                 $table->boolean('revoked')
                       ->default(false)
                       ->comment('If the Access Token is still valid');
-                $table->date('expires_at')
+                $table->dateTime('expires_at')
                       ->comment('When the Access Token will expire');
                 $table->timestamps();
 
