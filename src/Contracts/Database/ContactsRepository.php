@@ -2,7 +2,7 @@
 namespace NunoLopes\DomainContacts\Contracts\Database;
 
 use NunoLopes\DomainContacts\Entities\Contact;
-use NunoLopes\DomainContacts\Exceptions\Contacts\ContactNotFound;
+use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactNotFoundException;
 
 /**
  * Contacts Repository Contract.
@@ -37,7 +37,7 @@ interface ContactsRepository
      *
      * @param int $id - ID of the Contact.
      *
-     * @throws ContactNotFound - If the contact was not found.
+     * @throws ContactNotFoundException - If the contact was not found.
      *
      * @return Contact
      */
