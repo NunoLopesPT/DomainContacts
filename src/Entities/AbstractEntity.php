@@ -8,7 +8,7 @@ use NunoLopes\DomainContacts\Exceptions\Entities\RequiredAttributeMissingExcepti
  *
  * @package NunoLopes\DomainContacts\Entities
  */
-abstract class AbstractEntity
+abstract class AbstractEntity implements \JsonSerializable
 {
     /**
      * @var array $required - Array of required attribute names where the value can't be null.
@@ -107,12 +107,12 @@ abstract class AbstractEntity
     }
 
     /**
-     * Transforms the Entity's attributes array to json.
+     * Returns the attributes in an array to be JsonSerialized.
      *
-     * @return string
+     * @return array
      */
-    public function jsonSerialize(): string
+    public function jsonSerialize(): array
     {
-        return \json_encode($this->getAttributes());
+        return $this->getAttributes();
     }
 }
