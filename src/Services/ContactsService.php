@@ -49,7 +49,7 @@ class ContactsService
      */
     public function listAllContactsOfAuthenticatedUser(): array
     {
-        // Retrieve the logged user.
+        // Retrieve the logged-in user.
         $user = $this->auth->user();
 
         // Only logged-in users can have contacts.
@@ -65,12 +65,22 @@ class ContactsService
      *
      * @param  array  $attributes - Request instance with the validated data.
      *
+     * @throws UserNotAuthenticatedException - If the user is not authenticated.
+     *
      * @return int
      */
     public function create(array $attributes)
     {
+        // Retrieve the logged-in user.
+        $user = $this->auth->user();
+
+        // Only logged-in users can create contacts.
+        if ($user === null) {
+            throw new UserNotAuthenticatedException();
+        }
+
         // Insert the current logged in user id to the saving contact.
-        $attributes['user_id'] = $this->auth->user()->id();
+        $attributes['user_id'] = $user->id();
 
         // Returns the created contact ID so it can be redirected
         // to the edit view.
