@@ -25,8 +25,6 @@ class AccessToken extends Model
         'token_id',
         'user_id',
         'revoked',
-        'created_at',
-        'updated_at',
         'expires_at',
     ];
 
