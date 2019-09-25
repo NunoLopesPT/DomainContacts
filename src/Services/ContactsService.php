@@ -93,8 +93,7 @@ class ContactsService
      * @param  int  $id - Contact that is going to be edited.
      *
      * @throws UserNotAuthenticatedException - If the user is not authenticated.
-     * @throws ContactNotFoundException      - If the contact doesn't exist.
-     * @throws ForbiddenException            - If the user doesn't own the contact.
+     * @throws ContactNotFoundException      - If the contact doesn't exist or the owner is different.
      *
      * @return array
      */
@@ -114,7 +113,7 @@ class ContactsService
 
         // Check if the user owns the contact.
         if ($contact->userId() !== $user->id()) {
-            throw new ForbiddenException();
+            throw new ContactNotFoundException();
         }
 
         return $contact;
