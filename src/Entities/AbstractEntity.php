@@ -25,9 +25,11 @@ abstract class AbstractEntity implements \JsonSerializable
     /**
      * Contact constructor.
      *
-     * @param $attributes
+     * @param array $attributes - Attributes to set on the Entity.
+     *
+     * @throws RequiredAttributeMissingException - If there are required attributes missing.
      */
-    public function __construct($attributes)
+    public function __construct(array $attributes)
     {
         $this->setAttributes($attributes);
     }
@@ -35,7 +37,9 @@ abstract class AbstractEntity implements \JsonSerializable
     /**
      * Sets the attributes of the contact.
      *
-     * @param $attributes
+     * @param array $attributes - Attributes to set on the Entity.
+     *
+     * @throws RequiredAttributeMissingException - If there are required attributes missing.
      *
      * @return void
      */
@@ -43,10 +47,14 @@ abstract class AbstractEntity implements \JsonSerializable
     {
         foreach ($attributes as $key => $value) {
 
+            // Search for the setter method.
             $setter = 'set' . str_replace('_', '', \ucwords($key, '_'));
 
+            // If it exists, call it.
             if (\method_exists($this, $setter)) {
                 $this->{$setter}($value);
+            } else {
+                throw new \InvalidArgumentException("This attribute '$key' doesn't exists.");
             }
         }
 

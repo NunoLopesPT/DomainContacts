@@ -1,6 +1,8 @@
 <?php
 namespace NunoLopes\DomainContacts\Entities;
 
+use NunoLopes\DomainContacts\Exceptions\Entities\RequiredAttributeMissingException;
+
 /**
  * Abstract class AbstractEntity.
  *
@@ -18,6 +20,8 @@ abstract class AbstractEntityState extends AbstractEntity
 
     /**
      * Contact constructor.
+     *
+     * @throws RequiredAttributeMissingException - If there are required attributes missing.
      *
      * @param $attributes
      */
