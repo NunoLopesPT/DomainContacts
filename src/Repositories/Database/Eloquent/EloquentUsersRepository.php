@@ -52,13 +52,13 @@ class EloquentUsersRepository implements UsersRepository
     /**
      * @inheritdoc
      */
-    public function create(User $user): int
+    public function create(User $user): User
     {
         $user = $this->users
                      ->newQuery()
                      ->create($user->getAttributes());
 
-        return $user->id;
+        return new User($user->getAttributes());
     }
 
     /**

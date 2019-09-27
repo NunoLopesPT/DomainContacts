@@ -19,9 +19,9 @@ interface UsersRepository
      *
      * @param User $user - User entity that will be created.
      *
-     * @return int
+     * @return User
      */
-    public function create(User $user): int;
+    public function create(User $user): User;
 
     /**
      * Retrieves a single User by its ID.
