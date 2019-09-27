@@ -1,6 +1,8 @@
 <?php
 namespace NunoLopes\DomainContacts\Entities;
 
+use NunoLopes\DomainContacts\Traits\Entities\AuditTimestampsTrait;
+
 /**
  * Class User.
  *
@@ -8,6 +10,8 @@ namespace NunoLopes\DomainContacts\Entities;
  */
 class User extends AbstractEntityState
 {
+    use AuditTimestampsTrait;
+
     /**
      * @inheritdoc
      */
