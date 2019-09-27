@@ -15,13 +15,14 @@ use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactNotFoundExc
 interface ContactsRepository
 {
     /**
-     * Will create a new Contact in the persistence layer, returning its ID.
+     * Will create a new Contact in the persistence layer, returning
+     * the created Entity with an ID.
      *
      * @param Contact $contact - Contact Entity that is going to be created.
      *
-     * @return int
+     * @return Contact
      */
-    public function create(Contact $contact): int;
+    public function create(Contact $contact): Contact;
 
     /**
      * Retrieve all contacts.

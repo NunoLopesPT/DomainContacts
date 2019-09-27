@@ -48,14 +48,16 @@ class EloquentContactsRepository implements ContactsRepository
 
     /**
      * @inheritdoc
+     *
+     * @see ContactsRepository::create
      */
-    public function create(Contact $contact): int
+    public function create(Contact $contact): Contact
     {
         $contact = $this->contacts
                         ->newQuery()
                         ->create($contact->getAttributes());
 
-        return $contact->id;
+        return new Contact($contact->getAttributes());
     }
 
     /**

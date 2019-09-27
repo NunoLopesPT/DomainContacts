@@ -23,15 +23,14 @@ interface AccessTokenRepository
     public function getByToken(string $token): AccessToken;
 
     /**
-     * Creates an AccessToken.
-     *
-     * Returns the AccessToken ID.
+     * Will create a new AccessToken in the persistence layer, returning
+     * the created Entity with an ID.
      *
      * @param AccessToken $accessToken - AccessToken that will be created.
      *
      * @return int
      */
-    public function create(AccessToken $accessToken): int;
+    public function create(AccessToken $accessToken): AccessToken;
 
     /**
      * Revokes an AccessToken.

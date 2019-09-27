@@ -15,7 +15,8 @@ use NunoLopes\DomainContacts\Exceptions\Repositories\Users\UserNotFoundException
 interface UsersRepository
 {
     /**
-     * Will create a new User in the persistence layer, returning its ID.
+     * Will create a new User in the persistence layer, returning
+     * the created Entity with an ID.
      *
      * @param User $user - User entity that will be created.
      *

@@ -52,13 +52,13 @@ class EloquentAccessTokenRepository implements AccessTokenRepository
      * @todo Handle ForeignKey and Unique token ID exception.
      * @see AccessTokenRepository::create
      */
-    public function create(AccessToken $accessToken): int
+    public function create(AccessToken $accessToken): AccessToken
     {
         $accessToken = $this->accessTokens
                     ->newQuery()
                     ->create($accessToken->getAttributes());
 
-        return $accessToken->id;
+        return new AccessToken($accessToken->getAttributes());
     }
 
     /**
