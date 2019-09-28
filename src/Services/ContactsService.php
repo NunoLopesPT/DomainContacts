@@ -4,6 +4,7 @@ namespace NunoLopes\DomainContacts\Services;
 use NunoLopes\DomainContacts\Contracts\Database\ContactsRepository;
 use NunoLopes\DomainContacts\Contracts\Utilities\Authentication;
 use NunoLopes\DomainContacts\Entities\Contact;
+use NunoLopes\DomainContacts\Exceptions\Entities\RequiredAttributeMissingException;
 use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactNotDeletedException;
 use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactNotFoundException;
 use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactNotUpdatedException;
@@ -64,10 +65,11 @@ class ContactsService
      * @param  array  $attributes - Attributes of the new Contact.
      *
      * @throws UserNotAuthenticatedException - If the user is not authenticated.
+     * @throws RequiredAttributeMissingException - If any required attribute is missing in the attributes.
      *
-     * @return int
+     * @return Contact
      */
-    public function create(array $attributes)
+    public function create(array $attributes): Contact
     {
         // Get the current authenticated user.
         $user = $this->auth->user();
@@ -124,8 +126,7 @@ class ContactsService
      * @param  array $attributes - Attributes that are going to update.
      *
      * @throws UserNotAuthenticatedException - If the user is not authenticated.
-     * @throws ContactNotFoundException      - If the contact to update was not found
-     *                                         or the owner is different.
+     * @throws ContactNotFoundException      - If the contact to update was not found or the owner is different.
      * @throws ContactNotUpdatedException    - If the contact was not updated.
      *
      * @return Contact
