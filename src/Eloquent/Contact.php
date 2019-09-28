@@ -30,14 +30,4 @@ class Contact extends Model
         'phone_number',
         'user_id',
     ];
-
-    /**
-     * Will return the User of the Contact.
-     *
-     * @return BelongsTo
-     */
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
 }
