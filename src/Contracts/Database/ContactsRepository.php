@@ -2,7 +2,9 @@
 namespace NunoLopes\DomainContacts\Contracts\Database;
 
 use NunoLopes\DomainContacts\Entities\Contact;
+use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactAlreadyCreatedException;
 use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactNotFoundException;
+use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactNotUpdatedException;
 
 /**
  * Contacts Repository Contract.
@@ -19,6 +21,8 @@ interface ContactsRepository
      * the created Entity with an ID.
      *
      * @param Contact $contact - Contact Entity that is going to be created.
+     *
+     * @throws ContactAlreadyCreatedException - If the Contact already exists.
      *
      * @return Contact
      */
@@ -59,8 +63,9 @@ interface ContactsRepository
      * @param Contact $contact - Contact that is going to be updated.
      *
      * @throws \UnexpectedValueException - If the Contact has no ID.
+     * @throws ContactNotUpdatedException - If the Contact was not updated.
      *
-     * @return bool
+     * @return Contact
      */
-    public function update(Contact $contact): bool;
+    public function update(Contact $contact): Contact;
 }

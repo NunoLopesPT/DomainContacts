@@ -54,11 +54,21 @@ class EloquentAccessTokenRepository implements AccessTokenRepository
      */
     public function create(AccessToken $accessToken): AccessToken
     {
-        $accessToken = $this->accessTokens
+        // Throw exception if the user already has an ID.
+        if ($accessToken->hasId()) {
+            throw new ContactAlreadyCreatedException();
+        }
+
+        // Create the AccessToken in the database.
+        $model = $this->accessTokens
                     ->newQuery()
                     ->create($accessToken->getAttributes());
 
-        return new AccessToken($accessToken->getAttributes());
+        // Set the new attributes in the original Entity.
+        $accessToken->setAttributes($model->getAttributes());
+
+        // Return the same instance with updated attributes.
+        return $accessToken;
     }
 
     /**

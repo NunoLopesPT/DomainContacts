@@ -4,6 +4,7 @@ namespace NunoLopes\DomainContacts\Repositories\Database\Eloquent;
 use NunoLopes\DomainContacts\Contracts\Database\UsersRepository;
 use NunoLopes\DomainContacts\Eloquent\User as Model;
 use NunoLopes\DomainContacts\Entities\User;
+use NunoLopes\DomainContacts\Exceptions\Repositories\Users\UserNotCreatedException;
 use NunoLopes\DomainContacts\Exceptions\Repositories\Users\UserNotFoundException;
 
 /**
@@ -54,11 +55,24 @@ class EloquentUsersRepository implements UsersRepository
      */
     public function create(User $user): User
     {
-        $user = $this->users
-                     ->newQuery()
-                     ->create($user->getAttributes());
+        // Throw exception if the user already has an ID.
+        if ($user->hasId()) {
+            throw new UserNotCreatedException();
+        }
 
-        return new User($user->getAttributes());
+        // Create the User in the database.
+        $model = $this->users
+                      ->newQuery()
+                      ->create($user->getAttributes());
+
+        // Set the new attributes in the original Entity.
+        $user->setAttributes($model->getAttributes());
+
+        // Commit changes in case entity has dirty attributes.
+        $user->commit();
+
+        // Return the same instance with updated attributes.
+        return $user;
     }
 
     /**
