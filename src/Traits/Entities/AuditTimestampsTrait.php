@@ -6,7 +6,7 @@ namespace NunoLopes\DomainContacts\Traits\Entities;
  *
  * Implementation of the Audit Timestamps to use in Entities that use them.
  *
- * @package NunoLopes\LaravelContactsAPI
+ * @package NunoLopes\DomainContacts
  */
 trait AuditTimestampsTrait
 {

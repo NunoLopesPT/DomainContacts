@@ -8,7 +8,7 @@ use NunoLopes\DomainContacts\Utilities\Base64;
  *
  * This class will help retrieving and building information for the JWT Header and JWT Payload.
  *
- * @package NunoLopes\LaravelContactsAPI
+ * @package NunoLopes\DomainContacts
  */
 abstract class JwtData
 {

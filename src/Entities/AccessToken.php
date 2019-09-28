@@ -7,7 +7,7 @@ use NunoLopes\DomainContacts\Traits\Entities\AuditTimestampsTrait;
 /**
  * AccessTokens Entity.
  *
- * @package NunoLopes\LaravelContactsAPI
+ * @package NunoLopes\DomainContacts
  */
 class AccessToken extends AbstractEntity
 {

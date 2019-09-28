@@ -4,7 +4,7 @@ namespace NunoLopes\DomainContacts\Requests;
 /**
  * This class will define the rules for all SaveContactRequests.
  *
- * @package NunoLopes\LaravelContactsAPI
+ * @package NunoLopes\DomainContacts
  */
 class SaveContactRequest extends AbstractValidationRequest
 {

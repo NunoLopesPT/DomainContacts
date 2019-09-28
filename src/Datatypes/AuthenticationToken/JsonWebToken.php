@@ -9,7 +9,7 @@ use NunoLopes\DomainContacts\Utilities\Base64;
 /**
  * Class JsonWebToken.
  *
- * @package NunoLopes\LaravelContactsAPI
+ * @package NunoLopes\DomainContacts
  */
 class JsonWebToken
 {

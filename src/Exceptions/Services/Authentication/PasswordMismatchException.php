@@ -6,7 +6,7 @@ use NunoLopes\DomainContacts\Exceptions\BaseException;
 /**
  * Class PasswordMismatchException.
  *
- * @package NunoLopes\LaravelContactsAPI
+ * @package NunoLopes\DomainContacts
  */
 class PasswordMismatchException extends BaseException
 {

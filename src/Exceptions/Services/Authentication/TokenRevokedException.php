@@ -6,7 +6,7 @@ use NunoLopes\DomainContacts\Exceptions\BaseException;
 /**
  * Class TokenRevokedException.
  *
- * @package NunoLopes\LaravelContactsAPI
+ * @package NunoLopes\DomainContacts
  * @todo check status code
  */
 class TokenRevokedException extends BaseException

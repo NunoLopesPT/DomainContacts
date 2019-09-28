@@ -6,7 +6,7 @@ use NunoLopes\DomainContacts\Exceptions\BaseException;
 /**
  * Class RequiredAttributeMissingException.
  *
- * @package NunoLopes\LaravelContactsAPI
+ * @package NunoLopes\DomainContacts
  */
 class RequiredAttributeMissingException extends BaseException
 {

@@ -6,7 +6,7 @@ use NunoLopes\DomainContacts\Exceptions\BaseException;
 /**
  * Class UserNotAuthenticatedException.
  *
- * @package NunoLopes\LaravelContactsAPI
+ * @package NunoLopes\DomainContacts
  */
 class UserNotAuthenticatedException extends BaseException
 {

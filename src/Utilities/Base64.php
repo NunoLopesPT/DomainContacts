@@ -6,7 +6,7 @@ namespace NunoLopes\DomainContacts\Utilities;
  *
  * This class will provide helpful functions related with Base64.
  *
- * @package NunoLopes\LaravelContactsAPI
+ * @package NunoLopes\DomainContacts
  */
 class Base64 {
 

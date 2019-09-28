@@ -4,7 +4,7 @@ namespace NunoLopes\DomainContacts\Exceptions;
 /**
  * Class ForbiddenException.
  *
- * @package NunoLopes\LaravelContactsAPI
+ * @package NunoLopes\DomainContacts
  */
 class ForbiddenException extends BaseException
 {

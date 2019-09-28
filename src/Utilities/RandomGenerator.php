@@ -6,7 +6,7 @@ namespace NunoLopes\DomainContacts\Utilities;
  *
  * This class is used to generate random variables.
  *
- * @package NunoLopes\LaravelContactsAPI
+ * @package NunoLopes\DomainContacts
  */
 class RandomGenerator
 {

@@ -6,7 +6,7 @@ use NunoLopes\DomainContacts\Exceptions\NotFoundException;
 /**
  * Class AccessTokenNotFound.
  *
- * @package NunoLopes\LaravelContactsAPI
+ * @package NunoLopes\DomainContacts
  */
 class AccessTokenNotFoundException extends NotFoundException
 {

@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * This class will initialize the Validatior from Illuminate.
  *
- * @package NunoLopes\LaravelContactsAPI
+ * @package NunoLopes\DomainContacts
  */
 abstract class AbstractValidationRequest {
 

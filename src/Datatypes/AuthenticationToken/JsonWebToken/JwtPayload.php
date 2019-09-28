@@ -6,7 +6,7 @@ namespace NunoLopes\DomainContacts\Datatypes\AuthenticationToken\JsonWebToken;
  *
  * This will be a class using a Builder Pattern to help create a JWT Payload.
  *
- * @package NunoLopes\LaravelContactsAPI
+ * @package NunoLopes\DomainContacts
  */
 class JwtPayload extends JwtData
 {

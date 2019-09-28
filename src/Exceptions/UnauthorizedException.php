@@ -4,7 +4,7 @@ namespace NunoLopes\DomainContacts\Exceptions;
 /**
  * Class UnauthorizedException
  *
- * @package NunoLopes\LaravelContactsAPI
+ * @package NunoLopes\DomainContacts
  */
 class UnauthorizedException extends BaseException
 {

@@ -6,7 +6,7 @@ use NunoLopes\DomainContacts\Exceptions\NotFoundException;
 /**
  * Class UserNotFoundException.
  *
- * @package NunoLopes\LaravelContactsAPI
+ * @package NunoLopes\DomainContacts
  */
 class UserNotFoundException extends NotFoundException
 {

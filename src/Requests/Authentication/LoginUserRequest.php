@@ -6,7 +6,7 @@ use NunoLopes\DomainContacts\Requests\AbstractValidationRequest;
 /**
  * This class will define the rules for a Login Request.
  *
- * @package NunoLopes\LaravelContactsAPI
+ * @package NunoLopes\DomainContacts
  */
 class LoginUserRequest extends AbstractValidationRequest
 {

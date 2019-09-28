@@ -12,7 +12,7 @@ use NunoLopes\DomainContacts\Utilities\Hash;
  * This Domain Service will be responsible for all Business Logic
  * related with the Authentication of the Users.
  *
- * @package NunoLopes\LaravelContactsAPI
+ * @package NunoLopes\DomainContacts
  */
 class AuthenticationService
 {

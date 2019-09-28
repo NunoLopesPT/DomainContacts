@@ -6,7 +6,7 @@ use NunoLopes\DomainContacts\Requests\AbstractValidationRequest;
 /**
  * This class will define the rules for a Registration Request.
  *
- * @package NunoLopes\LaravelContactsAPI
+ * @package NunoLopes\DomainContacts
  */
 class RegisterUserRequest extends AbstractValidationRequest
 {
