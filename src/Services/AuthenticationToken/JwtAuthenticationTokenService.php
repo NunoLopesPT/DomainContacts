@@ -3,7 +3,7 @@
 namespace NunoLopes\DomainContacts\Services\AuthenticationToken;
 
 use NunoLopes\DomainContacts\Contracts\Services\AuthenticationTokenService;
-use NunoLopes\DomainContacts\Datatypes\AuthenticationToken\JsonWebToken\JsonWebToken;
+use NunoLopes\DomainContacts\Datatypes\AuthenticationToken\JsonWebToken;
 use NunoLopes\DomainContacts\Entities\AccessToken;
 
 /**
