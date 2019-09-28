@@ -1,10 +1,7 @@
 <?php
 namespace NunoLopes\DomainContacts\Entities;
 
-use NunoLopes\DomainContacts\Exceptions\Entities\ContactHasNoIdException;
-use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactNotFoundException;
 use NunoLopes\DomainContacts\Exceptions\Repositories\Users\UserNotFoundException;
-use NunoLopes\DomainContacts\Factories\Repositories\Database\ContactsRepositoryFactory;
 use NunoLopes\DomainContacts\Factories\Repositories\Database\UsersRepositoryFactory;
 use NunoLopes\DomainContacts\Traits\Entities\AuditTimestampsTrait;
 
@@ -200,26 +197,5 @@ class Contact extends AbstractEntityState
         }
 
         $this->user_id = $id;
-    }
-
-    /**
-     * Re-retrieve this entity from the database.
-     *
-     * @throws ContactHasNoIdException  - If this instance doesn't have an ID.
-     * @throws ContactNotFoundException - If the contact with this id was not found.
-     *
-     * @return self
-     */
-    public function fresh(): self
-    {
-        if ($this->hasId()) {
-            throw new ContactHasNoIdException();
-        }
-
-        parent::__construct(
-            ContactsRepositoryFactory::get()->get($this->id)->getAttributes()
-        );
-
-        return $this;
     }
 }
