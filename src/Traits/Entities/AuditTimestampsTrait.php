@@ -46,6 +46,7 @@ trait AuditTimestampsTrait
      * Returns an Unix timestamp when the record was updated.
      *
      * @todo Return Datatype.
+     * @todo When creating records, update_at should be null.
      *
      * @return int|null
      */
