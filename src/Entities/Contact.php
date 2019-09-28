@@ -15,6 +15,8 @@ use NunoLopes\DomainContacts\Traits\Entities\AuditTimestampsTrait;
  */
 class Contact extends AbstractEntityState
 {
+    use AuditTimestampsTrait;
+
     /**
      * @var array $required - Required fields of the entity..
      */
@@ -166,7 +168,7 @@ class Contact extends AbstractEntityState
      *
      * @return int
      */
-    public function userId()
+    public function userId(): int
     {
         return $this->user_id;
     }
@@ -180,7 +182,8 @@ class Contact extends AbstractEntityState
      */
     protected function setUserId(int $id): void
     {
-        if ($id < 0) {
+        // Throw exception if the User ID is invalid.
+        if ($id <= 0) {
             throw new \InvalidArgumentException('User ID Should be a positive integer.');
         }
 
