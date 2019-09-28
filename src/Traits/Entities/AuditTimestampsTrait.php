@@ -47,10 +47,14 @@ trait AuditTimestampsTrait
      *
      * @todo Return Datatype.
      *
-     * @return int
+     * @return int|null
      */
-    public function updatedAt(): int
+    public function updatedAt(): ?int
     {
+        if ($this->updated_at === null) {
+            return null;
+        }
+
         return \strtotime($this->updated_at);
     }
 
