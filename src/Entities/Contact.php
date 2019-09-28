@@ -174,6 +174,18 @@ class Contact extends AbstractEntityState
     }
 
     /**
+     * Returns the User entity of the Contact.
+     *
+     * @throws UserNotFoundException - If the user was not found.
+     *
+     * @return User
+     */
+    public function user(): User
+    {
+        return UsersRepositoryFactory::get()->get($this->userId());
+    }
+
+    /**
      * Sets the Contact User ID.
      *
      * @param int $id - User's ID of the contact.
