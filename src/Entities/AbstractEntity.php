@@ -73,7 +73,18 @@ abstract class AbstractEntity implements \JsonSerializable
      */
     public function getAttributes(): array
     {
-        return \get_object_vars($this);
+        // Get all attributes using all the getters.
+        $attributes = [];
+        foreach(\array_keys(\get_object_vars($this)) as $attribute) {
+
+            // Construct the getter name.
+            $getter = \lcfirst(\str_replace('_', '', \ucwords($attribute, '_')));
+
+            // Get the attribute's value from the getter.
+            $attributes[$attribute] = $this->{$getter}();
+        }
+
+        return $attributes;
     }
 
     /**
