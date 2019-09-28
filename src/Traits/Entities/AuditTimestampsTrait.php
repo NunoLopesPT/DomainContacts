@@ -25,11 +25,11 @@ trait AuditTimestampsTrait
      *
      * @todo Return Datatype.
      *
-     * @return int
+     * @return ?string
      */
-    public function createdAt(): int
+    public function createdAt(): ?string
     {
-        return \strtotime($this->created_at);
+        return $this->created_at;
     }
 
     /**
@@ -37,7 +37,7 @@ trait AuditTimestampsTrait
      *
      * @param string $createdAt - Date timestamp.
      */
-    protected function setCreatedAt(string $createdAt)
+    protected function setCreatedAt(string $createdAt = null)
     {
         $this->created_at = $createdAt;
     }
@@ -48,15 +48,15 @@ trait AuditTimestampsTrait
      * @todo Return Datatype.
      * @todo When creating records, update_at should be null.
      *
-     * @return int|null
+     * @return string
      */
-    public function updatedAt(): ?int
+    public function updatedAt(): ?string
     {
         if ($this->updated_at === null) {
             return null;
         }
 
-        return \strtotime($this->updated_at);
+        return $this->updated_at;
     }
 
     /**

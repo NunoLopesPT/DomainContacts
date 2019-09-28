@@ -131,11 +131,11 @@ class AccessToken extends AbstractEntity
      *
      * @todo Handle this in Service and return a Datatype.
      *
-     * @return int
+     * @return string
      */
-    public function expiresAt(): int
+    public function expiresAt(): string
     {
-        return \strtotime($this->expires_at);
+        return $this->expires_at;
     }
 
     /**
