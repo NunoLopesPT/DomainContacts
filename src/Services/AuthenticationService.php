@@ -3,6 +3,7 @@ namespace NunoLopes\DomainContacts\Services;
 
 use NunoLopes\DomainContacts\Contracts\Database\UsersRepository;
 use NunoLopes\DomainContacts\Entities\User;
+use NunoLopes\DomainContacts\Exceptions\Entities\RequiredAttributeMissingException;
 use NunoLopes\DomainContacts\Exceptions\Repositories\Users\UserNotFoundException;
 use NunoLopes\DomainContacts\Exceptions\Services\Authentication\PasswordMismatchException;
 use NunoLopes\DomainContacts\Utilities\Hash;
@@ -49,32 +50,39 @@ class AuthenticationService
     public function register (array $attributes): string
     {
         // Converts the password with an one-way hash.
+        if (!isset($attributes['password'])) {
+            throw new RequiredAttributeMissingException('password');
+        }
+
+        // Converts the passsword to hash.
         $attributes['password'] = Hash::create($attributes['password']);
 
         // Saves the user in the persistent layer with the hashed password.
-        $id = $this->usersRepository->create(new User($attributes));
+        $user = $this->usersRepository->create(new User($attributes));
 
         // Creates an authentication token .
-        return $this->accessTokenService->createToken($this->usersRepository->get($id));
+        return $this->accessTokenService->createToken($user);
     }
 
     /**
      * Login a user by returning its credentials.
      *
-     * @param array $attributes - Related attributes with the login.
+     * @param string $email    - Email to search in the login.
+     * @param string $password - Password of the user.
      *
-     * @throws PasswordMismatchException  - If the password of the user doesn't match.
-     * @throws UserNotFoundException      - If the user was not found.
+     * @throws \InvalidArgumentException - If the email or the password is an empty string.
+     * @throws PasswordMismatchException - If the password of the user doesn't match.
+     * @throws UserNotFoundException     - If the user was not found.
      *
-     * @return mixed
+     * @return string
      */
-    public function login (array $attributes) {
-
+    public function login(string $email, string $password): string
+    {
         // Finds User by its email.
-        $user = $this->usersRepository->getByEmail($attributes['email']);
+        $user = $this->usersRepository->getByEmail($email);
 
         // Checks if the passwords match the hash saved in the database.
-        if (!Hash::verify($attributes['password'], $user->password())) {
+        if (!Hash::verify($password, $user->password())) {
             throw new PasswordMismatchException();
         }
 
