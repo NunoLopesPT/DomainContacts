@@ -118,10 +118,23 @@ class JsonWebToken
     /**
      * Decodes a JSON Web Token.
      *
-     * @param $token
+     * @param string $token - JWT Token that is going to be decoded.
+     *
+     * @throws \InvalidArgumentException - If the token is not valid.
+     *
+     * @return void
      */
-    public function decode($token): void
+    public function decode(string $token): void
     {
+        // Throw exceptions if token is invalid.
+        if (\strlen(\trim($token)) === 0) {
+            throw new \InvalidArgumentException('This token is empty');
+        }
+        if (\substr_count($token, '.') !== 2) {
+            throw new \InvalidArgumentException(('This is not a Json Web Token.'));
+        }
+
+        // Deconstructs the token.
         list($headerEncoded, $payloadEncoded, $signatureEncoded) = explode('.', $token);
 
         // Decodes the Data of the JWT token.
