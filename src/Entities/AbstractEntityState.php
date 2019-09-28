@@ -30,6 +30,12 @@ abstract class AbstractEntityState extends AbstractEntity
         // Calls parent constructor.
         parent::__construct($attributes);
 
+        // Set the current attributes as original ones.
+        $this->commit();
+    }
+
+    protected function refreshInitialAttributes(): void
+    {
         // Since the initialState is private, it won't be retrieved from the
         // get_object_vars in the getAttributes because it is not visible there.
         $this->initialState = $this->getAttributes();
@@ -50,5 +56,17 @@ abstract class AbstractEntityState extends AbstractEntity
         }
 
         return $return;
+    }
+
+    /**
+     * Commit current attributes as the original ones.
+     *
+     * @return void
+     */
+    public function commit(): void
+    {
+        // Since the initialState is private, it won't be retrieved from the
+        // get_object_vars in the getAttributes because it is not visible there.
+        $this->initialState = $this->getAttributes();
     }
 }
