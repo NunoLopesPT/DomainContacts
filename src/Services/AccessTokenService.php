@@ -1,14 +1,17 @@
 <?php
 namespace NunoLopes\DomainContacts\Services;
 
-use NunoLopes\DomainContacts\Contracts\Database\AccessTokenRepository;
+use NunoLopes\DomainContacts\Contracts\Repositories\Database\AccessTokenRepository;
 use NunoLopes\DomainContacts\Contracts\Services\AuthenticationTokenService;
 use NunoLopes\DomainContacts\Entities\AccessToken;
 use NunoLopes\DomainContacts\Entities\User;
-use NunoLopes\DomainContacts\Exceptions\Authentication\TokenRevokedException;
+use NunoLopes\DomainContacts\Exceptions\Services\AccessToken\UserHasNoIdException;
+use NunoLopes\DomainContacts\Exceptions\Services\Authentication\TokenRevokedException;
 use NunoLopes\DomainContacts\Utilities\RandomGenerator;
 
 /**
+ * AccessTokenService Class.
+ *
  * This Domain Service will be responsible for all Business Logic related with Access Tokens.
  *
  * @package NunoLopes\DomainContacts
@@ -44,12 +47,15 @@ class AccessTokenService
      *
      * @param User $user - The user that the token will be created for.
      *
-     * @throws \Exception - If was not possible to create a random string.
-     *
      * @return string
      */
     public function createToken(User $user): string
     {
+        // Throw exception if the user has no ID.
+        if (!$user->hasId()) {
+            throw new UserHasNoIdException();
+        }
+
         // Collects current timestamp.
         $stamp = new \DateTime();
 
@@ -58,7 +64,6 @@ class AccessTokenService
             'token_id'   => RandomGenerator::string(),
             'user_id'    => $user->id(),
             'revoked'    => false,
-            'created_at' => $stamp->format('Y-m-d H:i:s'),
             'expires_at' => $stamp->add(new \DateInterval("P30D"))->format('Y-m-d H:i:s'),
         ]);
 
@@ -101,6 +106,8 @@ class AccessTokenService
      * Returns the successful of the operation.
      *
      * @param string $token - The authentication token.
+     *
+     * @throws \InvalidArgumentException - If the token is empty.
      *
      * @return bool
      */
