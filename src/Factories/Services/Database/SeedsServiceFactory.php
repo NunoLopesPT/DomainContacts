@@ -1,7 +1,8 @@
 <?php
-namespace NunoLopes\DomainContacts\Factories\Services;
+namespace NunoLopes\DomainContacts\Factories\Services\Database;
 
-use NunoLopes\DomainContacts\Services\SeedsService;
+use NunoLopes\DomainContacts\Factories\Database\Eloquent\CapsuleFactory;
+use NunoLopes\DomainContacts\Services\Database\SeedsService;
 
 /**
  * Class SeedsServiceFactory.
@@ -22,6 +23,9 @@ class SeedsServiceFactory
      */
     private static function create(): SeedsService
     {
+        // Boot eloquent instance.
+        CapsuleFactory::get();
+
         return new SeedsService();
     }
 
