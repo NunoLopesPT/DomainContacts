@@ -42,4 +42,46 @@ class HashTest extends AbstractTest
             'The verification should have returned true.'
         );
     }
+
+    /**
+     * Test hash fails if string is empty.
+     *
+     * @return void
+     */
+    public function testHashFailsIfStringIsEmpty(): void
+    {
+        // Creates expectation.
+        $this->expectException(\InvalidArgumentException::class);
+
+        // Performs test.
+        Hash::create('');
+    }
+
+    /**
+     * Test hash verification fails if string is empty.
+     *
+     * @return void
+     */
+    public function testHashVerificationFailsIfStringIsEmpty(): void
+    {
+        // Creates expectation.
+        $this->expectException(\InvalidArgumentException::class);
+
+        // Performs test.
+        Hash::verify('', 'hash');
+    }
+
+    /**
+     * Test hash verification fails if hash is empty.
+     *
+     * @return void
+     */
+    public function testHashVerificationFailsIfHashIsEmpty(): void
+    {
+        // Creates expectation.
+        $this->expectException(\InvalidArgumentException::class);
+
+        // Performs test.
+        Hash::verify('string', '');
+    }
 }
