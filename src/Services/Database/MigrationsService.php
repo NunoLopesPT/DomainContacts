@@ -1,15 +1,14 @@
 <?php
-namespace NunoLopes\DomainContacts\Services;
+namespace NunoLopes\DomainContacts\Services\Database;
 
-use DatabaseSeeder;
 use Illuminate\Database\Migrations\Migrator;
 
 /**
  * Class MigrationsService.
  *
- * This class will be the responsible for all migrations.
+ * This class will be the responsible for migrations.
  *
- * @package NunoLopes\DomainContacts\Services
+ * @package NunoLopes\DomainContacts
  */
 class MigrationsService
 {
@@ -43,25 +42,11 @@ class MigrationsService
         }
 
         // Run all migrations inside migrations folder.
-        $result = $this->migrator->run(__DIR__ . '/../../database/migrations');
+        $result = $this->migrator->run(__DIR__ . '/../../../database/migrations');
 
         echo "Migrations created with success\n";
 
         return $result;
-    }
-
-    /**
-     * Populate the database with random records.
-     *
-     * @return array
-     */
-    public function seedDatabase(): void
-    {
-        echo "Running seeds";
-
-        require_once __DIR__ . '/../../database/seeds/DatabaseSeeder.php';
-        $seeder = new DatabaseSeeder();
-        $seeder->run();
     }
 
     /**
@@ -73,7 +58,7 @@ class MigrationsService
     {
         echo "Rolling back migrations...\n";
 
-        $result = $this->migrator->reset([__DIR__ . '/../../database/migrations']);
+        $result = $this->migrator->reset([__DIR__ . '/../../../database/migrations']);
 
         echo "Migrations rolled back with success\n";
 
