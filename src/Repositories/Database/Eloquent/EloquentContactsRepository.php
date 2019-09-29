@@ -1,7 +1,7 @@
 <?php
 namespace NunoLopes\DomainContacts\Repositories\Database\Eloquent;
 
-use NunoLopes\DomainContacts\Contracts\Database\ContactsRepository;
+use NunoLopes\DomainContacts\Contracts\Repositories\Database\ContactsRepository;
 use NunoLopes\DomainContacts\Eloquent\Contact as Model;
 use NunoLopes\DomainContacts\Entities\Contact;
 use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactAlreadyCreatedException;

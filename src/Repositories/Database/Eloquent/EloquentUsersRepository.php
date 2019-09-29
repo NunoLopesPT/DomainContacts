@@ -1,10 +1,10 @@
 <?php
 namespace NunoLopes\DomainContacts\Repositories\Database\Eloquent;
 
-use NunoLopes\DomainContacts\Contracts\Database\UsersRepository;
+use NunoLopes\DomainContacts\Contracts\Repositories\Database\UsersRepository;
 use NunoLopes\DomainContacts\Eloquent\User as Model;
 use NunoLopes\DomainContacts\Entities\User;
-use NunoLopes\DomainContacts\Exceptions\Repositories\Users\UserNotCreatedException;
+use NunoLopes\DomainContacts\Exceptions\Repositories\Users\UserAlreadyCreatedException;
 use NunoLopes\DomainContacts\Exceptions\Repositories\Users\UserNotFoundException;
 
 /**
@@ -57,7 +57,7 @@ class EloquentUsersRepository implements UsersRepository
     {
         // Throw exception if the user already has an ID.
         if ($user->hasId()) {
-            throw new UserNotCreatedException();
+            throw new UserAlreadyCreatedException();
         }
 
         // Create the User in the database.
