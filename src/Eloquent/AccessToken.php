@@ -2,7 +2,6 @@
 namespace NunoLopes\DomainContacts\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * AccessToken Eloquent's Model class
