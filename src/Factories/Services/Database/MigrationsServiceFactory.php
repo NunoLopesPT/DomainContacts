@@ -2,7 +2,7 @@
 namespace NunoLopes\DomainContacts\Factories\Services;
 
 use NunoLopes\DomainContacts\Factories\Database\Eloquent\MigrationsFactory;
-use NunoLopes\DomainContacts\Services\MigrationsService;
+use NunoLopes\DomainContacts\Services\Database\MigrationsService;
 
 /**
  * Class MigrationsServiceFactory.
