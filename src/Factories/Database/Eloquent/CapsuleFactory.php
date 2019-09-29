@@ -2,8 +2,7 @@
 namespace NunoLopes\DomainContacts\Factories\Database\Eloquent;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
-
-require_once (__DIR__ . '/../../../../config.php');
+use NunoLopes\DomainContacts\Factories\Repositories\ConfigurationRepositoryFactory;
 
 /**
  * Class CapsuleFactory.
@@ -27,16 +26,19 @@ class CapsuleFactory
      */
     private static function create(): Capsule
     {
+        // Starts Capsule instance.
         $capsule = new Capsule();
 
+        // Get the configurations from the database.
+        $config = ConfigurationRepositoryFactory::get()->getDatabase();
+
         // Add the configurations in the config file.
-        // @todo Add a global way to input this configuration without the config file.
         $capsule->addConnection([
-            'driver'    => DB_DRIVER,
-            'host'      => DB_HOST,
-            'database'  => DB_NAME,
-            'username'  => DB_USER,
-            'password'  => DB_PASS,
+            'driver'    => $config->driver(),
+            'host'      => $config->host(),
+            'database'  => $config->name(),
+            'username'  => $config->user(),
+            'password'  => $config->pass(),
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
         ]);
