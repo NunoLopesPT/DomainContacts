@@ -2,6 +2,7 @@
 namespace NunoLopes\DomainContacts\Contracts\Repositories\Database;
 
 use NunoLopes\DomainContacts\Entities\AccessToken;
+use NunoLopes\DomainContacts\Exceptions\Repositories\AccessTokens\AccessTokenAlreadyCreatedException;
 
 /**
  * AccessToken Repository Contract.
@@ -27,6 +28,8 @@ interface AccessTokenRepository
      * the created Entity with an ID.
      *
      * @param AccessToken $accessToken - AccessToken that will be created.
+     *
+     * @throws AccessTokenAlreadyCreatedException - If the AccessToken is already created.
      *
      * @return int
      */
