@@ -5,6 +5,7 @@ use NunoLopes\DomainContacts\Contracts\Utilities\AsymmetricCryptography;
 use NunoLopes\DomainContacts\Datatypes\AuthenticationToken\JsonWebToken\JwtHeader;
 use NunoLopes\DomainContacts\Datatypes\AuthenticationToken\JsonWebToken\JwtPayload;
 use NunoLopes\DomainContacts\Utilities\Base64;
+use NunoLopes\DomainContacts\Utilities\Signatures\RsaSignature;
 
 /**
  * Class JsonWebToken.
@@ -35,21 +36,11 @@ class JsonWebToken
 
     /**
      * JsonWebToken constructor.
-     *
-     * @todo Set this constructor without arguments.
-     *
-     * @param JwtHeader              $header                 - JWT Header instance.
-     * @param JwtPayload             $payload                - JWT Payload instance.
-     * @param AsymmetricCryptography $asymmetricCryptography - Asymmetric Cryptography instance.
      */
-    public function __construct(
-        JwtHeader $header,
-        JwtPayload $payload,
-        AsymmetricCryptography $asymmetricCryptography
-    ) {
-        $this->header = $header;
-        $this->payload = $payload;
-        $this->asymmetricCryptography = $asymmetricCryptography;
+    public function __construct()
+    {
+        $this->header  = new JwtHeader();
+        $this->payload = new JwtPayload();
     }
 
     /**
@@ -148,47 +139,28 @@ class JsonWebToken
     /**
      * Creates the JSON Web Token Signature.
      *
-     * @todo Create a map between JWT Header and the signature_alg in openssl_sign
-     * @todo If argument in another class.
-     *
      * @return void
      */
-    public function sign(): void
+    public function sign(RsaSignature $signature): void
     {
-        // Generates the signature and checks if it has failed.
-        if (!\openssl_sign(
+        $this->signature = $signature->sign(
             $this->dataEncoded(),
-            $this->signature,
-            \openssl_pkey_get_private($this->asymmetricCryptography->privateKeyPath()),
-            'sha256WithRSAEncryption')
-        ) {
-            // @todo throw Signature couldn't be signed
-        }
+            $this->asymmetricCryptography->privateKeyPath()
+        );
     }
 
     /**
      * Check if the JSON Web Token was not changed.
      *
-     * @todo Create a map between JWT Header and the signature_alg in openssl_sign
-     * @todo If argument in another class.
-     *
      * @return bool
      */
-    public function verify(): bool
+    public function verify(RsaSignature $signature): bool
     {
-        $result = \openssl_verify(
+        return $signature->verify(
             $this->dataEncoded(),
             $this->signature,
-            \openssl_pkey_get_public($this->asymmetricCryptography->publicKeyPath()),
-            'sha256'
+            $this->asymmetricCryptography->publicKeyPath()
         );
-
-        if ($result === -1)
-        {
-            // @todo throw Signature not valid
-        }
-
-        return \boolval($result);
     }
 
     /**
