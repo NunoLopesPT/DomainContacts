@@ -30,6 +30,8 @@ interface AuthenticationTokenService
      *
      * @param string $token - Authentication Token string.
      *
+     * @throws \InvalidArgumentException - If the token string is empty.
+     *
      * @return string
      */
     public function accessTokenId(string $token): string;
