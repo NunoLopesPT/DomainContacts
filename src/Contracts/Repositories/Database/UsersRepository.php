@@ -1,5 +1,5 @@
 <?php
-namespace NunoLopes\DomainContacts\Contracts\Database;
+namespace NunoLopes\DomainContacts\Contracts\Repositories\Database;
 
 use NunoLopes\DomainContacts\Entities\User;
 use NunoLopes\DomainContacts\Exceptions\Repositories\Users\UserNotFoundException;

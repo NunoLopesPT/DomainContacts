@@ -1,5 +1,5 @@
 <?php
-namespace NunoLopes\DomainContacts\Contracts\Database;
+namespace NunoLopes\DomainContacts\Contracts\Repositories\Database;
 
 use NunoLopes\DomainContacts\Entities\Contact;
 use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactAlreadyCreatedException;
