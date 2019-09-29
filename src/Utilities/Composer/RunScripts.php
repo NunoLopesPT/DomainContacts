@@ -1,8 +1,8 @@
 <?php
 namespace NunoLopes\DomainContacts\Utilities\Composer;
 
-use NunoLopes\DomainContacts\Factories\Services\MigrationsServiceFactory;
-use NunoLopes\DomainContacts\Factories\Services\SeedsServiceFactory;
+use NunoLopes\DomainContacts\Factories\Services\Database\MigrationsServiceFactory;
+use NunoLopes\DomainContacts\Factories\Services\Database\SeedsServiceFactory;
 
 /**
  * Class Migrations.
