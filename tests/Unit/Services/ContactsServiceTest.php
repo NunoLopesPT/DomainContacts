@@ -15,6 +15,8 @@ use PHPUnit\Framework\MockObject\MockObject;
 /**
  * Class ContactsServiceTest.
  *
+ * @covers \NunoLopes\DomainContacts\Services\ContactsService
+ *
  * @package NunoLopes\DomainContacts
  */
 class ContactsServiceTest extends AbstractTest
@@ -54,8 +56,6 @@ class ContactsServiceTest extends AbstractTest
     /**
      * Test that a contact can be created if there is a loggedin user.
      *
-     * @covers \NunoLopes\DomainContacts\Services\ContactsService::listAllContactsOfAuthenticatedUser()
-     *
      * @return void
      */
     public function testAllContactsCanBeRetrieveIfUserIsLoggedIn(): void
@@ -93,8 +93,6 @@ class ContactsServiceTest extends AbstractTest
     /**
      * Test that a contact cannot be created if there is no loggedin user.
      *
-     * @covers \NunoLopes\DomainContacts\Services\ContactsService::listAllContactsOfAuthenticatedUser()
-     *
      * @return void
      */
     public function testAllUserContactsCanNotBeRetrieveIfUserIsNotLoggedIn(): void
@@ -114,8 +112,6 @@ class ContactsServiceTest extends AbstractTest
 
     /**
      * Test that a contact can be created if there is a loggedin user.
-     *
-     * @covers \NunoLopes\DomainContacts\Services\ContactsService::create()
      *
      * @return void
      */
@@ -158,8 +154,6 @@ class ContactsServiceTest extends AbstractTest
     /**
      * Test that a contact can be created if there is a loggedin user.
      *
-     * @covers \NunoLopes\DomainContacts\Services\ContactsService::create()
-     *
      * @return void
      */
     public function testContactCannotBeCreatedIfNoUserIsLoggedIn(): void
@@ -185,8 +179,6 @@ class ContactsServiceTest extends AbstractTest
     /**
      * Test that a contact can be retrieved for editing if the user is authenticated
      * and the contact exists.
-     *
-     * @covers \NunoLopes\DomainContacts\Services\ContactsService::edit()
      *
      * @return void
      */
@@ -232,8 +224,6 @@ class ContactsServiceTest extends AbstractTest
      * Test that a contact cannot be found if the Authenticated
      * User's ID is different from the Contact's User ID.
      *
-     * @covers \NunoLopes\DomainContacts\Services\ContactsService::edit()
-     *
      * @return void
      */
     public function testCannotRetrieveContactToEditIfOwnerIsDifferentDoesNotExists(): void
@@ -275,8 +265,6 @@ class ContactsServiceTest extends AbstractTest
     /**
      * Test that a contact can not be eddited if there is no loggedin user.
      *
-     * @covers \NunoLopes\DomainContacts\Services\ContactsService::edit()
-     *
      * @return void
      */
     public function testContactCannotBeEditedIfNoUserIsLoggedIn(): void
@@ -296,8 +284,6 @@ class ContactsServiceTest extends AbstractTest
 
     /**
      * Test that a contact can be updated if it exists and the user is logged-in.
-     *
-     * @covers \NunoLopes\DomainContacts\Services\ContactsService::update()
      *
      * @return void
      */
@@ -360,8 +346,6 @@ class ContactsServiceTest extends AbstractTest
     /**
      * Test that a contact can be updated if it exists and the user is logged-in.
      *
-     * @covers \NunoLopes\DomainContacts\Services\ContactsService::update()
-     *
      * @return void
      */
     public function testCannotUpdateContactIfOwnerIsDifferent(): void
@@ -409,8 +393,6 @@ class ContactsServiceTest extends AbstractTest
     /**
      * Test that a contact can not be updated if there is no loggedin user.
      *
-     * @covers \NunoLopes\DomainContacts\Services\ContactsService::update()
-     *
      * @return void
      */
     public function testContactCannotBeUpdatedIfNoUserIsLoggedIn(): void
@@ -439,8 +421,6 @@ class ContactsServiceTest extends AbstractTest
     /**
      * Test that a Contact can be destroyed if the user is loggedin and the
      * owner of the contact is the same.
-     *
-     * @covers \NunoLopes\DomainContacts\Services\ContactsService::destroy()
      *
      * @return void
      */
@@ -483,8 +463,6 @@ class ContactsServiceTest extends AbstractTest
     /**
      * Test that a contact cannot be destroyed if the owner is different.
      *
-     * @covers \NunoLopes\DomainContacts\Services\ContactsService::destroy()
-     *
      * @return void
      */
     public function testCannotDestroyContactIfOwnerIsDifferent(): void
@@ -524,8 +502,6 @@ class ContactsServiceTest extends AbstractTest
     /**
      * Test that a contact can not be destroyed if there is no loggedin user.
      *
-     * @covers \NunoLopes\DomainContacts\Services\ContactsService::destroy()
-     *
      * @return void
      */
     public function testContactCannotBeDestroyedIfNoUserIsLoggedIn(): void
@@ -545,8 +521,6 @@ class ContactsServiceTest extends AbstractTest
 
     /**
      * Test that an Exception is thrown if the destroy fails.
-     *
-     * @covers \NunoLopes\DomainContacts\Services\ContactsService::destroy()
      *
      * @return void
      */

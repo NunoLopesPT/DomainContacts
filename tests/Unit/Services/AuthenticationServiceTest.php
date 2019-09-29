@@ -14,6 +14,8 @@ use PHPUnit\Framework\MockObject\MockObject;
 /**
  * Class AuthenticationServiceTest.
  *
+ * @covers \NunoLopes\DomainContacts\Services\AuthenticationService
+ *
  * @package NunoLopes\DomainContacts
  */
 class AuthenticationServiceTest extends AbstractTest
@@ -52,7 +54,6 @@ class AuthenticationServiceTest extends AbstractTest
     /**
      * Test we can register a new user.
      *
-     * @covers \NunoLopes\DomainContacts\Services\AuthenticationService::register()
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
@@ -103,8 +104,6 @@ class AuthenticationServiceTest extends AbstractTest
     /**
      * Test we cannot register an user if the password in the attributes is missing.
      *
-     * @covers \NunoLopes\DomainContacts\Services\AuthenticationService::register()
-     *
      * @return void
      */
     public function testCannotRegisterUserIfPasswordIsMissing(): void
@@ -125,8 +124,6 @@ class AuthenticationServiceTest extends AbstractTest
     /**
      * Test we cannot register an user if the attributes array is empty.
      *
-     * @covers \NunoLopes\DomainContacts\Services\AuthenticationService::register()
-     *
      * @return void
      */
     public function testCannotRegisterUserIfAttributesAreEmpty(): void
@@ -140,7 +137,6 @@ class AuthenticationServiceTest extends AbstractTest
     /**
      * Test we can register a new user.
      *
-     * @covers \NunoLopes\DomainContacts\Services\AuthenticationService::login()
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
@@ -196,8 +192,6 @@ class AuthenticationServiceTest extends AbstractTest
 
     /**
      * Test we can register a new user.
-     *
-     * @covers \NunoLopes\DomainContacts\Services\AuthenticationService::login()
      *
      * @return void
      */
