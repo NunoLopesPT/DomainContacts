@@ -2,13 +2,12 @@
 namespace NunoLopes\DomainContacts\Utilities\Composer;
 
 use NunoLopes\DomainContacts\Factories\Services\MigrationsServiceFactory;
+use NunoLopes\DomainContacts\Factories\Services\SeedsServiceFactory;
 
 /**
  * Class Migrations.
  *
  * Utility class to help running migrations via composer script.
- *
- * @todo run tests also by scripts.
  *
  * @package NunoLopes\DomainContacts
  */
@@ -35,7 +34,7 @@ class RunScripts
         // Fix this helper is not autoloaded.
         require_once (__DIR__ . '/../../../vendor/illuminate/support/helpers.php');
 
-        MigrationsServiceFactory::get()->seedDatabase();
+        SeedsServiceFactory::get()->seedDatabase();
     }
 
     /**
