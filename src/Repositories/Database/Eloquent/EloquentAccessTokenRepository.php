@@ -1,9 +1,10 @@
 <?php
 namespace NunoLopes\DomainContacts\Repositories\Database\Eloquent;
 
-use NunoLopes\DomainContacts\Contracts\Database\AccessTokenRepository;
+use NunoLopes\DomainContacts\Contracts\Repositories\Database\AccessTokenRepository;
 use NunoLopes\DomainContacts\Eloquent\AccessToken as Model;
 use NunoLopes\DomainContacts\Entities\AccessToken;
+use NunoLopes\DomainContacts\Exceptions\Repositories\AccessTokens\AccessTokenAlreadyCreatedException;
 use NunoLopes\DomainContacts\Exceptions\Repositories\AccessTokens\AccessTokenNotFoundException;
 
 /**
@@ -27,6 +28,7 @@ class EloquentAccessTokenRepository implements AccessTokenRepository
 
     /**
      * @inheritdoc
+     *
      * @see AccessTokenRepository::getByToken
      */
     public function getByToken(string $tokenId): AccessToken
@@ -49,14 +51,16 @@ class EloquentAccessTokenRepository implements AccessTokenRepository
 
     /**
      * @inheritdoc
+     *
      * @todo Handle ForeignKey and Unique token ID exception.
+     *
      * @see AccessTokenRepository::create
      */
     public function create(AccessToken $accessToken): AccessToken
     {
         // Throw exception if the user already has an ID.
         if ($accessToken->hasId()) {
-            throw new ContactAlreadyCreatedException();
+            throw new AccessTokenAlreadyCreatedException();
         }
 
         // Create the AccessToken in the database.
@@ -73,6 +77,7 @@ class EloquentAccessTokenRepository implements AccessTokenRepository
 
     /**
      * @inheritdoc
+     *
      * @see AccessTokenRepository::revoke
      */
     public function revoke(string $id): bool
