@@ -1,7 +1,7 @@
 <?php
 namespace NunoLopes\DomainContacts\Services;
 
-use NunoLopes\DomainContacts\Contracts\Database\ContactsRepository;
+use NunoLopes\DomainContacts\Contracts\Repositories\Database\ContactsRepository;
 use NunoLopes\DomainContacts\Contracts\Utilities\Authentication;
 use NunoLopes\DomainContacts\Entities\Contact;
 use NunoLopes\DomainContacts\Exceptions\Entities\RequiredAttributeMissingException;
@@ -120,9 +120,10 @@ class ContactsService
     }
 
     /**
-     * Update the specified Contact in storage.
+     * Update the specified Contact in storage and returns the entity
+     * with the updated attributes.
      *
-     * @param  int  $id - ID of the Contact that is going to be updated.
+     * @param  int   $id         - ID of the Contact that is going to be updated.
      * @param  array $attributes - Attributes that are going to update.
      *
      * @throws UserNotAuthenticatedException - If the user is not authenticated.
@@ -155,15 +156,10 @@ class ContactsService
 
         // Update the contact with the validated data,
         // and save it in the persistence layer.
-        if (!$this->contactsRepository->update($contact)) {
-
-            // If we reach the end of this function, the contact was not
-            // updated so we throw an exception.
-            throw new ContactNotUpdatedException();
-        }
+        $this->contactsRepository->update($contact);
 
         // Returns the updated contact from the database.
-        return $contact->fresh();
+        return $contact;
     }
 
     /**

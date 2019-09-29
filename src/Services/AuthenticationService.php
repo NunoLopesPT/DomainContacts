@@ -1,7 +1,7 @@
 <?php
 namespace NunoLopes\DomainContacts\Services;
 
-use NunoLopes\DomainContacts\Contracts\Database\UsersRepository;
+use NunoLopes\DomainContacts\Contracts\Repositories\Database\UsersRepository;
 use NunoLopes\DomainContacts\Entities\User;
 use NunoLopes\DomainContacts\Exceptions\Entities\RequiredAttributeMissingException;
 use NunoLopes\DomainContacts\Exceptions\Repositories\Users\UserNotFoundException;
