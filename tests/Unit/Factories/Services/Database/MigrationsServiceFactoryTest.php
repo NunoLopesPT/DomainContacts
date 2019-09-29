@@ -1,5 +1,5 @@
 <?php
-namespace NunoLopes\Tests\DomainContacts\Unit\Factories\Services;
+namespace NunoLopes\Tests\DomainContacts\Unit\Factories\Services\Database;
 
 use NunoLopes\DomainContacts\Factories\Services\Database\MigrationsServiceFactory;
 use NunoLopes\Tests\DomainContacts\Unit\Factories\AbstractFactoriesTest;
