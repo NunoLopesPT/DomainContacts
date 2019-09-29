@@ -1,0 +1,9 @@
+<?php
+
+return [
+    'host'   => '', //
+    'user'   => '', // Name of the Database User
+    'pass'   => '', // Password of the Database User
+    'name'   => '', // Name of the Database
+    'driver' => '', //
+];
