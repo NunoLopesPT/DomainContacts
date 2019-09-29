@@ -1,7 +1,7 @@
 <?php
 namespace NunoLopes\DomainContacts\Factories\Repositories\Database;
 
-use NunoLopes\DomainContacts\Contracts\Database\UsersRepository;
+use NunoLopes\DomainContacts\Contracts\Repositories\Database\UsersRepository;
 use NunoLopes\DomainContacts\Eloquent\User;
 use NunoLopes\DomainContacts\Repositories\Database\Eloquent\EloquentUsersRepository;
 
