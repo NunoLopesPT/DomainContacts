@@ -21,6 +21,11 @@ class RandomGenerator
      */
     public static function string(int $length = 40): string
     {
+        // Throw exception if the length is invalid.
+        if ($length <= 0) {
+            throw new \InvalidArgumentException("The lenght must be a positive number.");
+        }
+
         // The length of the string won't be the same length,
         // because the generated string is in bytes, and with the conversion from
         // bin to hex the length is bigger.
