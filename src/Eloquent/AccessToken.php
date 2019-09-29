@@ -27,14 +27,4 @@ class AccessToken extends Model
         'revoked',
         'expires_at',
     ];
-
-    /**
-     * Will return the User of the AccessToken.
-     *
-     * @return BelongsTo
-     */
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
 }
