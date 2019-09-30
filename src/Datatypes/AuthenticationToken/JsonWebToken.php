@@ -2,10 +2,10 @@
 namespace NunoLopes\DomainContacts\Datatypes\AuthenticationToken;
 
 use NunoLopes\DomainContacts\Contracts\Utilities\AsymmetricCryptography;
+use NunoLopes\DomainContacts\Contracts\Utilities\RsaSignature;
 use NunoLopes\DomainContacts\Datatypes\AuthenticationToken\JsonWebToken\JwtHeader;
 use NunoLopes\DomainContacts\Datatypes\AuthenticationToken\JsonWebToken\JwtPayload;
 use NunoLopes\DomainContacts\Utilities\Base64;
-use NunoLopes\DomainContacts\Utilities\Signatures\RsaSignature;
 
 /**
  * Class JsonWebToken.
@@ -23,11 +23,6 @@ class JsonWebToken
      * @var JwtPayload $payload - JWT Payload.
      */
     private $payload = null;
-
-    /**
-     * @var AsymmetricCryptography - Asymmetric Cryptography instance.
-     */
-    private $asymmetricCryptography = null;
 
     /**
      * @var string $signature - Signature of the JWT.
@@ -141,11 +136,11 @@ class JsonWebToken
      *
      * @return void
      */
-    public function sign(RsaSignature $signature): void
+    public function sign(RsaSignature $signature, AsymmetricCryptography $crypt): void
     {
         $this->signature = $signature->sign(
             $this->dataEncoded(),
-            $this->asymmetricCryptography->privateKeyPath()
+            $crypt->privateKeyPath()
         );
     }
 
@@ -154,12 +149,12 @@ class JsonWebToken
      *
      * @return bool
      */
-    public function verify(RsaSignature $signature): bool
+    public function verify(RsaSignature $signature, AsymmetricCryptography $crypt): bool
     {
         return $signature->verify(
             $this->dataEncoded(),
             $this->signature,
-            $this->asymmetricCryptography->publicKeyPath()
+            $crypt->publicKeyPath()
         );
     }
 
