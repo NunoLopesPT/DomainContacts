@@ -22,7 +22,7 @@ class JwtHeader extends JwtData
      *
      * https://tools.ietf.org/html/rfc7519#section-5.2
      */
-    protected $cty = null;
+    protected $cty = 'JWT';
 
     /**
      * Setter for Algorithm in the JWT Token (Usually is 'JWT').
@@ -41,18 +41,18 @@ class JwtHeader extends JwtData
     }
 
     /**
-     * Setter for the Content Type in the JWT Token.
+     * Encodes the JWT Header if it fills all required attributes.
      *
-     * @param string $cty - Content Type.
+     * @throws \UnexpectedValueException - If the Algorithm is not set.
      *
-     * @see https://tools.ietf.org/html/rfc7519#section-5.2
-     *
-     * @return JwtHeader
+     * @return string
      */
-    public function type(string $cty): self
+    public function encoded(): string
     {
-        $this->cty = $cty;
+        if ($this->alg === null) {
+            throw new \UnexpectedValueException('Algorithm is not set.');
+        }
 
-        return $this;
+        return parent::encoded();
     }
 }
