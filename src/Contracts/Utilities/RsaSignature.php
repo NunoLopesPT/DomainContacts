@@ -1,6 +1,7 @@
 <?php
 namespace NunoLopes\DomainContacts\Contracts\Utilities;
 
+use NunoLopes\DomainContacts\Datatypes\AsymmetricCryptography;
 /**
  * Interface RsaSignature.
  *
@@ -26,7 +27,7 @@ interface RsaSignature
      *
      * @return AsymmetricCryptography
      */
-    public function create(): string;
+    public function create(): AsymmetricCryptography;
 
     /**
      * Verifies a signature.
@@ -43,9 +44,9 @@ interface RsaSignature
      * Get the signature of a data.
      *
      * @param string $data           - Data that will be retrieved a signature.
-     * @param string $privateKeyPath - Path of a private key to generate the signature.
+     * @param string $privateKey - Path of a private key to generate the signature.
      *
      * @return string
      */
-    public function sign(string $data, string $privateKeyPath): string;
+    public function sign(string $data, $privateKey): string;
 }
