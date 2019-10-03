@@ -1,16 +1,14 @@
 <?php
 namespace NunoLopes\DomainContacts\Services\Database;
 
-use Illuminate\Database\Seeder;
-
 /**
  * Class MigrationsService.
  *
  * This class will be the responsible for all migrations.
  *
- * @package NunoLopes\DomainContacts\Services
+ * @package NunoLopes\DomainContacts
  */
-class SeedsService extends Seeder
+class SeedsService
 {
     /**
      * Populate the database with random records.
@@ -44,7 +42,7 @@ class SeedsService extends Seeder
 
         // Run all seeds.
         foreach ($seeders as $seeder) {
-            $this->call($seeder);
+            (new $seeder)->run();
         }
     }
 }
