@@ -39,16 +39,6 @@ class JsonWebToken
     }
 
     /**
-     * Returns the JWT Header instance.
-     *
-     * @return JwtHeader
-     */
-    public function header(): JwtHeader
-    {
-        return $this->header;
-    }
-
-    /**
      * Returns the JWT Payload instance.
      *
      * @return JwtPayload
@@ -56,26 +46,6 @@ class JsonWebToken
     public function payload(): JwtPayload
     {
         return $this->payload;
-    }
-
-    /**
-     * Returns the Header encoded.
-     *
-     * @return string
-     */
-    public function headerEncoded(): string
-    {
-        return $this->header->encoded();
-    }
-
-    /**
-     * Returns the Payload encoded.
-     *
-     * @return string
-     */
-    public function payloadEncoded(): string
-    {
-        return $this->payload->encoded();
     }
 
     /**
@@ -89,16 +59,56 @@ class JsonWebToken
     }
 
     /**
-     * Encode the Header and the Payload of the JSON Web Token.
+     * Returns the Header and the Payload encoded separated by a dot.
      *
      * @return string
      */
     private function dataEncoded(): string
     {
-        $headerEncoded = $this->headerEncoded();
-        $payloadEncoded = $this->payloadEncoded();
+        return $this->header->encoded() . '.' . $this->payload->encoded();
+    }
 
-        return "$headerEncoded.$payloadEncoded";
+    /**
+     * Creates the JSON Web Token Signature.
+     *
+     * @param RsaSignature           $signature - Signature Instance.
+     * @param AsymmetricCryptography $crypt     - AsymmetricCryptography instance.
+     *
+     * @return void
+     */
+    public function sign(RsaSignature $signature, AsymmetricCryptography $crypt): void
+    {
+        // Set the algorithm in the header.
+        $this->header->algorithm($signature->code());
+
+        // Sign the JWT's payload.
+        $this->signature = $signature->sign(
+            $this->dataEncoded(),
+            $crypt->privateKey()
+        );
+    }
+
+    /**
+     * Check if the JSON Web Token was not changed.
+     *
+     * @param RsaSignature           $signature - Signature Instance.
+     * @param AsymmetricCryptography $crypt     - AsymmetricCryptography instance.
+     *
+     * @throws \UnexpectedValueException - If the Algorithm code is different from the given Signature.
+     *
+     * @return bool
+     */
+    public function verify(RsaSignature $signature, AsymmetricCryptography $crypt): bool
+    {
+        if ($signature->code() !== $this->header->getAlgorithm()) {
+            throw new \UnexpectedValueException('The signature does not match with the JWT.');
+        }
+
+        return $signature->verify(
+            $this->dataEncoded(),
+            $this->signature,
+            $crypt->publicKey()
+        );
     }
 
     /**
@@ -132,46 +142,12 @@ class JsonWebToken
     }
 
     /**
-     * Creates the JSON Web Token Signature.
-     *
-     * @return void
-     */
-    public function sign(RsaSignature $signature, AsymmetricCryptography $crypt): void
-    {
-        $this->signature = $signature->sign(
-            $this->dataEncoded(),
-            $crypt->privateKeyPath()
-        );
-    }
-
-    /**
-     * Check if the JSON Web Token was not changed.
-     *
-     * @return bool
-     */
-    public function verify(RsaSignature $signature, AsymmetricCryptography $crypt): bool
-    {
-        return $signature->verify(
-            $this->dataEncoded(),
-            $this->signature,
-            $crypt->publicKeyPath()
-        );
-    }
-
-    /**
      * Returns the JSON Web Token encoded.
      *
      * @return string
      */
     public function encode(): string
     {
-        return \implode(
-            '.',
-            [
-                $this->headerEncoded(),
-                $this->payloadEncoded(),
-                $this->signatureEncoded()
-            ]
-        );
+        return $this->dataEncoded() . '.' . $this->signatureEncoded();
     }
 }
