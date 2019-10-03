@@ -1,11 +1,11 @@
 <?php
-
 namespace NunoLopes\DomainContacts\Services\AuthenticationToken;
 
 use NunoLopes\DomainContacts\Contracts\Services\AuthenticationTokenService;
+use NunoLopes\DomainContacts\Contracts\Utilities\AsymmetricCryptography;
+use NunoLopes\DomainContacts\Contracts\Utilities\RsaSignature;
 use NunoLopes\DomainContacts\Datatypes\AuthenticationToken\JsonWebToken;
 use NunoLopes\DomainContacts\Entities\AccessToken;
-use NunoLopes\DomainContacts\Utilities\Signatures\RsaSignature;
 
 /**
  * This Domain Service will be responsible for all Business Logic
@@ -21,13 +21,20 @@ class JwtAuthenticationTokenService implements AuthenticationTokenService
     private $signature = null;
 
     /**
+     * @var AsymmetricCryptography $crypt - Asymmetric Cryptography instance to digest the JWT.
+     */
+    private $crypt = null;
+
+    /**
      * JwtAuthenticationTokenService constructor.
      *
-     * @param RsaSignature $signature - Signature instance to use in the JWT.
+     * @param RsaSignature           $signature - Signature instance to use in the JWT.
+     * @param AsymmetricCryptography $crypt     - AsymmetricCryptography instance.
      */
-    public function __construct(RsaSignature $signature)
+    public function __construct(RsaSignature $signature, AsymmetricCryptography $crypt)
     {
         $this->signature = $signature;
+        $this->crypt     = $crypt;
     }
 
     /**
@@ -35,25 +42,24 @@ class JwtAuthenticationTokenService implements AuthenticationTokenService
      *
      * @param AccessToken $accessToken - Access token entity to create the JWT.
      *
+     * @todo Compare createdAt and expiresAt to check if is valid.
+     *
      * @return string
      */
     public function create(AccessToken $accessToken): string
     {
         $jwt = new JsonWebToken();
 
-        // Creates the header and the payload based on the token.
-        $jwt->header()
-            ->type("JWT")
-            ->algorithm("RS256");
+        // Creates the payload based on the token.
         $jwt->payload()
             ->id($accessToken->tokenId())
-            ->issuedAt($accessToken->createdAt())
-            ->expiration($accessToken->expiresAt());
+            ->issuedAt(\strtotime($accessToken->createdAt()))
+            ->expiration(\strtotime($accessToken->expiresAt()));
 
         // Sign the token with the class's Signature.
-        $jwt->sign($this->signature);
+        $jwt->sign($this->signature, $this->crypt);
 
-        // Return the created JWT Token.
+        // Return the created JWT Token encoded.
         return $jwt->encode();
     }
 
@@ -72,9 +78,9 @@ class JwtAuthenticationTokenService implements AuthenticationTokenService
         $jwt->decode($token);
 
         // Check if the token is valid and was not changed by using a public key.
-        $jwt->verify($this->signature);
+        $jwt->verify($this->signature,  $this->crypt);
 
         // If the token had no problems in the verification, get the ID since the token was not changed.
-        return $jwt->payload()->get('jti');
+        return $jwt->payload()->getId();
     }
 }
