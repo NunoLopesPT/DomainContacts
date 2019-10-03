@@ -41,6 +41,18 @@ class JwtHeader extends JwtData
     }
 
     /**
+     * Getter function for the Algorithm in JWT Token.
+     *
+     * @see https://tools.ietf.org/html/rfc7519#section-5.1
+     *
+     * @return string
+     */
+    public function getAlgorithm(): string
+    {
+        return $this->alg;
+    }
+
+    /**
      * Encodes the JWT Header if it fills all required attributes.
      *
      * @throws \UnexpectedValueException - If the Algorithm is not set.

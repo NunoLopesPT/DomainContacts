@@ -13,29 +13,11 @@ use NunoLopes\DomainContacts\Utilities\Base64;
 abstract class JwtData
 {
     /**
-     * Get a single attribute from the data.
-     *
-     * @param string $attribute - Name of the attribute.
-     *
-     * @throws \UnexpectedValueException - If no name was found in the attribute.
-     *
-     * @return string
-     */
-    public function get(string $attribute): string
-    {
-        if (!\property_exists($this, $attribute)) {
-            throw new \UnexpectedValueException("'$attribute' is not supported in JWT Header.");
-        }
-
-        return $this->{$attribute};
-    }
-
-    /**
      * Get all attributes from the data.
      *
      * @return array
      */
-    public function all(): array
+    private function all(): array
     {
         $return = [];
 

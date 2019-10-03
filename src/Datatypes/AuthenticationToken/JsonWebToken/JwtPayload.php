@@ -76,6 +76,18 @@ class JwtPayload extends JwtData
     }
 
     /**
+     * Getter function for the Issuer Claim in JWT Token.
+     *
+     * @see https://tools.ietf.org/html/rfc7519#section-4.1.1
+     *
+     * @return string
+     */
+    public function getIssuer(): string
+    {
+        return $this->iss;
+    }
+
+    /**
      * Setter for Subject Claim.
      *
      * @param string $sub - Subject Claim.
@@ -89,6 +101,18 @@ class JwtPayload extends JwtData
         $this->sub = $sub;
 
         return $this;
+    }
+
+    /**
+     * Getter function for the Subject Claim in JWT Token.
+     *
+     * @see https://tools.ietf.org/html/rfc7519#section-4.1.2
+     *
+     * @return string
+     */
+    public function getSubject(): string
+    {
+        return $this->sub;
     }
 
     /**
@@ -108,6 +132,18 @@ class JwtPayload extends JwtData
     }
 
     /**
+     * Getter function for the Audience Claim in JWT Token.
+     *
+     * @see https://tools.ietf.org/html/rfc7519#section-4.1.3
+     *
+     * @return array
+     */
+    public function getAudience(): array
+    {
+        return $this->aud;
+    }
+
+    /**
      * Setter for Expiration Time Claim.
      *
      * @param int $exp - Expiration Time Claim.
@@ -121,6 +157,18 @@ class JwtPayload extends JwtData
         $this->exp = $exp;
 
         return $this;
+    }
+
+    /**
+     * Getter function for the Expiration Time Claim in JWT Token.
+     *
+     * @see https://tools.ietf.org/html/rfc7519#section-4.1.4
+     *
+     * @return int
+     */
+    public function getExpiration(): int
+    {
+        return $this->exp;
     }
 
     /**
@@ -140,6 +188,18 @@ class JwtPayload extends JwtData
     }
 
     /**
+     * Getter function for the Not Before Claim in JWT Token.
+     *
+     * @see https://tools.ietf.org/html/rfc7519#section-4.1.5
+     *
+     * @return int
+     */
+    public function getNotBefore(): int
+    {
+        return $this->nbf;
+    }
+
+    /**
      * Setter for Issued At Claim.
      *
      * @param int $iat - Issued At Claim.
@@ -156,6 +216,18 @@ class JwtPayload extends JwtData
     }
 
     /**
+     * Getter function for the Issued At Claim in JWT Token.
+     *
+     * @see https://tools.ietf.org/html/rfc7519#section-4.1.6
+     *
+     * @return int
+     */
+    public function getIssuedAt(): int
+    {
+        return $this->iat;
+    }
+
+    /**
      * Setter for JWT ID Claim.
      *
      * @param string $jti - JWT ID Claim.
@@ -169,6 +241,18 @@ class JwtPayload extends JwtData
         $this->jti = $jti;
 
         return $this;
+    }
+
+    /**
+     * Getter function for the JWT ID Claim in JWT Token.
+     *
+     * @see https://tools.ietf.org/html/rfc7519#section-4.1.7
+     *
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->jti;
     }
 
     /**
