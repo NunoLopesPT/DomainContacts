@@ -2,6 +2,7 @@
 namespace NunoLopes\DomainContacts\Contracts\Utilities;
 
 use NunoLopes\DomainContacts\Datatypes\AsymmetricCryptography;
+
 /**
  * Interface RsaSignature.
  *
@@ -10,7 +11,7 @@ use NunoLopes\DomainContacts\Datatypes\AsymmetricCryptography;
  *
  * All signatures should implement this class.
  *
- * @package NunoLopes\DomainContacts\Utilities\Signatures
+ * @package NunoLopes\DomainContacts
  */
 interface RsaSignature
 {
