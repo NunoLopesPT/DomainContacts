@@ -4,16 +4,16 @@ namespace NunoLopes\DomainContacts\Contracts\Utilities;
 interface AsymmetricCryptography
 {
     /**
-     * Returns the server's public key path.
+     * Returns a public key resource.
      *
-     * @return string
+     * @return resource
      */
-    public function publicKeyPath(): string;
+    public function publicKey();
 
     /**
-     * Returns the server's private key path.
+     * Returns a private key resource.
      *
-     * @return string
+     * @return resource
      */
-    public function privateKeyPath(): string;
+    public function privateKey();
 }
