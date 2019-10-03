@@ -14,6 +14,21 @@ namespace NunoLopes\DomainContacts\Contracts\Utilities;
 interface RsaSignature
 {
     /**
+     * Returns the code of the signature.
+     *
+     * @return string
+     */
+    public function code(): string;
+
+    /**
+     * Creates a new KeyPair and returns the private and the public
+     * key in a DataType.
+     *
+     * @return AsymmetricCryptography
+     */
+    public function create(): string;
+
+    /**
      * Verifies a signature.
      *
      * @param string $data          - Original data.
