@@ -1,3 +1,6 @@
 .idea
 vendor
 config/database.php
+config/rsa.php
+.phpunit.result.cache
+storage/*
