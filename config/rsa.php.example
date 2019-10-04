@@ -1,0 +1,6 @@
+<?php
+
+return [
+    'public_key'  => __DIR__ . '/../storage/oauth-public.key',
+    'private_key' => __DIR__ . '/../storage/oauth-private.key',
+];
