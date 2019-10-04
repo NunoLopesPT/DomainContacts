@@ -4,7 +4,9 @@ namespace NunoLopes\Tests\DomainContacts\Integration\Repositories\Database\Eloqu
 use NunoLopes\DomainContacts\Eloquent\Contact as Model;
 use NunoLopes\DomainContacts\Eloquent\User;
 use NunoLopes\DomainContacts\Entities\Contact;
+use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactAlreadyCreatedException;
 use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactNotFoundException;
+use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactNotUpdatedException;
 use NunoLopes\DomainContacts\Repositories\Database\Eloquent\EloquentContactsRepository;
 use NunoLopes\Tests\DomainContacts\Integration\AbstractIntegrationTest;
 
@@ -78,6 +80,29 @@ class EloquentContactsRepositoryTest extends AbstractIntegrationTest
         $this->assertTrue(
             $contact->hasId(),
             'The contact should have an ID.'
+        );
+    }
+
+    /**
+     * Test if a Contact token with ID is beeing created, an exception is thrown.
+     *
+     * @return void
+     */
+    public function testContactCannotBeCreatedIfHasId(): void
+    {
+        // Creates expectation.
+        $this->expectException(ContactAlreadyCreatedException::class);
+
+        // Perform test.
+        $this->repository->create(
+            new Contact([
+                'id'           => 1,
+                'user_id'      => 1,
+                'first_name'   => $this->faker->firstName,
+                'last_name'    => $this->faker->lastName,
+                'phone_number' => $this->faker->phoneNumber,
+                'email'        => $this->faker->unique()->email,
+            ])
         );
     }
 
@@ -351,6 +376,31 @@ class EloquentContactsRepositoryTest extends AbstractIntegrationTest
 
         // Create the contact without an ID.
         $contact = new Contact($attributes);
+
+        // Perform test.
+        $this->repository->update($contact);
+    }
+
+    /**
+     * Test that a Contact token with ID that doesn't exists an exception is thrown.
+     *
+     * @return void
+     */
+    public function testContactCannotBeUpdatedIfContactDoesntExists(): void
+    {
+        // Creates expectation.
+        $this->expectException(ContactNotUpdatedException::class);
+
+        // Create an Entity that is going to be updated to the database.
+        $contact =  new Contact([
+            'id'           => 2147483647,
+            'user_id'      => 1,
+            'first_name'   => $this->faker->firstName,
+            'last_name'    => $this->faker->lastName,
+            'phone_number' => $this->faker->phoneNumber,
+            'email'        => $this->faker->unique()->email,
+        ]);
+        $contact->setAttributes(['user_id' => 2]);
 
         // Perform test.
         $this->repository->update($contact);
