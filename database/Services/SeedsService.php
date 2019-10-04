@@ -1,5 +1,5 @@
 <?php
-namespace NunoLopes\DomainContacts\Services\Database;
+namespace NunoLopes\Database\DomainContacts\Services;
 
 /**
  * Class MigrationsService.
@@ -20,7 +20,7 @@ class SeedsService
         echo "Running seeds";
 
         // Folder where all the seeds are.
-        $folder = __DIR__ . '/../../../database/seeds/';
+        $folder = __DIR__ . '/../seeds/';
 
         // Scan all files/folders inside database.
         $files = \scandir($folder);

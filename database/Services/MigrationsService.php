@@ -1,5 +1,5 @@
 <?php
-namespace NunoLopes\DomainContacts\Services\Database;
+namespace NunoLopes\Database\DomainContacts\Services;
 
 use Illuminate\Database\Migrations\Migrator;
 
@@ -42,7 +42,7 @@ class MigrationsService
         }
 
         // Run all migrations inside migrations folder.
-        $result = $this->migrator->run(__DIR__ . '/../../../database/migrations');
+        $result = $this->migrator->run(__DIR__ . '/../migrations');
 
         echo "Migrations created with success\n";
 
@@ -58,7 +58,7 @@ class MigrationsService
     {
         echo "Rolling back migrations...\n";
 
-        $result = $this->migrator->reset([__DIR__ . '/../../../database/migrations']);
+        $result = $this->migrator->reset([__DIR__ . '/../migrations']);
 
         echo "Migrations rolled back with success\n";
 

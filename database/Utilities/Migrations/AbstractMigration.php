@@ -1,5 +1,5 @@
 <?php
-namespace NunoLopes\DomainContacts\Utilities\Database\Migrations;
+namespace NunoLopes\Database\DomainContacts\Utilities\Migrations;
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Builder;

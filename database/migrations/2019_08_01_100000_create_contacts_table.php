@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Schema\Blueprint;
-use NunoLopes\DomainContacts\Utilities\Database\Migrations\AbstractMigration;
+use NunoLopes\Database\DomainContacts\Utilities\Migrations\AbstractMigration;
 
 /**
  * Class CreateContactsTable.

@@ -1,8 +1,8 @@
 <?php
-namespace NunoLopes\DomainContacts\Factories\Services\Database;
+namespace NunoLopes\Database\DomainContacts\Factories\Services;
 
+use NunoLopes\Database\DomainContacts\Services\SeedsService;
 use NunoLopes\DomainContacts\Factories\Database\Eloquent\CapsuleFactory;
-use NunoLopes\DomainContacts\Services\Database\SeedsService;
 
 /**
  * Class SeedsServiceFactory.

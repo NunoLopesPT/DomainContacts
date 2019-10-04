@@ -1,8 +1,8 @@
 <?php
-namespace NunoLopes\DomainContacts\Factories\Services\Database;
+namespace NunoLopes\Database\DomainContacts\Factories\Services;
 
-use NunoLopes\DomainContacts\Factories\Database\Eloquent\MigrationsFactory;
-use NunoLopes\DomainContacts\Services\Database\MigrationsService;
+use NunoLopes\Database\DomainContacts\Factories\MigrationsFactory;
+use NunoLopes\Database\DomainContacts\Services\MigrationsService;
 
 /**
  * Class MigrationsServiceFactory.

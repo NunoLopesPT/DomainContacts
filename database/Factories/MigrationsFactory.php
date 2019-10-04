@@ -1,10 +1,11 @@
 <?php
-namespace NunoLopes\DomainContacts\Factories\Database\Eloquent;
+namespace NunoLopes\Database\DomainContacts\Factories;
 
 use Illuminate\Database\ConnectionResolver;
 use Illuminate\Database\Migrations\DatabaseMigrationRepository;
 use Illuminate\Database\Migrations\Migrator;
 use Illuminate\Filesystem\Filesystem;
+use NunoLopes\DomainContacts\Factories\Database\Eloquent\CapsuleFactory;
 
 /**
  * Class MigrationsFactory.
