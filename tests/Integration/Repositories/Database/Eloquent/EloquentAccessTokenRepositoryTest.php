@@ -5,6 +5,7 @@ use Illuminate\Database\QueryException;
 use NunoLopes\DomainContacts\Eloquent\AccessToken as Model;
 use NunoLopes\DomainContacts\Eloquent\User;
 use NunoLopes\DomainContacts\Entities\AccessToken;
+use NunoLopes\DomainContacts\Exceptions\Repositories\AccessTokens\AccessTokenAlreadyCreatedException;
 use NunoLopes\DomainContacts\Exceptions\Repositories\AccessTokens\AccessTokenNotFoundException;
 use NunoLopes\DomainContacts\Repositories\Database\Eloquent\EloquentAccessTokenRepository;
 use NunoLopes\Tests\DomainContacts\Integration\AbstractIntegrationTest;
@@ -107,6 +108,27 @@ class EloquentAccessTokenRepositoryTest extends AbstractIntegrationTest
         // Perform test.
         $this->repository->create(
             new AccessToken([
+                'token_id'     => $this->faker->randomAscii,
+                'user_id'      => 2147483647,
+                'expires_at'   => $this->faker->dateTimeBetween('+10 days', '+20 days')->format('Y-m-d H:i:s')
+            ])
+        );
+    }
+
+    /**
+     * Test if an AccessToken token with ID is beeing created, an exception is thrown.
+     *
+     * @return void
+     */
+    public function testAccessTokenCannotBeCreatedIfAccessTokenHasId(): void
+    {
+        // Creates expectation.
+        $this->expectException(AccessTokenAlreadyCreatedException::class);
+
+        // Perform test.
+        $this->repository->create(
+            new AccessToken([
+                'id'           => 1,
                 'token_id'     => $this->faker->randomAscii,
                 'user_id'      => 2147483647,
                 'expires_at'   => $this->faker->dateTimeBetween('+10 days', '+20 days')->format('Y-m-d H:i:s')
