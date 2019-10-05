@@ -10,8 +10,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "NunoLopes\\DomainContacts\\": "src/"
-        }
+            "NunoLopes\\DomainContacts\\": "src/",
+            "NunoLopes\\Database\\DomainContacts\\": "database/"
+        },
+        "classmap": [
+            "RunScripts.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
@@ -29,9 +33,9 @@
         "mockery/mockery": "^1.2"
     },
     "scripts": {
-        "migrations": "NunoLopes\\DomainContacts\\Utilities\\Composer\\RunScripts::migrate",
-        "seed"      : "NunoLopes\\DomainContacts\\Utilities\\Composer\\RunScripts::seed",
-        "migrations-rollback": "NunoLopes\\DomainContacts\\Utilities\\Composer\\RunScripts::rollback"
+        "migrations": "RunScripts::migrate",
+        "seed"      : "RunScripts::seed",
+        "migrations-rollback": "RunScripts::rollback"
     },
     "minimum-stability": "dev",
     "prefer-stable": true
