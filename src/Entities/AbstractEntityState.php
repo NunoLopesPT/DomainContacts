@@ -34,13 +34,6 @@ abstract class AbstractEntityState extends AbstractEntity
         $this->commit();
     }
 
-    protected function refreshInitialAttributes(): void
-    {
-        // Since the initialState is private, it won't be retrieved from the
-        // get_object_vars in the getAttributes because it is not visible there.
-        $this->initialState = $this->getAttributes();
-    }
-
     /**
      * Get the attributes that are different from the initial ones.
      *
