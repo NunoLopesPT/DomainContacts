@@ -1,8 +1,8 @@
 <?php
 namespace NunoLopes\DomainContacts\Datatypes\AuthenticationToken;
 
-use NunoLopes\DomainContacts\Contracts\Utilities\AsymmetricCryptography;
 use NunoLopes\DomainContacts\Contracts\Utilities\RsaSignature;
+use NunoLopes\DomainContacts\Datatypes\AsymmetricCryptography;
 use NunoLopes\DomainContacts\Datatypes\AuthenticationToken\JsonWebToken\JwtHeader;
 use NunoLopes\DomainContacts\Datatypes\AuthenticationToken\JsonWebToken\JwtPayload;
 use NunoLopes\DomainContacts\Utilities\Base64;
@@ -84,7 +84,7 @@ class JsonWebToken
         // Sign the JWT's payload.
         $this->signature = $signature->sign(
             $this->dataEncoded(),
-            $crypt->privateKey()
+            $crypt
         );
     }
 
@@ -107,7 +107,7 @@ class JsonWebToken
         return $signature->verify(
             $this->dataEncoded(),
             $this->signature,
-            $crypt->publicKey()
+            $crypt
         );
     }
 
