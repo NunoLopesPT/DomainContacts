@@ -34,6 +34,9 @@ class JwtHeaderTest extends AbstractTest
             'DummyAlgorithm',
             $header->getAlgorithm()
         );
+        $this->assertIsString(
+            $header->encoded()
+        );
 
         self::$header = $header;
     }
@@ -58,5 +61,22 @@ class JwtHeaderTest extends AbstractTest
             self::$header,
             $header
         );
+    }
+
+    /**
+     * Test JWT Header cannot be encoded if there is no algorithm.
+     *
+     * @return void
+     */
+    public function testCannotEncodeJwtHeaderIfNoAlgIsSet(): void
+    {
+        // Creates expectation.
+        $this->expectException(\UnexpectedValueException::class);
+
+        // Creates JWT Header.
+        $header = new JsonWebToken\JwtHeader();
+
+        // Performs test.
+        $header->encoded();
     }
 }
