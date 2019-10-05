@@ -25,7 +25,7 @@ trait AuditTimestampsTrait
      *
      * @todo Return Datatype.
      *
-     * @return ?string
+     * @return string|null
      */
     public function createdAt(): ?string
     {
