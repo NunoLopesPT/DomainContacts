@@ -2,8 +2,8 @@
 namespace NunoLopes\DomainContacts\Services\AuthenticationToken;
 
 use NunoLopes\DomainContacts\Contracts\Services\AuthenticationTokenService;
-use NunoLopes\DomainContacts\Contracts\Utilities\AsymmetricCryptography;
 use NunoLopes\DomainContacts\Contracts\Utilities\RsaSignature;
+use NunoLopes\DomainContacts\Datatypes\AsymmetricCryptography;
 use NunoLopes\DomainContacts\Datatypes\AuthenticationToken\JsonWebToken;
 use NunoLopes\DomainContacts\Entities\AccessToken;
 
