@@ -31,7 +31,7 @@ interface AccessTokenRepository
      *
      * @throws AccessTokenAlreadyCreatedException - If the AccessToken is already created.
      *
-     * @return int
+     * @return AccessToken
      */
     public function create(AccessToken $accessToken): AccessToken;
 
