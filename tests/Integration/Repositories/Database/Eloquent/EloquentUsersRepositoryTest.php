@@ -3,6 +3,7 @@ namespace NunoLopes\Tests\DomainContacts\Integration\Repositories\Database\Eloqu
 
 use NunoLopes\DomainContacts\Eloquent\User as Model;
 use NunoLopes\DomainContacts\Entities\User;
+use NunoLopes\DomainContacts\Exceptions\Repositories\Users\UserAlreadyCreatedException;
 use NunoLopes\DomainContacts\Exceptions\Repositories\Users\UserNotFoundException;
 use NunoLopes\DomainContacts\Repositories\Database\Eloquent\EloquentUsersRepository;
 use NunoLopes\Tests\DomainContacts\Integration\AbstractIntegrationTest;
@@ -78,6 +79,27 @@ class EloquentUsersRepositoryTest extends AbstractIntegrationTest
     }
 
     /**
+     * Test if a User with ID is beeing created, an exception is thrown.
+     *
+     * @return void
+     */
+    public function testUserCannotBeCreatedIfHasId(): void
+    {
+        // Creates expectation.
+        $this->expectException(UserAlreadyCreatedException::class);
+
+        // Perform test.
+        $this->repository->create(
+            new User([
+                'id'       => 1,
+                'name'     => 'DummyName',
+                'email'    => 'DummyEmail',
+                'password' => 'DummyPassword',
+            ])
+        );
+    }
+
+    /**
      * Tests that if we try to get an user with a negative ID an exception is thrown.
      *
      * @return void
@@ -117,6 +139,20 @@ class EloquentUsersRepositoryTest extends AbstractIntegrationTest
 
         // Performs test.
         $this->repository->get(2147483647);
+    }
+
+    /**
+     * Tests that if we try to get an user that doesn't exists by its email an exception is thrown.
+     *
+     * @return void
+     */
+    public function testGetByEmailFailsWithUserThatDoesNotExists(): void
+    {
+        // Creates expectation.
+        $this->expectException(UserNotFoundException::class);
+
+        // Performs test.
+        $this->repository->getByEmail($this->faker->email);
     }
 
     /**
