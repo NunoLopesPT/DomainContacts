@@ -21,6 +21,9 @@ class CapsuleFactoryTest extends AbstractFactoriesTest
     {
         // Calls parent function.
         parent::setUp();
+
+        // Makes sure the singleton is empty.
+        $this->clearSingleton(CapsuleFactory::class);
     }
 
     /**
@@ -99,15 +102,5 @@ class CapsuleFactoryTest extends AbstractFactoriesTest
 
         // Performs test.
         CapsuleFactory::get()->getConnection()->getPdo();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-
-        $this->clearSingleton(CapsuleFactory::class);
     }
 }
