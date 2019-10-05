@@ -1,12 +1,14 @@
 <?php
-namespace NunoLopes\DomainContacts\Requests;
+namespace NunoLopes\DomainContacts\Requests\Contacts;
+
+use NunoLopes\DomainContacts\Requests\AbstractValidationRequest;
 
 /**
  * This class will define the rules for all SaveContactRequests.
  *
  * @package NunoLopes\DomainContacts
  */
-class SaveContactRequest extends AbstractValidationRequest
+class CreateContactRequest extends AbstractValidationRequest
 {
     /**
      * The rules() method will return an array containing
