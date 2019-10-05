@@ -1,16 +1,14 @@
 <?php
-namespace NunoLopes\DomainContacts\Utilities\Composer;
 
-use NunoLopes\DomainContacts\Factories\Services\Database\MigrationsServiceFactory;
-use NunoLopes\DomainContacts\Factories\Services\Database\SeedsServiceFactory;
+use NunoLopes\Database\DomainContacts\Factories\Services\MigrationsServiceFactory;
+use NunoLopes\Database\DomainContacts\Factories\Services\SeedsServiceFactory;
 use NunoLopes\DomainContacts\Utilities\Signatures\Sha256RsaSignature;
 
 /**
- * Class Migrations.
+ * Class RunScripts.
  *
  * Utility class to help running migrations via composer script.
  *
- * @codeCoverageIgnore
  * @package NunoLopes\DomainContacts
  */
 class RunScripts
@@ -23,7 +21,7 @@ class RunScripts
     public static function migrate(): void
     {
         // Fix this helper is not autoloaded.
-        require_once (__DIR__ . '/../../../vendor/illuminate/support/helpers.php');
+        require_once(__DIR__ . '/vendor/illuminate/support/helpers.php');
 
         MigrationsServiceFactory::get()->runMigrations();
     }
@@ -34,7 +32,7 @@ class RunScripts
     public static function seed(): void
     {
         // Fix this helper is not autoloaded.
-        require_once (__DIR__ . '/../../../vendor/illuminate/support/helpers.php');
+        require_once(__DIR__ . '/vendor/illuminate/support/helpers.php');
 
         SeedsServiceFactory::get()->seedDatabase();
     }
@@ -47,7 +45,7 @@ class RunScripts
     public static function rollback(): void
     {
         // Fix this helper is not autoloaded.
-        require_once (__DIR__ . '/../../../vendor/illuminate/support/helpers.php');
+        require_once(__DIR__ . '/vendor/illuminate/support/helpers.php');
 
         MigrationsServiceFactory::get()->rollbackMigrations();
     }
@@ -59,17 +57,30 @@ class RunScripts
      */
     public static function generateKeyPair(): void
     {
-        $sign    = new Sha256RsaSignature();
-        $keyPair = $sign->create();
+        $config = array(
+            "digest_alg"       => "sha256",
+            "private_key_bits" => 2048,
+            "private_key_type" => OPENSSL_KEYTYPE_RSA,
+        );
+
+        // Create the private and public key
+        $res = openssl_pkey_new($config);
+
+        // Extract the private key from $res to $privKey
+        openssl_pkey_export($res, $privKey);
+
+        // Extract the public key from $res to $pubKey
+        $pubKey = openssl_pkey_get_details($res);
+        $pubKey = $pubKey["key"];
 
         // Store the private and the public key in the filesystem.
         \file_put_contents(
-            __DIR__ . '/../../../storage/oauth-private.key',
-            $keyPair->privateKey()
+            __DIR__ . '/storage/oauth-private.key',
+            $privKey
         );
         \file_put_contents(
-            __DIR__ . '/../../../storage/oauth-public.key',
-            $keyPair->publicKey()
+            __DIR__ . '/storage/oauth-public.key',
+            $pubKey
         );
     }
 }

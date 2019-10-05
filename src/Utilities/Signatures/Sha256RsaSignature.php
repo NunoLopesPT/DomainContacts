@@ -17,9 +17,7 @@ class Sha256RsaSignature implements RsaSignature
     private const CODE = 'RS256';
 
     /**
-     * Returns the Digest code of this class.
-     *
-     * @return string
+     * @inheritdoc
      */
     public function code(): string
     {
@@ -27,49 +25,14 @@ class Sha256RsaSignature implements RsaSignature
     }
 
     /**
-     * Creates a new KeyPair and returns the private and the public
-     * key in a DataType.
-     *
-     * @return AsymmetricCryptography
+     * @inheritdoc
      */
-    public function create(): AsymmetricCryptography
-    {
-        $config = array(
-            "digest_alg"       => "sha256",
-            "private_key_bits" => 2048,
-            "private_key_type" => OPENSSL_KEYTYPE_RSA,
-        );
-
-        // Create the private and public key
-        $res = openssl_pkey_new($config);
-
-        // Extract the private key from $res to $privKey
-        openssl_pkey_export($res, $privKey);
-
-        // Extract the public key from $res to $pubKey
-        $pubKey = openssl_pkey_get_details($res);
-        $pubKey = $pubKey["key"];
-
-        return new AsymmetricCryptography(
-            $pubKey,
-            $privKey
-        );
-    }
-
-    /**
-     * Verify the signature.
-     *
-     * @param string $data
-     * @param string $signature
-     *
-     * @return bool
-     */
-    public function verify(string $data, string $signature, string $publicKeyPath): bool
+    public function verify(string $data, string $signature, AsymmetricCryptography $crypt): bool
     {
         $result = \openssl_verify(
             $data,
             $signature,
-            \openssl_pkey_get_public($publicKeyPath),
+            $crypt->publicKey(),
             'sha256'
         );
 
@@ -82,19 +45,14 @@ class Sha256RsaSignature implements RsaSignature
     }
 
     /**
-     * Creates a new signature and returns the result.
-     *
-     * @param string $data           - The data that is going to be signed.
-     * @param string $privateKeyPath - Private Key path.
-     *
-     * @return string
+     * @inheritdoc
      */
-    public function sign(string $data, string $privateKeyPath): string
+    public function sign(string $data, AsymmetricCryptography $crypt): string
     {
         $success = \openssl_sign(
             $data,
             $signature,
-            \openssl_pkey_get_private($privateKeyPath),
+            $crypt->privateKey(),
             'sha256WithRSAEncryption'
         );
 
