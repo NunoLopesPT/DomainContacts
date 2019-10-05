@@ -1,6 +1,7 @@
 <?php
 namespace NunoLopes\DomainContacts\Contracts\Repositories;
 
+use NunoLopes\DomainContacts\Datatypes\AsymmetricCryptography;
 use NunoLopes\DomainContacts\Datatypes\DatabaseConfiguration;
 
 /**
@@ -20,4 +21,11 @@ interface ConfigurationRepository
      * @return DatabaseConfiguration
      */
     public function getDatabase(): DatabaseConfiguration;
+
+    /**
+     * Get the RSA Encryption of the system.
+     *
+     * @return AsymmetricCryptography
+     */
+    public function getRSA(): AsymmetricCryptography;
 }
