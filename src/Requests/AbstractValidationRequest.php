@@ -8,12 +8,12 @@ use Illuminate\Validation\Validator;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * This class will initialize the Validatior from Illuminate.
+ * This class will initialize the Validation class from Illuminate.
  *
  * @package NunoLopes\DomainContacts
  */
-abstract class AbstractValidationRequest {
-
+abstract class AbstractValidationRequest
+{
     /**
      * @var Validator $validator - Class to validate form data.
      */
@@ -77,7 +77,7 @@ abstract class AbstractValidationRequest {
      */
     public function errors(): array
     {
-        return $this->validator->errors()->all();
+        return $this->validator->errors()->getMessages();
     }
 
     /**
@@ -85,8 +85,5 @@ abstract class AbstractValidationRequest {
      *
      * @return array
      */
-    public function rules(): array
-    {
-        return [];
-    }
+    abstract function rules(): array;
 }
