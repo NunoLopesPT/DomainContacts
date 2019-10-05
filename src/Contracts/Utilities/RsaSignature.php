@@ -23,31 +23,23 @@ interface RsaSignature
     public function code(): string;
 
     /**
-     * Creates a new KeyPair and returns the private and the public
-     * key in a DataType.
-     *
-     * @return AsymmetricCryptography
-     */
-    public function create(): AsymmetricCryptography;
-
-    /**
      * Verifies a signature.
      *
-     * @param string $data          - Original data.
-     * @param string $signature     - Signature of the data.
-     * @param string $publicKeyPath - Path of the public key that was used when the signature was created.
+     * @param string                 $data      - Original data.
+     * @param string                 $signature - Signature of the data.
+     * @param AsymmetricCryptography $crypt     - RSA Key Pair.
      *
      * @return bool
      */
-    public function verify(string $data, string $signature, string $publicKeyPath): bool;
+    public function verify(string $data, string $signature, AsymmetricCryptography $crypt): bool;
 
     /**
      * Get the signature of a data.
      *
-     * @param string $data           - Data that will be retrieved a signature.
-     * @param string $privateKey - Path of a private key to generate the signature.
+     * @param string                 $data  - Data that will be retrieved a signature.
+     * @param AsymmetricCryptography $crypt - RSA Key Pair.
      *
      * @return string
      */
-    public function sign(string $data, $privateKey): string;
+    public function sign(string $data, AsymmetricCryptography $crypt): string;
 }
