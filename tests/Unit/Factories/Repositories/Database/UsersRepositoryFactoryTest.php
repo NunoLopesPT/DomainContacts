@@ -12,6 +12,18 @@ use NunoLopes\Tests\DomainContacts\Unit\Factories\AbstractFactoriesTest;
 class UsersRepositoryFactoryTest extends AbstractFactoriesTest
 {
     /**
+     * @inheritdoc
+     */
+    public function setUp(): void
+    {
+        // Calls parent class.
+        parent::setUp();
+
+        // Makes sure the singleton is empty.
+        $this->clearSingleton(UsersRepositoryFactory::class);
+    }
+
+    /**
      * Test we are always retrieving the same instance from the factory.
      *
      * @return void
