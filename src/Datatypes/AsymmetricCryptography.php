@@ -31,7 +31,9 @@ class AsymmetricCryptography
      */
     public function __construct($publicKey, $privateKey)
     {
-        if (\is_resource($publicKey) && \is_resource($privateKey)) {
+        if ((!\is_resource($publicKey) || \get_resource_type($publicKey) !== 'OpenSSL key') ||
+            (!\is_resource($privateKey) || \get_resource_type($privateKey) !== 'OpenSSL key'))
+        {
             throw new \InvalidArgumentException('Public and Private key must be resources.');
         }
 
