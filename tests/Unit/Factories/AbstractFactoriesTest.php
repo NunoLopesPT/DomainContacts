@@ -4,8 +4,12 @@ namespace NunoLopes\Tests\DomainContacts\Unit\Factories;
 use NunoLopes\Tests\DomainContacts\AbstractTest;
 
 /**
- * Class AbstractFactoriesTest
- * @package NunoLopes\Tests\DomainContacts\Unit\Factories
+ * Class AbstractFactoriesTest.
+ *
+ * This class will be used by all Tests that are going to test
+ * Factories, as it helps cleaning the singletons before the tests.
+ *
+ * @package NunoLopes\DomainContacts
  */
 abstract class AbstractFactoriesTest extends AbstractTest
 {
