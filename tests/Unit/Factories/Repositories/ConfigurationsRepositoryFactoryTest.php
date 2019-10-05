@@ -5,12 +5,24 @@ use NunoLopes\DomainContacts\Factories\Repositories\ConfigurationRepositoryFacto
 use NunoLopes\Tests\DomainContacts\Unit\Factories\AbstractFactoriesTest;
 
 /**
- * Class ContactsRepositoryFactoryTest.
+ * Class ConfigurationsRepositoryFactoryTest.
  *
  * @package NunoLopes\DomainContacts
  */
 class ConfigurationsRepositoryFactoryTest extends AbstractFactoriesTest
 {
+    /**
+     * @inheritdoc
+     */
+    public function setUp(): void
+    {
+        // Calls parent class.
+        parent::setUp();
+
+        // Makes sure the singleton is empty.
+        $this->clearSingleton(ConfigurationRepositoryFactory::class);
+    }
+
     /**
      * Test we are always retrieving the same instance from the factory.
      *
