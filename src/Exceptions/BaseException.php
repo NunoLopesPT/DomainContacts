@@ -27,14 +27,4 @@ abstract class BaseException extends \RuntimeException
     {
         parent::__construct($this->message, $this->code);
     }
-
-    /**
-     * Returns the status code of the exception.
-     *
-     * @return int
-     */
-    public function getStatusCode(): int
-    {
-        return $this->code;
-    }
 }
