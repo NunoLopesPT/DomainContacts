@@ -6,7 +6,7 @@ This is my playground to study/practice Domain-Driven-Design (DDD) software deve
 
 There will be other repositories for this project:
 
--
+- (In construction)
 
 The goal of this repository is to provide a Domain with all Business Logic with the minimum dependencies so that if we 
 want the same functionality implemented in any framework from Laravel, CodeIgniter, WordPress, Joomla and so on, the duplication 
@@ -15,6 +15,11 @@ of code would be minimum because we have all logic in the same place, easy to ad
 This Contacts List functionality is relative simple, and probably if the idea is just to have it, with a framework like Laravel
 the problem could be solved way faster compared with this DDD approach, but if the projects keeps growing in complexity, and has to be
 maintainable to multiple frameworks, with tests, the production will decrease with code duplication.
+
+#Instalation
+- To build the tables, run `composer run-script migrations`
+- To seed the tables with dummy data for testing: `composer run-script seed`
+- To rollback all migrations: `composer run-script migrations-rollback`
 
 This project will have always 100% code coverage inside the `src` folder, integration and unit tests will make sure that the code is 
 SOLID and every line is beeing used, also avoiding errors in future developments. The coverage shouldn't be with with non-sense 
