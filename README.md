@@ -6,7 +6,16 @@ This is my playground to study/practice Domain-Driven-Design (DDD) software deve
 
 There will be other repositories for this project:
 
-- (In construction)
+Laravel Package Repository:
+- This Repository will be the application layer, a package for laravel that will be used mainly for Binding Contracts, 
+Controllers and raising exceptions. It will be the API, no business logic should be there. The repository is working right now but doesn't have 
+tests right now or documentation so it is not available right now. With postman later it should be able to test the API.
+
+React Repository:
+- In my current company I've have experience with JavaScript ES6, creating small aplications, and as Backend Developer till the moment, I found
+  very interesting and decided to explore more the frontend area, lately I've been in a course in Udemy of React/Redux. Which I will apply
+  the best code I can there. The same as the Laravel Package, it is working but it lacks documentation and tests and so it is not available
+  right now.
 
 The goal of this repository is to provide a Domain with all Business Logic with the minimum dependencies so that if we 
 want the same functionality implemented in any framework from Laravel, CodeIgniter, WordPress, Joomla and so on, the duplication 
