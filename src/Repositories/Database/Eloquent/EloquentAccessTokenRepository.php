@@ -80,13 +80,18 @@ class EloquentAccessTokenRepository implements AccessTokenRepository
      *
      * @see AccessTokenRepository::revoke
      */
-    public function revoke(string $id): bool
+    public function revoke(AccessToken $accessToken): bool
     {
+        // If the AccessToken is already revoked, no need to query the database.
+        if ($accessToken->revoked()) {
+            return false;
+        }
+
+        // Revoke the AccessToken.
         return \boolval(
             $this->accessTokens
                  ->newQuery()
-                 ->whereKey($id)
-                 ->where('revoked', false)
+                 ->whereKey($accessToken->id())
                  ->update(['revoked' => true])
         );
     }
