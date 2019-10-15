@@ -163,25 +163,17 @@ class AccessTokenServiceTest extends AbstractTest
      */
     public function testCanRevokeAToken(): void
     {
-        // Create required data for the test.
-        $authToken          = 'DummyAuthenticationToken';
-        $dummyAccessTokenId = 'DummyAccessTokenID';
-
-        // Mocks Authentication Token Service.
-        $this->authToken
-             ->expects($this->once())
-             ->method('accessTokenId')
-             ->with($authToken)
-             ->willReturn($dummyAccessTokenId);
+        // Mocks the access token that is going to be revoked.
+        $accessToken = $this->createMock(AccessToken::class);
 
         // Mocks AccessToken Repository.
         $this->accessToken
              ->expects($this->once())
              ->method('revoke')
-             ->with($dummyAccessTokenId)
+             ->with($accessToken)
              ->willReturn(true);
 
         // Performs test.
-        $this->service->revokeToken($authToken);
+        $this->service->revokeToken($accessToken);
     }
 }
