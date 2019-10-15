@@ -42,7 +42,7 @@ abstract class AbstractValidationRequest
         // Returns initialized instance.
         $this->validator = new Validator(
             $translator,
-            \json_decode($this->request->getContent(), true) ?? [],
+            $this->request->request->all(),
             $this->rules(),
             []
         );
