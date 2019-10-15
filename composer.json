@@ -24,8 +24,8 @@
     },
     "require": {
         "php": "~7.2",
-        "illuminate/database": "^5.8",
-        "illuminate/validation": "^5.8"
+        "illuminate/database": "^6.1",
+        "illuminate/validation": "^6.1"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.3",
@@ -37,6 +37,5 @@
         "seed"      : "RunScripts::seed",
         "migrations-rollback": "RunScripts::rollback"
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    "minimum-stability": "stable"
 }
