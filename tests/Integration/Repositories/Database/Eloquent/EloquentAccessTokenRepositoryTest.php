@@ -246,7 +246,7 @@ class EloquentAccessTokenRepositoryTest extends AbstractIntegrationTest
             ->first();
 
         // Performs test.
-        $result = $this->repository->revoke($model->id);
+        $result = $this->repository->revoke(new AccessToken($model->getAttributes()));
 
         // Performs assertion.
         $this->assertTrue(
@@ -270,7 +270,7 @@ class EloquentAccessTokenRepositoryTest extends AbstractIntegrationTest
             ->first();
 
         // Performs test.
-        $result = $this->repository->revoke($model->id);
+        $result = $this->repository->revoke(new AccessToken($model->getAttributes()));
 
         // Performs assertion.
         $this->assertFalse(
