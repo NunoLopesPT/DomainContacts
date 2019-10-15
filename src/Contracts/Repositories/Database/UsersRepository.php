@@ -2,6 +2,7 @@
 namespace NunoLopes\DomainContacts\Contracts\Repositories\Database;
 
 use NunoLopes\DomainContacts\Entities\User;
+use NunoLopes\DomainContacts\Exceptions\Repositories\Users\UserAlreadyCreatedException;
 use NunoLopes\DomainContacts\Exceptions\Repositories\Users\UserNotFoundException;
 
 /**
@@ -19,6 +20,8 @@ interface UsersRepository
      * the created Entity with an ID.
      *
      * @param User $user - User entity that will be created.
+     *
+     * @throws UserAlreadyCreatedException - If the user already exists.
      *
      * @return User
      */
