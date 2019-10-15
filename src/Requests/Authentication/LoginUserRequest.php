@@ -23,4 +23,24 @@ class LoginUserRequest extends AbstractValidationRequest
             'password' => 'required|string|min:6',
         ];
     }
+
+    /**
+     * Returns the email sent in the request.
+     *
+     * @return string
+     */
+    public function email(): string
+    {
+        return $this->request->get('email');
+    }
+
+    /**
+     * Returns the password sent in the request.
+     *
+     * @return string
+     */
+    public function password(): string
+    {
+        return $this->request->get('password');
+    }
 }
