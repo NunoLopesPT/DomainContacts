@@ -6,7 +6,6 @@ use NunoLopes\DomainContacts\Contracts\Services\AuthenticationTokenService;
 use NunoLopes\DomainContacts\Entities\AccessToken;
 use NunoLopes\DomainContacts\Entities\User;
 use NunoLopes\DomainContacts\Exceptions\Services\AccessToken\UserHasNoIdException;
-use NunoLopes\DomainContacts\Exceptions\Services\Authentication\TokenRevokedException;
 use NunoLopes\DomainContacts\Services\AccessTokenService;
 use NunoLopes\Tests\DomainContacts\AbstractTest;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -124,36 +123,6 @@ class AccessTokenServiceTest extends AbstractTest
             AccessToken::class,
             $result
         );
-    }
-
-    /**
-     * Test that an exception is raised if the AccessToken is Revoked.
-     *
-     * @return void
-     */
-    public function testCannotGetAccessIfTokenIsRevoked(): void
-    {
-        // Creates expectation.
-        $this->expectException(TokenRevokedException::class);
-
-        // Mocks AccessToken Repository.
-        $accessToken = $this->createMock(AccessToken::class);
-        $accessToken->expects($this->once())
-                    ->method('revoked')
-                    ->willReturn(true);
-
-        // Mocks Authentication Token Service.
-        $this->authToken
-             ->expects($this->once())
-             ->method('accessTokenId')
-             ->willReturn('dummyAccessTokenId');
-        $this->accessToken
-             ->expects($this->once())
-             ->method('getByToken')
-             ->willReturn($accessToken);
-
-        // Performs test.
-        $this->service->getTokenUser('dummyAuthenticationToken');
     }
 
     /**
