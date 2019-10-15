@@ -99,38 +99,30 @@ class AccessTokenServiceTest extends AbstractTest
      *
      * @return void
      */
-    public function testCanGetTokenUser(): void
+    public function testCanGetAccessToken(): void
     {
-        // Mocks User.
-        $user = $this->createMock(User::class);
-
         // Mocks AccessToken Repository.
         $accessToken = $this->createMock(AccessToken::class);
-        $accessToken->expects($this->once())
-            ->method('revoked')
-            ->willReturn(false);
-        $accessToken->expects($this->once())
-            ->method('user')
-            ->willReturn($user);
 
         // Mocks Authentication Token Service.
         $this->authToken
             ->expects($this->once())
             ->method('accessTokenId')
+            ->with('dummyAuthenticationToken')
             ->willReturn('dummyAccessTokenId');
         $this->accessToken
             ->expects($this->once())
             ->method('getByToken')
+            ->with('dummyAccessTokenId')
             ->willReturn($accessToken);
 
         // Performs test.
-        $result = $this->service->getTokenUser('dummyAuthenticationToken');
+        $result = $this->service->getAccessToken('dummyAuthenticationToken');
 
         // Performs assertions.
         $this->assertInstanceOf(
-            User::class,
-            $result,
-            'The instance should be an User entity.'
+            AccessToken::class,
+            $result
         );
     }
 
