@@ -48,15 +48,12 @@ class ContactsService
      */
     public function listAllContactsOfAuthenticatedUser(): array
     {
-        // Get the current authenticated user.
-        $user = $this->auth->user();
-
         // Only logged-in users can have contacts.
-        if ($user === null) {
+        if ($this->auth->guest()) {
             throw new UserNotAuthenticatedException();
         }
 
-        return $this->contactsRepository->findByUserId($user->id());
+        return $this->contactsRepository->findByUserId($this->auth->id());
     }
 
     /**
@@ -71,16 +68,13 @@ class ContactsService
      */
     public function create(array $attributes): Contact
     {
-        // Get the current authenticated user.
-        $user = $this->auth->user();
-
         // Only logged-in users can create contacts.
-        if ($user === null) {
+        if ($this->auth->guest()) {
             throw new UserNotAuthenticatedException();
         }
 
         // Insert the current logged in user id to the saving contact.
-        $attributes['user_id'] = $user->id();
+        $attributes['user_id'] = $this->auth->id();
 
         // Returns the created contact ID so it can be redirected
         // to the edit view.
@@ -99,11 +93,8 @@ class ContactsService
      */
     public function edit(int $id): Contact
     {
-        // Get the current authenticated user.
-        $user = $this->auth->user();
-
         // Only logged-in users can create contacts.
-        if ($user === null) {
+        if ($this->auth->guest()) {
             throw new UserNotAuthenticatedException();
         }
 
@@ -112,7 +103,7 @@ class ContactsService
         $contact = $this->contactsRepository->get($id);
 
         // Check if the user owns the contact.
-        if ($contact->userId() !== $user->id()) {
+        if ($contact->userId() !== $this->auth->id()) {
             throw new ContactNotFoundException();
         }
 
@@ -134,11 +125,8 @@ class ContactsService
      */
     public function update(int $id, array $attributes): Contact
     {
-        // Retrieve the logged user.
-        $user = $this->auth->user();
-
         // Only logged-in users can create contacts.
-        if ($user === null) {
+        if ($this->auth->guest()) {
             throw new UserNotAuthenticatedException();
         }
 
@@ -147,7 +135,7 @@ class ContactsService
         $contact = $this->contactsRepository->get($id);
 
         // Check if the user owns the contact.
-        if ($contact->userId() !== $user->id()) {
+        if ($contact->userId() !== $this->auth->id()) {
             throw new ContactNotFoundException();
         }
 
@@ -176,11 +164,8 @@ class ContactsService
      */
     public function destroy(int $id): void
     {
-        // Retrieve the logged user.
-        $user = $this->auth->user();
-
         // Only logged-in users can create contacts.
-        if ($user === null) {
+        if ($this->auth->guest()) {
             throw new UserNotAuthenticatedException();
         }
 
@@ -189,7 +174,7 @@ class ContactsService
         $contact = $this->contactsRepository->get($id);
 
         // Check if the user owns the contact.
-        if ($contact->userId() !== $user->id()) {
+        if ($contact->userId() !== $this->auth->id()) {
             throw new ContactNotFoundException();
         }
 
