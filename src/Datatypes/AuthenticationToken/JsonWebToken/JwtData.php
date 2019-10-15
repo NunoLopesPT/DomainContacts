@@ -1,6 +1,7 @@
 <?php
 namespace NunoLopes\DomainContacts\Datatypes\AuthenticationToken\JsonWebToken;
 
+use NunoLopes\DomainContacts\Exceptions\Datatypes\JwtDataNotValidException;
 use NunoLopes\DomainContacts\Utilities\Base64;
 
 /**
@@ -35,11 +36,17 @@ abstract class JwtData
      *
      * @param string $dataEncoded - String containing the data encoded.
      *
+     * @throws JwtDataNotValidException - If the Header is not a JSON.
+     *
      * @return void
      */
     public function decode(string $dataEncoded): void
     {
         $headerAttributes = \json_decode(Base64::urlDecode($dataEncoded), true);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw new JwtDataNotValidException();
+        }
 
         foreach ($headerAttributes as $attribute => $value) {
             if (\property_exists($this, $attribute)) {
