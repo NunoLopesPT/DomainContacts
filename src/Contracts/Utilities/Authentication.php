@@ -34,11 +34,11 @@ interface Authentication
     /**
      * Returns the authenticated User.
      *
-     * @todo check this can return only User.
+     * @throws UserNotAuthenticatedException - If the user is not authenticated.
      *
-     * @return User|null
+     * @return User
      */
-    public function user(): ?User;
+    public function user(): User;
 
     /**
      * Checks if the user is a guest.
