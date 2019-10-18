@@ -6,7 +6,6 @@ use NunoLopes\DomainContacts\Contracts\Services\AuthenticationTokenService;
 use NunoLopes\DomainContacts\Entities\AccessToken;
 use NunoLopes\DomainContacts\Entities\User;
 use NunoLopes\DomainContacts\Exceptions\Services\AccessToken\UserHasNoIdException;
-use NunoLopes\DomainContacts\Exceptions\Services\Authentication\TokenRevokedException;
 use NunoLopes\DomainContacts\Utilities\RandomGenerator;
 
 /**
@@ -47,6 +46,8 @@ class AccessTokenService
      *
      * @param User $user - The user that the token will be created for.
      *
+     * @throws UserHasNoIdException - If the user has no ID.
+     *
      * @return string
      */
     public function createToken(User $user): string
@@ -79,11 +80,11 @@ class AccessTokenService
      *
      * @param string $authToken - Authentication Token.
      *
-     * @throws TokenRevokedException - If the token is revoked.
+     * @throws \InvalidArgumentException - If the token is empty or invalid.
      *
-     * @return User
+     * @return AccessToken
      */
-    public function getTokenUser(string $authToken): User
+    public function getAccessToken(string $authToken): AccessToken
     {
         // Decodes the Token, check its integrity and get the ID of the AccessToken.
         $id = $this->authTokenService->accessTokenId($authToken);
@@ -91,32 +92,19 @@ class AccessTokenService
         // Find the token in the database.
         $accessToken = $this->accessTokenRepository->getByToken($id);
 
-        // Check if the token is revoked.
-        if ($accessToken->revoked()) {
-            throw new TokenRevokedException();
-        }
-
         // Return the User instance.
-        return $accessToken->user();
+        return $accessToken;
     }
 
     /**
-     * Revokes a token, checking its integrity first.
+     * Revokes a token and returns the successful of the operation.
      *
-     * Returns the successful of the operation.
-     *
-     * @param string $token - The authentication token.
-     *
-     * @throws \InvalidArgumentException - If the token is empty.
+     * @param AccessToken $accessToken - The authentication Access Token.
      *
      * @return bool
      */
-    public function revokeToken(string $token): bool
+    public function revokeToken(AccessToken $accessToken): bool
     {
-        // Decodes the Token, check its integrity and get the ID of the AccessToken.
-        $id = $this->authTokenService->accessTokenId($token);
-
-        // Returns the success of the revoke operation.
-        return $this->accessTokenRepository->revoke($id);
+        return $this->accessTokenRepository->revoke($accessToken);
     }
 }
