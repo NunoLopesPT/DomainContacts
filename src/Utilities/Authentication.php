@@ -9,8 +9,6 @@ use NunoLopes\DomainContacts\Exceptions\Services\Authentication\UserNotAuthentic
 /**
  * Class LaravelAuthentication
  *
- * @todo move to datatype
- *
  * @package NunoLopes\DomainContacts
  */
 class Authentication implements Contract
@@ -33,7 +31,7 @@ class Authentication implements Contract
     /**
      * @inheritdoc
      */
-    public function accessToken(): AccessToken
+    public function accessToken(): ?AccessToken
     {
         return $this->accessToken;
     }
