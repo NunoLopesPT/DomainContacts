@@ -47,7 +47,7 @@ You can contact me on Linkedin: https://www.linkedin.com/in/nuno-lopes/
 
 To-Do List:
 
-- Have own dependency injection in the domain or create factories.
-- Create more requests
 - Solve some @todo's in the code.
 
+A special thanks to [@HRADigital]( https://github.com/HRADigital ) that without him couldn't have learned this much. 
+Who mentored me and guided me during 18 months.
