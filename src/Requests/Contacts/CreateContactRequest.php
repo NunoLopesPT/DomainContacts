@@ -19,7 +19,7 @@ class CreateContactRequest extends AbstractValidationRequest
     public function rules(): array
     {
         return [
-            'first_name'   => 'required|min:3|max:255',
+            'first_name'   => 'required|min:2|max:255',
             'last_name'    => 'max:255',
             'email'        => 'nullable|regex:/\S+@\S+\.\S+/i|max:255',
             'phone_number' => 'nullable|string|max:255',
