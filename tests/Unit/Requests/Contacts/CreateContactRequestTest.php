@@ -5,7 +5,7 @@ use NunoLopes\DomainContacts\Requests\Contacts\CreateContactRequest;
 use NunoLopes\Tests\DomainContacts\AbstractTest;
 
 /**
- * Class LoginUserRequestTest.
+ * Class CreateContactRequestTest.
  *
  * @package NunoLopes\DomainContacts
  */
@@ -29,7 +29,7 @@ class CreateContactRequestTest extends AbstractTest
     }
 
     /**
-     * Test LoginUserRequest fails if there is no password.
+     * Test CreateContactRequest fails if there is no first_name.
      *
      * @return void
      */
@@ -43,5 +43,53 @@ class CreateContactRequestTest extends AbstractTest
 
         // Performs assertion.
         $this->assertTrue($request->fails());
+    }
+
+    /**
+     * Test CreateContactRequest fails if first name is too short.
+     *
+     * @return void
+     */
+    public function testCreateContactRequestFailsIfFirstNameIsTooShort(): void
+    {
+        // Change Attribute.
+        $_POST['first_name'] = 'a';
+
+        // Performs test.
+        $request = new CreateContactRequest();
+
+        // Performs assertion.
+        $this->assertTrue($request->fails());
+    }
+
+    /**
+     * Test CreateContactRequest fails if email is invalid.
+     *
+     * @return void
+     */
+    public function testCreateContactRequestFailsIfEmailIsInvalid(): void
+    {
+        // Change Attribute.
+        $_POST['email'] = 'invalidemail.com';
+
+        // Performs test.
+        $request = new CreateContactRequest();
+
+        // Performs assertion.
+        $this->assertTrue($request->fails());
+    }
+
+    /**
+     * Test CreateContactRequest succeeds.
+     *
+     * @return void
+     */
+    public function testCreateContactRequestSucceeds(): void
+    {
+        // Performs test.
+        $request = new CreateContactRequest();
+
+        // Performs assertion.
+        $this->assertFalse($request->fails());
     }
 }

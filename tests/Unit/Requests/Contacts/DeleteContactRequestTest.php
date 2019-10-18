@@ -30,7 +30,7 @@ class DeleteContactRequestTest extends AbstractTest
      *
      * @return void
      */
-    public function testCreateContactRequestFailsIfNoIdIsPresent(): void
+    public function testDeleteContactRequestFailsIfNoIdIsPresent(): void
     {
         // Unsets required variable to test request.
         unset($_POST['id']);
@@ -47,7 +47,7 @@ class DeleteContactRequestTest extends AbstractTest
      *
      * @return void
      */
-    public function testCreateContactRequestFailsIfIdIsZero(): void
+    public function testDeleteContactRequestFailsIfIdIsZero(): void
     {
         // Unsets required variable to test request.
         $_POST['id'] = 0;
@@ -64,7 +64,7 @@ class DeleteContactRequestTest extends AbstractTest
      *
      * @return void
      */
-    public function testCreateContactRequestFailsIfIdIsNegative(): void
+    public function testDeleteContactRequestFailsIfIdIsNegative(): void
     {
         // Unsets required variable to test request.
         $_POST['id'] = -1;
@@ -81,7 +81,7 @@ class DeleteContactRequestTest extends AbstractTest
      *
      * @return void
      */
-    public function testCreateContactRequestSucceeds(): void
+    public function testDeleteContactRequestSucceeds(): void
     {
         // Performs test.
         $request = new DeleteContactRequest();
