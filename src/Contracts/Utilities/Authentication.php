@@ -18,9 +18,9 @@ interface Authentication
     /**
      * Returns the accessToken used for authentication.
      *
-     * @return AccessToken
+     * @return AccessToken|null
      */
-    public function accessToken(): AccessToken;
+    public function accessToken(): ?AccessToken;
 
     /**
      * Returns the authenticated User ID.
