@@ -2,10 +2,12 @@
 namespace NunoLopes\DomainContacts\Services;
 
 use NunoLopes\DomainContacts\Contracts\Repositories\Database\UsersRepository;
+use NunoLopes\DomainContacts\Contracts\Utilities\Authentication;
 use NunoLopes\DomainContacts\Entities\User;
-use NunoLopes\DomainContacts\Exceptions\Entities\RequiredAttributeMissingException;
+use NunoLopes\DomainContacts\Exceptions\Repositories\Users\UserAlreadyCreatedException;
 use NunoLopes\DomainContacts\Exceptions\Repositories\Users\UserNotFoundException;
 use NunoLopes\DomainContacts\Exceptions\Services\Authentication\PasswordMismatchException;
+use NunoLopes\DomainContacts\Exceptions\Services\Authentication\UserNotAuthenticatedException;
 use NunoLopes\DomainContacts\Utilities\Hash;
 
 /**
@@ -27,40 +29,51 @@ class AuthenticationService
     private $accessTokenService = null;
 
     /**
+     * @var Authentication $auth - Authentication manager instance.
+     */
+    private $auth = null;
+
+    /**
      * AuthenticationService constructor.
      *
      * @param UsersRepository    $usersRepository    - User's Repository instance.
      * @param AccessTokenService $accessTokenService - AccessToken's Service instance.
+     * @param Authentication     $auth               - Authentication manager instance.
      */
     public function __construct(
         UsersRepository $usersRepository,
-        AccessTokenService $accessTokenService
+        AccessTokenService $accessTokenService,
+        Authentication $auth
     ) {
         $this->usersRepository = $usersRepository;
         $this->accessTokenService = $accessTokenService;
+        $this->auth = $auth;
     }
 
     /**
      * Registers an user in the database.
      *
-     * @param array $attributes - Related attributes with the registration.
+     * @param string $name - Name of the registred user.
+     * @param string $email - Email of the registred user.
+     * @param string $password - Unhashed password from the registred user.
+     *
+     * @throws UserAlreadyCreatedException - If the user already exists.
      *
      * @return string
      */
-    public function register (array $attributes): string
+    public function register(string $name, string $email, string $password): string
     {
-        // Converts the password with an one-way hash.
-        if (!isset($attributes['password'])) {
-            throw new RequiredAttributeMissingException('password');
-        }
-
-        // Converts the passsword to hash.
-        $attributes['password'] = Hash::create($attributes['password']);
+        // Creates the user with the hashed password.
+        $user = new User([
+            'name'     => $name,
+            'email'    => $email,
+            'password' => Hash::create($password),
+        ]);
 
         // Saves the user in the persistent layer with the hashed password.
-        $user = $this->usersRepository->create(new User($attributes));
+        $user = $this->usersRepository->create($user);
 
-        // Creates an authentication token .
+        // Creates an authentication token.
         return $this->accessTokenService->createToken($user);
     }
 
@@ -88,5 +101,37 @@ class AuthenticationService
 
         // Creates a token so the user can access.
         return $this->accessTokenService->createToken($user);
+    }
+
+    /**
+     * Returns the loggedin user.
+     *
+     * @throws UserNotAuthenticatedException - If no user is authenticated.
+     *
+     * @return User
+     */
+    public function user(): User
+    {
+        if ($this->auth->guest()) {
+            throw new UserNotAuthenticatedException();
+        }
+
+        return $this->auth->user();
+    }
+
+    /**
+     * Log-outs the current authenticated User.
+     *
+     * @throws UserNotAuthenticatedException - If no user is authenticated.
+     *
+     * @return bool
+     */
+    public function logout(): bool
+    {
+        if ($this->auth->guest()) {
+            throw new UserNotAuthenticatedException();
+        }
+
+        return $this->accessTokenService->revokeToken($this->auth->accessToken());
     }
 }
