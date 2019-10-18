@@ -77,4 +77,21 @@ class RegisterUserRequestTest extends AbstractTest
         // Performs assertion.
         $this->assertTrue($request->fails());
     }
+
+    /**
+     * Test RegisterUserRequest succeeds.
+     *
+     * @return void
+     */
+    public function testRegisterUserRequestSucceeds(): void
+    {
+        // Performs test.
+        $request = new RegisterUserRequest();
+
+        // Performs assertions.
+        $this->assertFalse($request->fails());
+        $this->assertEquals($_POST['name'], $request->name());
+        $this->assertEquals($_POST['email'], $request->email());
+        $this->assertEquals($_POST['password'], $request->password());
+    }
 }

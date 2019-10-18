@@ -59,4 +59,20 @@ class LoginUserRequestTest extends AbstractTest
         // Performs assertion.
         $this->assertTrue($request->fails());
     }
+
+    /**
+     * Test LoginUserRequest succeeds.
+     *
+     * @return void
+     */
+    public function testLoginUserRequestSucceeds(): void
+    {
+        // Performs test.
+        $request = new LoginUserRequest();
+
+        // Performs assertions.
+        $this->assertFalse($request->fails());
+        $this->assertEquals($_POST['email'], $request->email());
+        $this->assertEquals($_POST['password'], $request->password());
+    }
 }
