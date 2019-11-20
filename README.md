@@ -6,10 +6,7 @@ This is my playground to study/practice Domain-Driven-Design (DDD) software deve
 
 There will be other repositories for this project:
 
-Laravel Package Repository:
-- This Repository will be the application layer, a package for laravel that will be used mainly for Binding Contracts, 
-Controllers and raising exceptions. It will be the API, no business logic should be there. The repository is working right now but doesn't have 
-tests right now or documentation so it is not available right now. With postman later it should be able to test the API.
+[LaravelContactsAPI]( https://github.com/NunoLopesPT/LaravelContactsAPI )
 
 React Repository:
 - In my current company I've have experience with JavaScript ES6, creating small aplications, and as Backend Developer till the moment, I found
