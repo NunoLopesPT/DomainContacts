@@ -7,6 +7,7 @@ use NunoLopes\DomainContacts\Entities\Contact;
 use NunoLopes\DomainContacts\Entities\User;
 use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactNotDeletedException;
 use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactNotFoundException;
+use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactNotOwnedException;
 use NunoLopes\DomainContacts\Exceptions\Services\Authentication\UserNotAuthenticatedException;
 use NunoLopes\DomainContacts\Services\ContactsService;
 use NunoLopes\Tests\DomainContacts\AbstractTest;
@@ -219,7 +220,7 @@ class ContactsServiceTest extends AbstractTest
     public function testCannotRetrieveContactToEditIfOwnerIsDifferent(): void
     {
         // Creates expectation.
-        $this->expectException(ContactNotFoundException::class);
+        $this->expectException(ContactNotOwnedException::class);
 
         // Mock authentication.
         $this->auth
@@ -336,7 +337,7 @@ class ContactsServiceTest extends AbstractTest
     public function testCannotUpdateContactIfOwnerIsDifferent(): void
     {
         // Creates expectation.
-        $this->expectException(ContactNotFoundException::class);
+        $this->expectException(ContactNotOwnedException::class);
 
         // Mock authentication.
         $this->auth
@@ -449,7 +450,7 @@ class ContactsServiceTest extends AbstractTest
     public function testCannotDestroyContactIfOwnerIsDifferent(): void
     {
         // Creates expectation.
-        $this->expectException(ContactNotFoundException::class);
+        $this->expectException(ContactNotOwnedException::class);
 
         // Mock authentication.
         $this->auth

@@ -152,7 +152,7 @@ class EloquentUsersRepositoryTest extends AbstractIntegrationTest
         $this->expectException(UserNotFoundException::class);
 
         // Performs test.
-        $this->repository->getByEmail($this->faker->email);
+        $this->repository->getByName($this->faker->email);
     }
 
     /**
@@ -210,7 +210,7 @@ class EloquentUsersRepositoryTest extends AbstractIntegrationTest
         $this->expectException(\InvalidArgumentException::class);
 
         // Performs test.
-        $this->repository->getByEmail('');
+        $this->repository->getByName('');
     }
 
     /**
@@ -225,15 +225,15 @@ class EloquentUsersRepositoryTest extends AbstractIntegrationTest
         $this->expectException(\InvalidArgumentException::class);
 
         // Performs test.
-        $this->repository->getByEmail('    ');
+        $this->repository->getByName('    ');
     }
 
     /**
-     * Test that an User can be found by its email.
+     * Test that an User can be found by its name.
      *
      * @return void
      */
-    public function testUserCanBeFoundByEmail(): void
+    public function testUserCanBeFoundByName(): void
     {
         // Collects a random User.
         $model = $this->model
@@ -242,7 +242,7 @@ class EloquentUsersRepositoryTest extends AbstractIntegrationTest
             ->first();
 
         // Get the User from the Repository.
-        $user = $this->repository->getByEmail($model->email);
+        $user = $this->repository->getByName($model->name);
 
         // Perform assertions
         $this->assertInstanceOf(

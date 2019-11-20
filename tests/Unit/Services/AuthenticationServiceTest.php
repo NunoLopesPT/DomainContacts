@@ -2,8 +2,8 @@
 namespace NunoLopes\Tests\DomainContacts\Unit\Services;
 
 use NunoLopes\DomainContacts\Contracts\Repositories\Database\UsersRepository;
+use NunoLopes\DomainContacts\Contracts\Utilities\Authentication;
 use NunoLopes\DomainContacts\Entities\User;
-use NunoLopes\DomainContacts\Exceptions\Entities\RequiredAttributeMissingException;
 use NunoLopes\DomainContacts\Exceptions\Services\Authentication\PasswordMismatchException;
 use NunoLopes\DomainContacts\Services\AccessTokenService;
 use NunoLopes\DomainContacts\Services\AuthenticationService;
@@ -36,6 +36,11 @@ class AuthenticationServiceTest extends AbstractTest
     private $service = null;
 
     /**
+     * @var Authentication $auth - Authentication Utility Instance.
+     */
+    private $auth = null;
+
+    /**
      * @inheritdoc
      */
     public function setUp(): void
@@ -46,9 +51,14 @@ class AuthenticationServiceTest extends AbstractTest
         // Mock dependencies.
         $this->users       = $this->createMock(UsersRepository::class);
         $this->accessToken = $this->createMock(AccessTokenService::class);
+        $this->auth        = $this->createMock(Authentication::class);
 
         // Instantiates Service.
-        $this->service = new AuthenticationService($this->users, $this->accessToken);
+        $this->service = new AuthenticationService(
+            $this->users,
+            $this->accessToken,
+            $this->auth
+        );
     }
 
     /**
@@ -92,7 +102,11 @@ class AuthenticationServiceTest extends AbstractTest
              ->willReturn('token');
 
         // Performs test.
-        $result = $this->service->register($attributes);
+        $result = $this->service->register(
+            $attributes['name'],
+            $attributes['email'],
+            $attributes['password']
+        );
 
         // Performs assertions.
         $this->assertIsString(
@@ -106,32 +120,24 @@ class AuthenticationServiceTest extends AbstractTest
      *
      * @return void
      */
-    public function testCannotRegisterUserIfPasswordIsMissing(): void
+    public function testCannotRegisterUserIfPasswordIsEmpty(): void
     {
         // Creates expectation.
-        $this->expectException(RequiredAttributeMissingException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         // Create random attributes.
         $attributes = [
             'name'     => $this->faker->userName,
             'email'    => $this->faker->email,
+            'password' => '',
         ];
 
         // Performs test.
-        $this->service->register($attributes);
-    }
-
-    /**
-     * Test we cannot register an user if the attributes array is empty.
-     *
-     * @return void
-     */
-    public function testCannotRegisterUserIfAttributesAreEmpty(): void
-    {
-        // Creates expectation.
-        $this->expectException(RequiredAttributeMissingException::class);
-
-        $this->service->register([]);
+        $this->service->register(
+            $attributes['name'],
+            $attributes['email'],
+            $attributes['password']
+            );
     }
 
     /**
@@ -163,7 +169,7 @@ class AuthenticationServiceTest extends AbstractTest
         // Mocks User's Repository.
         $this->users
              ->expects($this->once())
-             ->method('getByEmail')
+             ->method('getByName')
              ->with()
              ->willReturn($user);
 
@@ -212,7 +218,7 @@ class AuthenticationServiceTest extends AbstractTest
         // Mocks User's Repository.
         $this->users
             ->expects($this->once())
-            ->method('getByEmail')
+            ->method('getByName')
             ->with()
             ->willReturn($user);
 
