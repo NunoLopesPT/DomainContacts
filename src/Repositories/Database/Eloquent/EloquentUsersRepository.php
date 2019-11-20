@@ -78,17 +78,18 @@ class EloquentUsersRepository implements UsersRepository
     /**
      * @inheritdoc
      */
-    public function getByEmail(string $email): ?User
+    public function getByName(string $name): ?User
     {
-        // Throw exception if the email is empty.
-        if (\strlen(\trim($email)) === 0) {
-            throw new \InvalidArgumentException('User\'s email is empty.');
+        // Throw exception if the name is empty.
+        if (\strlen(\trim($name)) === 0) {
+            throw new \InvalidArgumentException('User\'s Name is empty.');
         }
 
+        // Try to find the user.
         $user = $this->users
-            ->newQuery()
-            ->where('email', $email)
-            ->first();
+                     ->newQuery()
+                     ->where('name', $name)
+                     ->first();
 
         // Throw exception if the user was not found.
         if ($user === null) {
