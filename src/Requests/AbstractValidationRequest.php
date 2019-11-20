@@ -27,6 +27,8 @@ abstract class AbstractValidationRequest
     /**
      * AbstractValidationRequest constructor.
      *
+     * @todo The include should be provided by the application layer.
+     *
      * @throws \LogicException
      */
     public function __construct()
@@ -44,7 +46,7 @@ abstract class AbstractValidationRequest
             $translator,
             $this->request->request->all(),
             $this->rules(),
-            []
+            include 'validation.php'
         );
     }
 
