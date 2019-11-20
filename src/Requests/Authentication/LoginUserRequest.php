@@ -19,19 +19,19 @@ class LoginUserRequest extends AbstractValidationRequest
     public function rules(): array
     {
         return [
-            'email'    => 'required|string|max:255',
+            'name'     => 'required|string|max:255',
             'password' => 'required|string|min:6',
         ];
     }
 
     /**
-     * Returns the email sent in the request.
+     * Returns the name sent in the request.
      *
      * @return string
      */
-    public function email(): string
+    public function name(): string
     {
-        return $this->request->get('email');
+        return $this->request->get('name');
     }
 
     /**
