@@ -8,4 +8,15 @@ namespace NunoLopes\DomainContacts\Requests\Contacts;
  */
 class UpdateContactRequest extends CreateContactRequest
 {
+    /**
+     * Return the ID of the contact that is going to be updated.
+     *
+     * @todo replace this method to be similar to DeleteContactRequest.
+     *
+     * @return int
+     */
+    public function id(): int
+    {
+        return $this->request->get('id');
+    }
 }
