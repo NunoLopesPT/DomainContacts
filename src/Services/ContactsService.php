@@ -7,6 +7,7 @@ use NunoLopes\DomainContacts\Entities\Contact;
 use NunoLopes\DomainContacts\Exceptions\Entities\RequiredAttributeMissingException;
 use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactNotDeletedException;
 use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactNotFoundException;
+use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactNotOwnedException;
 use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactNotUpdatedException;
 use NunoLopes\DomainContacts\Exceptions\Services\Authentication\UserNotAuthenticatedException;
 
@@ -87,7 +88,8 @@ class ContactsService
      * @param  int  $id - Contact that is going to be edited.
      *
      * @throws UserNotAuthenticatedException - If the user is not authenticated.
-     * @throws ContactNotFoundException      - If the contact doesn't exist or the owner is different.
+     * @throws ContactNotFoundException      - If the contact doesn't exist.
+     * @throws ContactNotOwnedException      - If the owner of the contact is different.
      *
      * @return Contact
      */
@@ -104,7 +106,7 @@ class ContactsService
 
         // Check if the user owns the contact.
         if ($contact->userId() !== $this->auth->id()) {
-            throw new ContactNotFoundException();
+            throw new ContactNotOwnedException();
         }
 
         return $contact;
@@ -118,8 +120,9 @@ class ContactsService
      * @param  array $attributes - Attributes that are going to update.
      *
      * @throws UserNotAuthenticatedException - If the user is not authenticated.
-     * @throws ContactNotFoundException      - If the contact to update was not found or the owner is different.
+     * @throws ContactNotFoundException      - If the contact to update was not found.
      * @throws ContactNotUpdatedException    - If the contact was not updated.
+     * @throws ContactNotOwnedException      - If the owner of the contact is different.
      *
      * @return Contact
      */
@@ -136,7 +139,7 @@ class ContactsService
 
         // Check if the user owns the contact.
         if ($contact->userId() !== $this->auth->id()) {
-            throw new ContactNotFoundException();
+            throw new ContactNotOwnedException();
         }
 
         // Validate the returned attributes.
@@ -156,9 +159,9 @@ class ContactsService
      * @param  int  $id - Id of the Contact that is going to be destroyed.
      *
      * @throws UserNotAuthenticatedException - If the user is not authenticated.
-     * @throws ContactNotFoundException      - If the contact to delete was not found
-     *                                         or the owner is different.
+     * @throws ContactNotFoundException      - If the contact to delete was not found.
      * @throws ContactNotDeletedException    - If the contact was not deleted.
+     * @throws ContactNotOwnedException      - If the owner of the contact is different.
      *
      * @return void
      */
@@ -175,7 +178,7 @@ class ContactsService
 
         // Check if the user owns the contact.
         if ($contact->userId() !== $this->auth->id()) {
-            throw new ContactNotFoundException();
+            throw new ContactNotOwnedException();
         }
 
         // Returns success message if the contact was deleted.
