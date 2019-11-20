@@ -18,8 +18,19 @@ class DeleteContactRequest extends AbstractValidationRequest
      */
     public function rules(): array
     {
-        return [
-            'id' => 'required|integer|min:1'
-        ];
+        return [];
+    }
+
+    /**
+     * Return the id of the contact that is going to be deleted.
+     * It comes in the last segment of the Uri.
+     *
+     * @todo validate if the id is positive.
+     *
+     * @return int
+     */
+    public function id(): int
+    {
+        return \last(\explode('/', $this->request->getRequestUri()));
     }
 }
