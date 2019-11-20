@@ -1,14 +1,14 @@
 <?php
 namespace NunoLopes\DomainContacts\Exceptions\Services\Authentication;
 
-use NunoLopes\DomainContacts\Exceptions\BaseException;
+use NunoLopes\DomainContacts\Exceptions\UnauthorizedException;
 
 /**
  * Class UserNotAuthenticatedException.
  *
  * @package NunoLopes\DomainContacts
  */
-class UserNotAuthenticatedException extends BaseException
+class UserNotAuthenticatedException extends UnauthorizedException
 {
     /**
      * @inheritdoc

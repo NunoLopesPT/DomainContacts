@@ -36,13 +36,11 @@ interface AccessTokenRepository
     public function create(AccessToken $accessToken): AccessToken;
 
     /**
-     * Revokes an AccessToken.
+     * Revokes an AccessToken and returns operation success.
      *
-     * Returns operation success.
-     *
-     * @param string $id - ID of the AccessToken.
+     * @param AccessToken $accessToken - AccessToken that is going to be revoked.
      *
      * @return bool
      */
-    public function revoke(string $id): bool;
+    public function revoke(AccessToken $accessToken): bool;
 }

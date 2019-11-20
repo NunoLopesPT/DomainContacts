@@ -1,7 +1,9 @@
 <?php
 namespace NunoLopes\DomainContacts\Contracts\Utilities;
 
+use NunoLopes\DomainContacts\Entities\AccessToken;
 use NunoLopes\DomainContacts\Entities\User;
+use NunoLopes\DomainContacts\Exceptions\Services\Authentication\UserNotAuthenticatedException;
 
 /**
  * Authentication Contract.
@@ -14,7 +16,16 @@ use NunoLopes\DomainContacts\Entities\User;
 interface Authentication
 {
     /**
+     * Returns the accessToken used for authentication.
+     *
+     * @return AccessToken|null
+     */
+    public function accessToken(): ?AccessToken;
+
+    /**
      * Returns the authenticated User ID.
+     *
+     * @throws UserNotAuthenticatedException - If the user is not authenticated.
      *
      * @return int
      */
@@ -23,9 +34,11 @@ interface Authentication
     /**
      * Returns the authenticated User.
      *
-     * @return User|null
+     * @throws UserNotAuthenticatedException - If the user is not authenticated.
+     *
+     * @return User
      */
-    public function user(): ?User;
+    public function user(): User;
 
     /**
      * Checks if the user is a guest.

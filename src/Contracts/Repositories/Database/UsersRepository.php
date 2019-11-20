@@ -2,6 +2,7 @@
 namespace NunoLopes\DomainContacts\Contracts\Repositories\Database;
 
 use NunoLopes\DomainContacts\Entities\User;
+use NunoLopes\DomainContacts\Exceptions\Repositories\Users\UserAlreadyCreatedException;
 use NunoLopes\DomainContacts\Exceptions\Repositories\Users\UserNotFoundException;
 
 /**
@@ -20,6 +21,8 @@ interface UsersRepository
      *
      * @param User $user - User entity that will be created.
      *
+     * @throws UserAlreadyCreatedException - If the user already exists.
+     *
      * @return User
      */
     public function create(User $user): User;
@@ -37,13 +40,13 @@ interface UsersRepository
     public function get(int $id): User;
 
     /**
-     * Get User by its email.
+     * Get User by its name.
      *
-     * @param string $email - Email of the User.
+     * @param string $name - Name of the User.
      *
      * @throws UserNotFoundException - If the user was not found.
      *
      * @return User
      */
-    public function getByEmail(string $email): ?User;
+    public function getByName(string $name): ?User;
 }

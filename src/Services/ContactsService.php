@@ -7,6 +7,7 @@ use NunoLopes\DomainContacts\Entities\Contact;
 use NunoLopes\DomainContacts\Exceptions\Entities\RequiredAttributeMissingException;
 use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactNotDeletedException;
 use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactNotFoundException;
+use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactNotOwnedException;
 use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactNotUpdatedException;
 use NunoLopes\DomainContacts\Exceptions\Services\Authentication\UserNotAuthenticatedException;
 
@@ -48,15 +49,12 @@ class ContactsService
      */
     public function listAllContactsOfAuthenticatedUser(): array
     {
-        // Get the current authenticated user.
-        $user = $this->auth->user();
-
         // Only logged-in users can have contacts.
-        if ($user === null) {
+        if ($this->auth->guest()) {
             throw new UserNotAuthenticatedException();
         }
 
-        return $this->contactsRepository->findByUserId($user->id());
+        return $this->contactsRepository->findByUserId($this->auth->id());
     }
 
     /**
@@ -71,16 +69,13 @@ class ContactsService
      */
     public function create(array $attributes): Contact
     {
-        // Get the current authenticated user.
-        $user = $this->auth->user();
-
         // Only logged-in users can create contacts.
-        if ($user === null) {
+        if ($this->auth->guest()) {
             throw new UserNotAuthenticatedException();
         }
 
         // Insert the current logged in user id to the saving contact.
-        $attributes['user_id'] = $user->id();
+        $attributes['user_id'] = $this->auth->id();
 
         // Returns the created contact ID so it can be redirected
         // to the edit view.
@@ -93,17 +88,15 @@ class ContactsService
      * @param  int  $id - Contact that is going to be edited.
      *
      * @throws UserNotAuthenticatedException - If the user is not authenticated.
-     * @throws ContactNotFoundException      - If the contact doesn't exist or the owner is different.
+     * @throws ContactNotFoundException      - If the contact doesn't exist.
+     * @throws ContactNotOwnedException      - If the owner of the contact is different.
      *
      * @return Contact
      */
     public function edit(int $id): Contact
     {
-        // Get the current authenticated user.
-        $user = $this->auth->user();
-
         // Only logged-in users can create contacts.
-        if ($user === null) {
+        if ($this->auth->guest()) {
             throw new UserNotAuthenticatedException();
         }
 
@@ -112,8 +105,8 @@ class ContactsService
         $contact = $this->contactsRepository->get($id);
 
         // Check if the user owns the contact.
-        if ($contact->userId() !== $user->id()) {
-            throw new ContactNotFoundException();
+        if ($contact->userId() !== $this->auth->id()) {
+            throw new ContactNotOwnedException();
         }
 
         return $contact;
@@ -127,18 +120,16 @@ class ContactsService
      * @param  array $attributes - Attributes that are going to update.
      *
      * @throws UserNotAuthenticatedException - If the user is not authenticated.
-     * @throws ContactNotFoundException      - If the contact to update was not found or the owner is different.
+     * @throws ContactNotFoundException      - If the contact to update was not found.
      * @throws ContactNotUpdatedException    - If the contact was not updated.
+     * @throws ContactNotOwnedException      - If the owner of the contact is different.
      *
      * @return Contact
      */
     public function update(int $id, array $attributes): Contact
     {
-        // Retrieve the logged user.
-        $user = $this->auth->user();
-
         // Only logged-in users can create contacts.
-        if ($user === null) {
+        if ($this->auth->guest()) {
             throw new UserNotAuthenticatedException();
         }
 
@@ -147,8 +138,8 @@ class ContactsService
         $contact = $this->contactsRepository->get($id);
 
         // Check if the user owns the contact.
-        if ($contact->userId() !== $user->id()) {
-            throw new ContactNotFoundException();
+        if ($contact->userId() !== $this->auth->id()) {
+            throw new ContactNotOwnedException();
         }
 
         // Validate the returned attributes.
@@ -168,19 +159,16 @@ class ContactsService
      * @param  int  $id - Id of the Contact that is going to be destroyed.
      *
      * @throws UserNotAuthenticatedException - If the user is not authenticated.
-     * @throws ContactNotFoundException      - If the contact to delete was not found
-     *                                         or the owner is different.
+     * @throws ContactNotFoundException      - If the contact to delete was not found.
      * @throws ContactNotDeletedException    - If the contact was not deleted.
+     * @throws ContactNotOwnedException      - If the owner of the contact is different.
      *
      * @return void
      */
     public function destroy(int $id): void
     {
-        // Retrieve the logged user.
-        $user = $this->auth->user();
-
         // Only logged-in users can create contacts.
-        if ($user === null) {
+        if ($this->auth->guest()) {
             throw new UserNotAuthenticatedException();
         }
 
@@ -189,8 +177,8 @@ class ContactsService
         $contact = $this->contactsRepository->get($id);
 
         // Check if the user owns the contact.
-        if ($contact->userId() !== $user->id()) {
-            throw new ContactNotFoundException();
+        if ($contact->userId() !== $this->auth->id()) {
+            throw new ContactNotOwnedException();
         }
 
         // Returns success message if the contact was deleted.

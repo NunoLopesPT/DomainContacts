@@ -1,15 +1,15 @@
 <?php
 namespace NunoLopes\Tests\DomainContacts\Unit\Requests\Authentication;
 
-use NunoLopes\DomainContacts\Requests\Contacts\CreateContactRequest;
+use NunoLopes\DomainContacts\Requests\Contacts\UpdateContactRequest;
 use NunoLopes\Tests\DomainContacts\AbstractTest;
 
 /**
- * Class CreateContactRequestTest.
+ * Class UpdateContactRequestTest.
  *
  * @package NunoLopes\DomainContacts
  */
-class CreateContactRequestTest extends AbstractTest
+class UpdateContactRequestTest extends AbstractTest
 {
     /**
      * @inheritdoc
@@ -29,65 +29,65 @@ class CreateContactRequestTest extends AbstractTest
     }
 
     /**
-     * Test CreateContactRequest fails if there is no first_name.
+     * Test UpdateContactRequest fails if there is no first_name.
      *
      * @return void
      */
-    public function testCreateContactRequestFailsIfNoFirstNameIsPresent(): void
+    public function testUpdateContactRequestFailsIfNoFirstNameIsPresent(): void
     {
         // Unsets required variable to test request.
         unset($_POST['first_name']);
 
         // Performs test.
-        $request = new CreateContactRequest();
+        $request = new UpdateContactRequest();
 
         // Performs assertion.
         $this->assertTrue($request->fails());
     }
 
     /**
-     * Test CreateContactRequest fails if first name is too short.
+     * Test UpdateContactRequest fails if first name is too short.
      *
      * @return void
      */
-    public function testCreateContactRequestFailsIfFirstNameIsTooShort(): void
+    public function testUpdateContactRequestFailsIfFirstNameIsTooShort(): void
     {
         // Change Attribute.
         $_POST['first_name'] = 'a';
 
         // Performs test.
-        $request = new CreateContactRequest();
+        $request = new UpdateContactRequest();
 
         // Performs assertion.
         $this->assertTrue($request->fails());
     }
 
     /**
-     * Test CreateContactRequest fails if email is invalid.
+     * Test UpdateContactRequest fails if email is invalid.
      *
      * @return void
      */
-    public function testCreateContactRequestFailsIfEmailIsInvalid(): void
+    public function testUpdateContactRequestFailsIfEmailIsInvalid(): void
     {
         // Change Attribute.
         $_POST['email'] = 'invalidemail.com';
 
         // Performs test.
-        $request = new CreateContactRequest();
+        $request = new UpdateContactRequest();
 
         // Performs assertion.
         $this->assertTrue($request->fails());
     }
 
     /**
-     * Test CreateContactRequest succeeds.
+     * Test UpdateContactRequest succeeds.
      *
      * @return void
      */
-    public function testCreateContactRequestSucceeds(): void
+    public function testUpdateContactRequestSucceeds(): void
     {
         // Performs test.
-        $request = new CreateContactRequest();
+        $request = new UpdateContactRequest();
 
         // Performs assertion.
         $this->assertFalse($request->fails());

@@ -7,6 +7,7 @@ use NunoLopes\DomainContacts\Entities\Contact;
 use NunoLopes\DomainContacts\Entities\User;
 use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactNotDeletedException;
 use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactNotFoundException;
+use NunoLopes\DomainContacts\Exceptions\Repositories\Contacts\ContactNotOwnedException;
 use NunoLopes\DomainContacts\Exceptions\Services\Authentication\UserNotAuthenticatedException;
 use NunoLopes\DomainContacts\Services\ContactsService;
 use NunoLopes\Tests\DomainContacts\AbstractTest;
@@ -60,17 +61,15 @@ class ContactsServiceTest extends AbstractTest
      */
     public function testAllContactsCanBeRetrieveIfUserIsLoggedIn(): void
     {
-        // Mock authenticated User entity.
-        $user = $this->createMock(User::class);
-        $user->expects($this->once())
-             ->method('id')
-             ->willReturn(1);
-
         // Mock authentication.
         $this->auth
+            ->expects($this->once())
+            ->method('guest')
+            ->willReturn(false);
+        $this->auth
              ->expects($this->once())
-             ->method('user')
-             ->willReturn($user);
+             ->method('id')
+             ->willReturn(1);
 
         // Mock ContactsRepository.
         $this->contacts
@@ -103,8 +102,8 @@ class ContactsServiceTest extends AbstractTest
         // Mock authentication.
         $this->auth
              ->expects($this->once())
-             ->method('user')
-             ->willReturn(null);
+             ->method('guest')
+             ->willReturn(true);
 
         // Perform test
         $this->service->listAllContactsOfAuthenticatedUser();
@@ -117,17 +116,11 @@ class ContactsServiceTest extends AbstractTest
      */
     public function testAContactsCanBeCreatedIfAUserIsLoggedIn(): void
     {
-        // Mock authenticated User entity.
-        $user = $this->createMock(User::class);
-        $user->expects($this->once())
-             ->method('id')
-             ->willReturn(1);
-
         // Mock authentication.
         $this->auth
              ->expects($this->once())
-             ->method('user')
-             ->willReturn($user);
+             ->method('id')
+             ->willReturn(1);
 
         // Mock ContactsRepository.
         $this->contacts
@@ -164,8 +157,8 @@ class ContactsServiceTest extends AbstractTest
         // Mock authentication.
         $this->auth
              ->expects($this->once())
-             ->method('user')
-             ->willReturn(null);
+             ->method('guest')
+             ->willReturn(true);
 
         // Perform test
         $this->service->create([
@@ -184,17 +177,15 @@ class ContactsServiceTest extends AbstractTest
      */
     public function testCanRetrieveContactToEditIfExistsAndUserLoggedIn(): void
     {
-        // Mock authenticated User entity.
-        $user = $this->createMock(User::class);
-        $user->expects($this->once())
-             ->method('id')
-             ->willReturn(1);
-
         // Mock authentication.
         $this->auth
+            ->expects($this->once())
+            ->method('guest')
+            ->willReturn(false);
+        $this->auth
              ->expects($this->once())
-             ->method('user')
-             ->willReturn($user);
+             ->method('id')
+             ->willReturn(1);
 
         // Mock contact that is going to be edited.
         $contact = $this->createMock(Contact::class);
@@ -226,23 +217,20 @@ class ContactsServiceTest extends AbstractTest
      *
      * @return void
      */
-    public function testCannotRetrieveContactToEditIfOwnerIsDifferentDoesNotExists(): void
+    public function testCannotRetrieveContactToEditIfOwnerIsDifferent(): void
     {
         // Creates expectation.
-        $this->expectException(ContactNotFoundException::class);
-
-        // Mock authenticated User entity, with a different ID than the
-        // Contact's User ID.
-        $user = $this->createMock(User::class);
-        $user->expects($this->once())
-             ->method('id')
-             ->willReturn(1);
+        $this->expectException(ContactNotOwnedException::class);
 
         // Mock authentication.
         $this->auth
+            ->expects($this->once())
+            ->method('guest')
+            ->willReturn(false);
+        $this->auth
              ->expects($this->once())
-             ->method('user')
-             ->willReturn($user);
+             ->method('id')
+             ->willReturn(1);
 
         // Mock contact that is going to be edited, with a
         // different User ID from the Authenticated User ID.
@@ -275,8 +263,8 @@ class ContactsServiceTest extends AbstractTest
         // Mock authentication.
         $this->auth
              ->expects($this->once())
-             ->method('user')
-             ->willReturn(null);
+             ->method('guest')
+             ->willReturn(true);
 
         // Perform test
         $this->service->edit(1);
@@ -289,17 +277,15 @@ class ContactsServiceTest extends AbstractTest
      */
     public function testCanUpdateContactIfExistsAndUserLoggedIn(): void
     {
-        // Mock authenticated User entity.
-        $user = $this->createMock(User::class);
-        $user->expects($this->once())
-            ->method('id')
-            ->willReturn(1);
-
         // Mock authentication.
         $this->auth
+            ->expects($this->once())
+            ->method('guest')
+            ->willReturn(false);
+        $this->auth
              ->expects($this->once())
-             ->method('user')
-             ->willReturn($user);
+             ->method('id')
+             ->willReturn(1);
 
         // Mock contact that is going to be edited.
         $contact = $this->createMock(Contact::class);
@@ -351,19 +337,17 @@ class ContactsServiceTest extends AbstractTest
     public function testCannotUpdateContactIfOwnerIsDifferent(): void
     {
         // Creates expectation.
-        $this->expectException(ContactNotFoundException::class);
-
-        // Mock authenticated User entity.
-        $user = $this->createMock(User::class);
-        $user->expects($this->once())
-             ->method('id')
-             ->willReturn(1);
+        $this->expectException(ContactNotOwnedException::class);
 
         // Mock authentication.
         $this->auth
+            ->expects($this->once())
+            ->method('guest')
+            ->willReturn(false);
+        $this->auth
              ->expects($this->once())
-             ->method('user')
-             ->willReturn($user);
+             ->method('id')
+             ->willReturn(1);
 
         // Mock contact that is going to be edited.
         $contact = $this->createMock(Contact::class);
@@ -403,8 +387,8 @@ class ContactsServiceTest extends AbstractTest
         // Mock authentication.
         $this->auth
              ->expects($this->once())
-             ->method('user')
-             ->willReturn(null);
+             ->method('guest')
+             ->willReturn(true);
 
         // New attributes of the contact.
         $attributes = [
@@ -426,17 +410,15 @@ class ContactsServiceTest extends AbstractTest
      */
     public function testContactCanBeDestroyed(): void
     {
-        // Mock authenticated User entity.
-        $user = $this->createMock(User::class);
-        $user->expects($this->once())
-             ->method('id')
-             ->willReturn(1);
-
         // Mock authentication.
         $this->auth
+            ->expects($this->once())
+            ->method('guest')
+            ->willReturn(false);
+        $this->auth
              ->expects($this->once())
-             ->method('user')
-             ->willReturn($user);
+             ->method('id')
+             ->willReturn(1);
 
         // Mock contact that is going to be edited.
         $contact = $this->createMock(Contact::class);
@@ -468,19 +450,13 @@ class ContactsServiceTest extends AbstractTest
     public function testCannotDestroyContactIfOwnerIsDifferent(): void
     {
         // Creates expectation.
-        $this->expectException(ContactNotFoundException::class);
-
-        // Mock authenticated User entity.
-        $user = $this->createMock(User::class);
-        $user->expects($this->once())
-             ->method('id')
-             ->willReturn(1);
+        $this->expectException(ContactNotOwnedException::class);
 
         // Mock authentication.
         $this->auth
              ->expects($this->once())
-             ->method('user')
-             ->willReturn($user);
+             ->method('id')
+             ->willReturn(1);
 
         // Mock contact that is going to be edited.
         $contact = $this->createMock(Contact::class);
@@ -512,8 +488,8 @@ class ContactsServiceTest extends AbstractTest
         // Mock authentication.
         $this->auth
              ->expects($this->once())
-             ->method('user')
-             ->willReturn(null);
+             ->method('guest')
+             ->willReturn(true);
 
         // Perform test
         $this->service->destroy(1);
@@ -529,17 +505,15 @@ class ContactsServiceTest extends AbstractTest
         // Creates expectation.
         $this->expectException(ContactNotDeletedException::class);
 
-        // Mock authenticated User entity.
-        $user = $this->createMock(User::class);
-        $user->expects($this->once())
-             ->method('id')
-             ->willReturn(1);
-
         // Mock authentication.
         $this->auth
+            ->expects($this->once())
+            ->method('guest')
+            ->willReturn(false);
+        $this->auth
              ->expects($this->once())
-             ->method('user')
-             ->willReturn($user);
+             ->method('id')
+             ->willReturn(1);
 
         // Mock contact that is going to be edited.
         $contact = $this->createMock(Contact::class);

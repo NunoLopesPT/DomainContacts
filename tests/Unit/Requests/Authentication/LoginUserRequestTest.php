@@ -21,7 +21,7 @@ class LoginUserRequestTest extends AbstractTest
 
         // Fills POST variable so the Request catches it.
         $_POST = [
-            'email'    => $this->faker->email,
+            'name'     => $this->faker->name,
             'password' => $this->faker->password,
         ];
     }
@@ -58,5 +58,21 @@ class LoginUserRequestTest extends AbstractTest
 
         // Performs assertion.
         $this->assertTrue($request->fails());
+    }
+
+    /**
+     * Test LoginUserRequest succeeds.
+     *
+     * @return void
+     */
+    public function testLoginUserRequestSucceeds(): void
+    {
+        // Performs test.
+        $request = new LoginUserRequest();
+
+        // Performs assertions.
+        $this->assertFalse($request->fails());
+        $this->assertEquals($_POST['name'], $request->name());
+        $this->assertEquals($_POST['password'], $request->password());
     }
 }

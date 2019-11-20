@@ -60,7 +60,7 @@ class JwtAuthenticationTokenService implements AuthenticationTokenService
         $jwt->sign($this->signature, $this->crypt);
 
         // Return the created JWT Token encoded.
-        return $jwt->encode();
+        return 'Bearer ' . $jwt->encode();
     }
 
     /**
