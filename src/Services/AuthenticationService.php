@@ -80,7 +80,7 @@ class AuthenticationService
     /**
      * Login a user by returning its credentials.
      *
-     * @param string $email    - Email to search in the login.
+     * @param string $username - Name to search in the login.
      * @param string $password - Password of the user.
      *
      * @throws \InvalidArgumentException - If the email or the password is an empty string.
@@ -89,10 +89,10 @@ class AuthenticationService
      *
      * @return string
      */
-    public function login(string $email, string $password): string
+    public function login(string $username, string $password): string
     {
         // Finds User by its email.
-        $user = $this->usersRepository->getByEmail($email);
+        $user = $this->usersRepository->getByName($username);
 
         // Checks if the passwords match the hash saved in the database.
         if (!Hash::verify($password, $user->password())) {
